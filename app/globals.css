@@ -1,26 +1,159 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #f5f5f5;
   --foreground: #171717;
 }
 
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
 @theme inline {
+  --font-geist-sans: "Plus Jakarta Sans", "Open Sans", sans-serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --primary-blue: #0a1f44;
+  --primary-blue-faded: #0a1f448a;
+  --secondary-blue: #0043b9;
+  --secondary-blue-faded: #0043b98a;
+  --primary-yellow: #ffd600;
+  --primary-yellow-faded: #ffd6008a;
+  --secondary-yellow: #ffeb86;
+  --primary-red: #ff0000;
+  --primary-red-faded: #ff00008a;
+  --secondary-red: #ff3636;
+  --primary-green: #00c896;
+  --primary-green-faded: #00c8968a;
+  --secondary-green: #61ffd7;
+  --black: #000000;
+  --white: #ffffff;
+  --primary-grey: #454545;
+  --secondary-grey: #838383;
+  --terciary-grey: #cacaca;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer utilities {
+  /* Custom scrollbar styling */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 10px; /* vertical */
+    height: 10px; /* horizontal */
+    transition: background-color 300ms ease;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--terciary-grey);
+    border-radius: 999px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-button {
+    display: none; /* removes arrow buttons */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--terciary-grey);
+  }
+
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--terciary-grey) transparent;
+  }
+
+  /* No scrollbar styling */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Input styling */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+}
+
+/********** TEXT STYLES **********/
+
+.text-style__logo {
+  @apply text-[26px] font-sans font-bold leading-tight;
+}
+
+.text-style__nav {
+  @apply text-[12px] font-sans font-medium leading-tight;
+}
+
+.text-style__footer {
+  @apply text-[12px] font-sans font-normal leading-tight;
+}
+
+.text-style__section-title {
+  @apply text-[24px] font-sans font-semibold leading-tight;
+}
+
+.text-style__heading {
+  @apply text-[22px] md:text-[24px] font-sans font-semibold leading-tight;
+}
+
+.text-style__subheading {
+  @apply text-[16px] md:text-[18px] font-sans font-medium leading-tight;
+}
+
+.text-style__body {
+  @apply text-[14px] font-sans font-normal leading-normal;
+}
+
+.text-style__big-text {
+  @apply text-[30px] md:text-[40px] font-sans font-bold leading-tight;
+}
+
+.text-style__small-text {
+  @apply text-[12px] font-sans font-medium leading-tight;
+}
+
+.text-style__button {
+  @apply text-[14px] md:text-[16px] font-sans font-normal leading-normal text-(--primary-yellow);
+}
+
+.text-style__form {
+  @apply text-[12px] font-sans font-medium leading-normal;
+}
+
+.text-style__additional-info {
+  @apply text-[12px] font-sans font-normal leading-normal;
+}
+
+.text-style__link {
+  @apply text-[11px] font-sans font-normal leading-normal text-(--secondary-blue) hover:text-(--primary-blue) hover:underline;
+}
+
+.text-style__link--inverse {
+  @apply text-[11px] font-sans font-normal leading-normal text-(--primary-yellow) hover:text-(--secondary-yellow) hover:underline;
 }

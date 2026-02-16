@@ -13,3 +13,34 @@ export const menuItems = [
   { label: "Customization", icon: "palette" },
   { label: "Settings & Users", icon: "user-group" },
 ];
+
+export const sectionAccentColors = {
+  "Leads & Inquiries": {
+    background: "bg-(--primary-purple)",
+    text: "text-(--primary-purple)",
+  },
+  "Services Management": {
+    background: "bg-(--primary-blue)",
+    text: "text-(--primary-blue)",
+  },
+  "Projects / Portfolio": {
+    background: "bg-(--primary-green)",
+    text: "text-(--primary-green)",
+  },
+  "Website Content": {
+    background: "bg-(--primary-purple)",
+    text: "text-(--primary-purple)",
+  },
+  "Articles & Insights": {
+    background: "bg-(--primary-red)",
+    text: "text-(--primary-red)",
+  },
+  "Media & Assets": {
+    background: "bg-(--primary-blue)",
+    text: "text-(--primary-blue)",
+  },
+  "Form Inquiry": {
+    background: "bg-(--primary-blue)",
+    text: "text-(--primary-blue)",
+  },
+};

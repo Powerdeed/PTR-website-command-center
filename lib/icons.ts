@@ -24,9 +24,12 @@ import {
   faImages,
   faCalendar,
   faListCheck,
+  faMagnifyingGlass,
+  faSuitcase,
+  faArrowTrendUp,
 } from "@fortawesome/free-solid-svg-icons";
 
-import {} from "@fortawesome/free-regular-svg-icons";
+import { faBell, faUser, faEye } from "@fortawesome/free-regular-svg-icons";
 
 import {} from "@fortawesome/free-brands-svg-icons";
 
@@ -54,4 +57,10 @@ library.add(
   faPalette,
   faChartColumn,
   faUserGroup,
+  faMagnifyingGlass,
+  faBell,
+  faUser,
+  faSuitcase,
+  faEye,
+  faArrowTrendUp,
 );

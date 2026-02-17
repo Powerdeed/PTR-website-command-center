@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Open_Sans } from "next/font/google";
 import "./globals.css";
 import SideBar from "@/components/layout/SideBar";
 import Nav from "@/components/layout/Nav";
+import { ChartProvider } from "@/components/layout/charts/ChartProvider";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -33,7 +34,7 @@ export default function RootLayout({
           <SideBar />
           <div className="flex-1">
             <Nav />
-            {children}
+            <ChartProvider>{children}</ChartProvider>
           </div>
         </div>
       </body>

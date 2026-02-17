@@ -1,8 +1,12 @@
 "use client";
+import {
+  LineContext,
+  PieContext,
+} from "@/components/layout/charts/ChartContext";
 import { sectionAccentColors } from "@/utils/constants/UI-data-constants";
 import { IconName, IconPrefix } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const PageMetadata = {
   title: "Dashboard Overview",
@@ -74,6 +78,44 @@ const recentActivities = [
 
 export default function Home() {
   const [visibleCount, setVisibleCount] = useState(5);
+  const lContext = useContext(LineContext);
+  const pieContext = useContext(PieContext);
+
+  if (!lContext || !pieContext) {
+    throw new Error("context must be used within a provider");
+  }
+
+  const { LineGraph, setLineProps } = lContext;
+  const { PieDoughnut, setPieProps } = pieContext;
+
+  useEffect(() => {
+    setLineProps({
+      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      drawOnChartArea: true,
+      datasets: [
+        {
+          label: "Average Response Time (hours)",
+          data: [4.1, 4, 4.2, 4, 4.2, 4.3, 4.1],
+          borderColor: "rgb(30,144,255)",
+          backgroundColor: "transparent",
+        },
+      ],
+      scales: {
+        y: {
+          min: 0,
+          max: 8,
+          ticks: {
+            callback: (value: number | string) => String(value),
+          },
+        },
+      },
+    });
+  }, [setLineProps]);
+
+  useEffect(() => {
+    setPieProps({ pieData: [80, 15, 5] });
+  }, [setPieProps]);
+
   return (
     <main className="p-2.5 lg:p-5 flex flex-col gap-2.5 lg:gap-5">
       {/* TITLE SECTION */}
@@ -106,6 +148,18 @@ export default function Home() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* CHART TRENDS */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="h-100 p-5 pb-10 bg-white border border-(--terciary-grey) rounded-[10px]">
+          <div className="text-style__body mb-2.5">Inquiry Trends</div>
+          <LineGraph />
+        </div>
+        <div className="h-100 p-5 pb-10 bg-white border border-(--terciary-grey) rounded-[10px]">
+          <div className="text-style__body mb-2.5">Traffic Sources</div>
+          <PieDoughnut />
+        </div>
       </div>
 
       {/* RECENT ACTIVITIES */}

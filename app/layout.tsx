@@ -30,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${plusJakartaSans.variable} ${openSans.variable} antialiased flex flex-col min-h-screen`}
       >
-        <div className="flex pl-65">
+        <div className="flex pl-65 pt-15">
           <SideBar />
           <div className="flex-1">
             <Nav />

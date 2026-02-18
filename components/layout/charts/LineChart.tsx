@@ -62,8 +62,11 @@ export default function LineGraph({
                 : dataset.backgroundColor,
             borderColor: dataset.borderColor,
             tension: 0.4,
-            pointRadius: 0,
+            pointRadius: 4,
             pointHitRadius: 10,
+            pointStyle: "circle",
+            pointBackgroundColor: "white",
+            pointBorderWidth: 2,
           },
         ],
       });
@@ -78,6 +81,11 @@ export default function LineGraph({
   ]);
 
   const options: ChartOptions<"line"> = {
+    interaction: {
+      mode: "index",
+      intersect: false,
+      axis: "x",
+    },
     maintainAspectRatio: false,
     responsive: true,
     animation: {
@@ -85,12 +93,17 @@ export default function LineGraph({
       easing: "linear",
     },
     plugins: {
+      datalabels: {
+        display: false,
+      },
       legend: {
         display: false,
       },
       tooltip: {
+        position: "average",
+        yAlign: "top",
+        intersect: false,
         enabled: true,
-        backgroundColor: "#000",
         titleColor: "#0ff",
         bodyColor: "#fff",
         padding: 10,
@@ -107,12 +120,14 @@ export default function LineGraph({
     },
     scales: {
       x: {
+        border: { dash: [5, 5] },
         grid: {
           drawTicks: true,
           drawOnChartArea: drawOnChartArea,
         },
       },
       y: {
+        border: { dash: [5, 5] },
         min: scales?.y?.min,
         max: scales?.y?.max,
         grid: {
@@ -121,7 +136,7 @@ export default function LineGraph({
         },
         ticks: {
           ...(scales?.y?.ticks || {}),
-          stepSize: 1,
+          stepSize: 7,
           font: {
             size: isMobile ? 12 : 14,
           },

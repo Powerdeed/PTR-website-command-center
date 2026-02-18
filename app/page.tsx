@@ -90,12 +90,12 @@ export default function Home() {
 
   useEffect(() => {
     setLineProps({
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
       drawOnChartArea: true,
       datasets: [
         {
           label: "Average Response Time (hours)",
-          data: [4.1, 4, 4.2, 4, 4.2, 4.3, 4.1],
+          data: [12, 19, 15, 23, 28, 23, 25],
           borderColor: "rgb(30,144,255)",
           backgroundColor: "transparent",
         },
@@ -103,7 +103,7 @@ export default function Home() {
       scales: {
         y: {
           min: 0,
-          max: 8,
+          max: 28,
           ticks: {
             callback: (value: number | string) => String(value),
           },
@@ -113,7 +113,7 @@ export default function Home() {
   }, [setLineProps]);
 
   useEffect(() => {
-    setPieProps({ pieData: [80, 15, 5] });
+    setPieProps({ pieData: [45, 25, 20, 10] });
   }, [setPieProps]);
 
   return (
@@ -156,8 +156,10 @@ export default function Home() {
           <div className="text-style__body mb-2.5">Inquiry Trends</div>
           <LineGraph />
         </div>
-        <div className="h-100 p-5 pb-10 bg-white border border-(--terciary-grey) rounded-[10px]">
-          <div className="text-style__body mb-2.5">Traffic Sources</div>
+        <div className="h-100 p-5 pb-10 bg-white border border-(--terciary-grey) rounded-[10px] flex flex-col items-center">
+          <div className="text-style__body mb-2.5 w-full h-fit text-left">
+            Traffic Sources
+          </div>
           <PieDoughnut />
         </div>
       </div>

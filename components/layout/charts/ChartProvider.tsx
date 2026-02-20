@@ -43,7 +43,7 @@ export function ChartProvider({ children }: Props) {
   const LineGraph = () => <LineGraphComponent {...lineProps} />;
 
   // Pie state
-  const [pieProps, setPieProps] = useState<PieProps>({ pieData: [80, 15, 5] });
+  const [pieProps, setPieProps] = useState<PieProps>({} as PieProps);
 
   const PieDoughnut = () => <PieChart {...pieProps} />;
 

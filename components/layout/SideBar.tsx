@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconName } from "@fortawesome/fontawesome-svg-core";
 import "../../lib/icons";
 import { companyName, menuItems } from "@/utils/constants/UI-data-constants";
+import Link from "next/link";
+import { convertLabelToLink } from "@/utils/conversions";
 
 const titleMeta = {
   title: "PTR Command Center",
@@ -31,18 +33,19 @@ export default function SideBar() {
       <div className="flex-1 py-2.5 h-20 border-b border-(--secondary-grey)">
         <ul className="w-full h-full flex flex-col text-style__small-text overflow-y-scroll custom-scrollbar">
           {menuItems.map((item) => (
-            <li
-              key={item.label}
-              className={`relative p-2.5 flex pl-5 gap-2.5 items-center ${activeMenu === item.label ? "bg-(--secondary-blue)/70 hover:bg-(--secondary-blue)/70 text-white" : "text-(--terciary-grey)"} cursor-pointer hover:bg-(--primary-grey)/30 hover:text-white transition-colors`}
-              onClick={() => setActiveMenu(item.label)}
-            >
-              {activeMenu === item.label && (
-                <div className="absolute left-0 top-0 h-full w-1.25 bg-(--secondary-blue)"></div>
-              )}
-              <div className="w-4">
-                <FontAwesomeIcon icon={["fas", item.icon as IconName]} />
-              </div>
-              <span>{item.label}</span>
+            <li key={item.label} onClick={() => setActiveMenu(item.label)}>
+              <Link
+                href={convertLabelToLink(item.label)}
+                className={`relative p-2.5 flex pl-5 gap-2.5 items-center ${activeMenu === item.label ? "bg-(--secondary-blue)/70 hover:bg-(--secondary-blue)/70 text-white" : "text-(--terciary-grey)"} cursor-pointer hover:bg-(--primary-grey)/30 hover:text-white transition-colors`}
+              >
+                {activeMenu === item.label && (
+                  <div className="absolute left-0 top-0 h-full w-1.25 bg-(--secondary-blue)"></div>
+                )}
+                <div className="w-4">
+                  <FontAwesomeIcon icon={["fas", item.icon as IconName]} />
+                </div>
+                <span>{item.label}</span>
+              </Link>
             </li>
           ))}
         </ul>

@@ -13,9 +13,9 @@ import { type PieProps } from "./ChartContext";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
-export default function PieChart({ pieData }: PieProps) {
+export default function PieChart({ labels, pieData }: PieProps) {
   const data = {
-    labels: ["Organic Search", "Direct", "Referral", "Social"],
+    labels: labels,
     datasets: [
       {
         data: pieData,
@@ -75,7 +75,7 @@ export default function PieChart({ pieData }: PieProps) {
           label: function (context: TooltipItem<"pie">) {
             const label = context.label || "";
             const value = context.raw ?? 0;
-            return `${label}: ${value} cameras`;
+            return `${label}: ${value} users`;
           },
         },
       },

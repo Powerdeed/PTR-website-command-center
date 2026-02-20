@@ -5,6 +5,7 @@ import { createContext, type JSX } from "react";
 
 // Pie Chart Props
 export type PieProps = {
+  labels: string[];
   pieData: number[];
 };
 

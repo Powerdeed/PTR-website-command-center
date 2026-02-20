@@ -4,7 +4,7 @@ export const menuItems = [
   { label: "Dashboard Overview", icon: "list" },
   { label: "Leads & Inquiries", icon: "user-tie" },
   { label: "Services Management", icon: "list-check" },
-  { label: "Projects / Portfolio", icon: "folder" },
+  { label: "Projects", icon: "folder" },
   { label: "Website Content", icon: "file-lines" },
   { label: "Articles & Insights", icon: "newspaper" },
   { label: "Media & Assets", icon: "images" },
@@ -23,7 +23,7 @@ export const sectionAccentColors = {
     background: "bg-(--primary-blue)",
     text: "text-(--primary-blue)",
   },
-  "Projects / Portfolio": {
+  Projects: {
     background: "bg-(--primary-green)",
     text: "text-(--primary-green)",
   },

@@ -104,6 +104,11 @@ body {
 }
 
 /********** TEXT STYLES **********/
+.page-layout {
+  @apply p-2.5 lg:p-5 flex flex-col gap-2.5 lg:gap-5;
+}
+
+/********** TEXT STYLES **********/
 
 .text-style__logo {
   @apply text-[26px] font-sans font-bold leading-tight;

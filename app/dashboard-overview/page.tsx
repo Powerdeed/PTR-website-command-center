@@ -3,6 +3,7 @@ import {
   LineContext,
   PieContext,
 } from "@/components/layout/charts/ChartContext";
+import PageTitle from "@/components/ui/PageTitle";
 import { sectionAccentColors } from "@/utils/constants/UI-data-constants";
 import { IconName, IconPrefix } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +11,7 @@ import { useContext, useEffect, useState } from "react";
 
 const PageMetadata = {
   title: "Dashboard Overview",
-  description: "Business health at a glance",
+  subtitle: "Business health at a glance",
 };
 
 const stats = [
@@ -65,7 +66,7 @@ const recentActivities = [
     time: "2 hours ago",
   },
   {
-    section: "Projects / Portfolio",
+    section: "Projects",
     description: "New inquiry about Project Management services",
     time: "3 hours ago",
   },
@@ -75,6 +76,21 @@ const recentActivities = [
     time: "5 hours ago",
   },
 ];
+
+const inquiryTrendsData = {
+  Jan: 12,
+  Feb: 19,
+  Mar: 15,
+  Apr: 23,
+  May: 28,
+  Jun: 23,
+  Jul: 25,
+};
+
+const trafficSourceData = {
+  channel: ["Organic Search", "Direct", "Referral", "Social"],
+  users: [45, 25, 20, 10],
+};
 
 export default function Home() {
   const [visibleCount, setVisibleCount] = useState(5);
@@ -90,12 +106,12 @@ export default function Home() {
 
   useEffect(() => {
     setLineProps({
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+      labels: Object.keys(inquiryTrendsData),
       drawOnChartArea: true,
       datasets: [
         {
           label: "Average Response Time (hours)",
-          data: [12, 19, 15, 23, 28, 23, 25],
+          data: Object.values(inquiryTrendsData),
           borderColor: "rgb(30,144,255)",
           backgroundColor: "transparent",
         },
@@ -113,16 +129,15 @@ export default function Home() {
   }, [setLineProps]);
 
   useEffect(() => {
-    setPieProps({ pieData: [45, 25, 20, 10] });
+    setPieProps({
+      labels: trafficSourceData.channel,
+      pieData: trafficSourceData.users,
+    });
   }, [setPieProps]);
 
   return (
-    <main className="p-2.5 lg:p-5 flex flex-col gap-2.5 lg:gap-5">
-      {/* TITLE SECTION */}
-      <div>
-        <div className="text-style__heading">{PageMetadata.title}</div>
-        <div className="text-style__body">{PageMetadata.description}</div>
-      </div>
+    <main className="page-layout">
+      <PageTitle title={PageMetadata.title} subtitle={PageMetadata.subtitle} />
 
       {/* STATS */}
       <div className="grid lg:grid-cols-4 gap-5">

@@ -43,31 +43,60 @@
 }
 
 @layer utilities {
-  /* Custom scrollbar styling */
-  .custom-scrollbar::-webkit-scrollbar {
+  /* Custom scrollbar styling for side bar*/
+  .side-bar-scrollbar::-webkit-scrollbar {
     width: 10px; /* vertical */
     height: 10px; /* horizontal */
     transition: background-color 300ms ease;
   }
 
-  .custom-scrollbar::-webkit-scrollbar-track {
+  .side-bar-scrollbar::-webkit-scrollbar-track {
     background: transparent;
   }
 
-  .custom-scrollbar::-webkit-scrollbar-thumb {
+  .side-bar-scrollbar::-webkit-scrollbar-thumb {
     background: var(--terciary-grey);
     border-radius: 999px;
   }
 
-  .custom-scrollbar::-webkit-scrollbar-button {
+  .side-bar-scrollbar::-webkit-scrollbar-button {
     display: none; /* removes arrow buttons */
   }
 
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  .side-bar-scrollbar::-webkit-scrollbar-thumb:hover {
     background: var(--terciary-grey);
   }
 
-  .custom-scrollbar {
+  .side-bar-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--terciary-grey) transparent;
+  }
+
+  /* Custom scrollbar styling for section scrolls*/
+  .section-scrollbar::-webkit-scrollbar {
+    width: 10px; /* vertical */
+    height: 10px; /* horizontal */
+    transition: background-color 300ms ease;
+  }
+
+  .section-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .section-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--terciary-grey);
+    border-radius: 999px;
+  }
+
+  .section-scrollbar::-webkit-scrollbar-button {
+    display: none; /* removes arrow buttons */
+  }
+
+  .section-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--terciary-grey);
+  }
+
+  .section-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: var(--terciary-grey) transparent;
   }

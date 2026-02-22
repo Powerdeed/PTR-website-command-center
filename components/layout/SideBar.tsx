@@ -27,7 +27,7 @@ export default function SideBar({ currentMenu }: { currentMenu: string }) {
         </div>
       </div>
       <div className="flex-1 py-2.5 h-20 border-b border-(--secondary-grey)">
-        <ul className="w-full h-full flex flex-col text-style__small-text overflow-y-scroll custom-scrollbar">
+        <ul className="w-full h-full flex flex-col text-style__small-text overflow-y-scroll side-bar-scrollbar">
           {menuItems.map((item) => (
             <li key={item.label}>
               <Link

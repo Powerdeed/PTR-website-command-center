@@ -232,3 +232,14 @@ export const projects: Project[] = [
     featured: false,
   },
 ];
+
+export const formattedProjectData = () => {
+  const projectMap: Record<string, Project[]> = {};
+  projects.forEach((project) => {
+    if (!projectMap[project.category]) {
+      projectMap[project.category] = [];
+    }
+    projectMap[project.category].push(project);
+  });
+  return projectMap;
+};

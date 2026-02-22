@@ -3,11 +3,11 @@
 import PageTitle from "@/components/ui/PageTitle";
 
 const pageMeta = {
-  title: "Media & Assets",
-  subtitle: "Central storage for images, documents, and diagrams",
+  title: "Leads & Inquiries",
+  subtitle: "Manage and track client inquiries",
 };
 
-export default function MediaAndAssetsPage() {
+export default function LeadsAndInquiriesSection() {
   return (
     <div className="page-layout">
       <PageTitle title={pageMeta.title} subtitle={pageMeta.subtitle} />

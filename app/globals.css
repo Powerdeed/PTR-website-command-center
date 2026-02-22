@@ -94,6 +94,16 @@
   }
 }
 
+@keyframes fadePulse {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -134,12 +144,16 @@ body {
   @apply text-[16px] md:text-[18px] font-sans font-medium leading-tight;
 }
 
+.text-style__big-text {
+  @apply text-[15px] font-sans font-semibold leading-tight;
+}
+
 .text-style__body {
   @apply text-[14px] font-sans font-normal leading-normal;
 }
 
-.text-style__big-text {
-  @apply text-[30px] md:text-[40px] font-sans font-bold leading-tight;
+.text-style__body--bold {
+  @apply text-[14px] font-sans font-semibold leading-normal;
 }
 
 .text-style__small-text {
@@ -150,18 +164,6 @@ body {
   @apply text-[14px] md:text-[16px] font-sans font-normal leading-normal text-(--primary-yellow);
 }
 
-.text-style__form {
-  @apply text-[12px] font-sans font-medium leading-normal;
-}
-
-.text-style__additional-info {
-  @apply text-[12px] font-sans font-normal leading-normal;
-}
-
 .text-style__link {
-  @apply text-[11px] font-sans font-normal leading-normal text-(--secondary-blue) hover:text-(--primary-blue) hover:underline;
-}
-
-.text-style__link--inverse {
-  @apply text-[11px] font-sans font-normal leading-normal text-(--primary-yellow) hover:text-(--secondary-yellow) hover:underline;
+  @apply text-[11px] font-sans font-normal leading-normal hover:underline;
 }

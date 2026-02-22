@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Open_Sans } from "next/font/google";
 import "./globals.css";
-import SideBar from "@/components/layout/SideBar";
+
 import Nav from "@/components/layout/Nav";
 import { ChartProvider } from "@/components/layout/charts/ChartProvider";
 
@@ -30,13 +30,8 @@ export default function RootLayout({
       <body
         className={`${plusJakartaSans.variable} ${openSans.variable} antialiased flex flex-col min-h-screen`}
       >
-        <div className="flex pl-65 pt-15">
-          <SideBar />
-          <div className="flex-1">
-            <Nav />
-            <ChartProvider>{children}</ChartProvider>
-          </div>
-        </div>
+        <Nav />
+        <ChartProvider>{children}</ChartProvider>
       </body>
     </html>
   );

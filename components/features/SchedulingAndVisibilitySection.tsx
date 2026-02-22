@@ -3,11 +3,11 @@
 import PageTitle from "@/components/ui/PageTitle";
 
 const pageMeta = {
-  title: "Services Management",
-  subtitle: "Control what services appear on the website",
+  title: "Scheduling & Visibility",
+  subtitle: "Manage when content goes live on the website",
 };
 
-export default function ServicesManagementPage() {
+export default function SchedulingAndVisibilitySection() {
   return (
     <div className="page-layout">
       <PageTitle title={pageMeta.title} subtitle={pageMeta.subtitle} />

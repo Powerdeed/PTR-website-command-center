@@ -14,6 +14,8 @@ export const menuItems = [
   { label: "Settings & Users", icon: "user-group" },
 ];
 
+export type MenuLabels = (typeof menuItems)[number]["label"];
+
 export const sectionAccentColors = {
   "Leads & Inquiries": {
     background: "bg-(--primary-purple)",
@@ -44,3 +46,12 @@ export const sectionAccentColors = {
     text: "text-(--primary-blue)",
   },
 };
+
+export const companyServices = [
+  "Electrical Installation",
+  "Solar Installation",
+  "Generators",
+  "Automation",
+  "Alarms",
+  "CCTVs",
+];

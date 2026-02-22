@@ -3,11 +3,11 @@
 import PageTitle from "@/components/ui/PageTitle";
 
 const pageMeta = {
-  title: "Projects / Portfolio",
-  subtitle: "Showcase completed and ongoing projects",
+  title: "Articles & Insights",
+  subtitle: "Supporting content for the website",
 };
 
-export default function ProjectsPage() {
+export default function ArticlesAndInsightsSection() {
   return (
     <div className="page-layout">
       <PageTitle title={pageMeta.title} subtitle={pageMeta.subtitle} />

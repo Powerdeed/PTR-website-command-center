@@ -3,11 +3,11 @@
 import PageTitle from "@/components/ui/PageTitle";
 
 const pageMeta = {
-  title: "Settings & Users",
-  subtitle: "Manage admin access and company settings",
+  title: "Website Content",
+  subtitle: "Manage core website pages and sections",
 };
 
-export default function SettingsAndUsersPage() {
+export default function WebsiteContentSection() {
   return (
     <div className="page-layout">
       <PageTitle title={pageMeta.title} subtitle={pageMeta.subtitle} />

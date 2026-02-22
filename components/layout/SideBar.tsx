@@ -1,9 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconName } from "@fortawesome/fontawesome-svg-core";
-import "../../lib/icons";
 import { companyName, menuItems } from "@/utils/constants/UI-data-constants";
 import Link from "next/link";
 import { convertLabelToLink } from "@/utils/conversions";
@@ -13,9 +11,7 @@ const titleMeta = {
   subtitle: "Operations Hub",
 };
 
-export default function SideBar() {
-  const [activeMenu, setActiveMenu] = useState("Dashboard Overview");
-
+export default function SideBar({ currentMenu }: { currentMenu: string }) {
   return (
     <aside className="fixed left-0 top-0 flex flex-col w-65 h-full bg-(--primary-blue) text-style__body text-(--terciary-grey)">
       <div className="py-2.5 pl-5 h-20 flex items-center gap-2.5 border-b border-(--secondary-grey)">
@@ -33,12 +29,12 @@ export default function SideBar() {
       <div className="flex-1 py-2.5 h-20 border-b border-(--secondary-grey)">
         <ul className="w-full h-full flex flex-col text-style__small-text overflow-y-scroll custom-scrollbar">
           {menuItems.map((item) => (
-            <li key={item.label} onClick={() => setActiveMenu(item.label)}>
+            <li key={item.label}>
               <Link
                 href={convertLabelToLink(item.label)}
-                className={`relative p-2.5 flex pl-5 gap-2.5 items-center ${activeMenu === item.label ? "bg-(--secondary-blue)/70 hover:bg-(--secondary-blue)/70 text-white" : "text-(--terciary-grey)"} cursor-pointer hover:bg-(--primary-grey)/30 hover:text-white transition-colors`}
+                className={`relative p-2.5 flex pl-5 gap-2.5 items-center ${currentMenu === item.label ? "bg-(--secondary-blue)/70 hover:bg-(--secondary-blue)/70 text-white" : "text-(--terciary-grey)"} cursor-pointer hover:bg-(--primary-grey)/30 hover:text-white transition-colors`}
               >
-                {activeMenu === item.label && (
+                {currentMenu === item.label && (
                   <div className="absolute left-0 top-0 h-full w-1.25 bg-(--secondary-blue)"></div>
                 )}
                 <div className="w-4">

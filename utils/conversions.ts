@@ -7,3 +7,19 @@ export const convertLabelToLink = (label: string) => {
     return label.toLocaleLowerCase().split(" ").join("-");
   }
 };
+
+export const convertLinkToLabel = (link: string) => {
+  if (link.includes("&")) {
+    // link separated with "&" e.g. "leads&inquiries" => "Leads & Inquiries"
+    return link
+      .split("&")
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" & ");
+  } else {
+    // link separated with "-" e.g. "website-content" => "Website Content"
+    return link
+      .split("-")
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" ");
+  }
+};

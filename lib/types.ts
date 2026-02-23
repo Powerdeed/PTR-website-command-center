@@ -1,6 +1,7 @@
 import { companyServices } from "@/utils/constants/UI-data-constants";
 
 export interface Service {
+  id: string;
   name: string;
   description: string;
   imageUrl: string;

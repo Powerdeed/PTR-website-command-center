@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Service } from "@/lib/types";
 import { services } from "@/services/services";
 
-import Button from "@/components/ui/Button";
+import Button, { ButtonRed } from "@/components/ui/Button";
 import Loader from "@/components/ui/Loader";
 import PageTitle from "@/components/ui/PageTitle";
 
@@ -15,21 +15,25 @@ const pageMeta = {
   subtitle: "Control what services appear on the website",
 };
 
+const emptyServiceObj = {
+  id: "",
+  name: "",
+  description: "",
+  imageUrl: "",
+  status: false,
+};
+
 export default function ServicesManagementSection() {
   const [servicesArr, setServicesArr] = useState(services);
-  const [isAddingNewService, setIsAddingNewService] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-
   const [selectedService, setSelectedService] = useState(
     servicesArr.find((s) => s.status) || servicesArr[0] || null,
   );
+  const [isAddingNewService, setIsAddingNewService] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
-  const [newSerciceData, setNewServiceData] = useState<Service>({
-    name: "",
-    description: "",
-    imageUrl: "",
-    status: false,
-  });
+  const [newSerciceData, setNewServiceData] =
+    useState<Service>(emptyServiceObj);
 
   const handleAddNewService = () => {
     setIsAddingNewService(true);
@@ -40,22 +44,30 @@ export default function ServicesManagementSection() {
 
     if (isAddingNewService) {
       setServicesArr((prev) => [...prev, newSerciceData]);
-      setNewServiceData({
-        name: "",
-        description: "",
-        imageUrl: "",
-        status: false,
-      });
+      setNewServiceData(emptyServiceObj);
       setIsAddingNewService(false);
     } else if (selectedService) {
       setServicesArr((prev) =>
-        prev.map((s) =>
-          s.name === selectedService.name ? selectedService : s,
-        ),
+        prev.map((s) => (s.id === selectedService.id ? selectedService : s)),
       );
+
+      console.log(servicesArr);
     }
 
     setIsSaving(false);
+  };
+
+  const handleDeleteService = () => {
+    setIsDeleting(true);
+
+    if (isAddingNewService) {
+      setIsAddingNewService(false);
+      setNewServiceData(emptyServiceObj);
+    } else if (selectedService) {
+      setServicesArr((prev) => prev.filter((s) => s.id !== selectedService.id));
+      setSelectedService(emptyServiceObj);
+    }
+    setIsDeleting(false);
   };
 
   return (
@@ -128,87 +140,106 @@ export default function ServicesManagementSection() {
         </div>
 
         {/* Edit service */}
-        <div className="flex-1 p-2.5 md:p-5 flex flex-col gap-2.5 md:gap-5 bg-white border border-(--terciary-grey) rounded-[10px]">
-          <div className="text-style__subheading">
-            {isAddingNewService ? "Add New Service" : "Edit Service"}{" "}
-          </div>
+        {selectedService !== emptyServiceObj ? (
+          <div className="flex-1 p-2.5 md:p-5 flex flex-col gap-2.5 md:gap-5 bg-white border border-(--terciary-grey) rounded-[10px]">
+            <div className="text-style__subheading">
+              {isAddingNewService ? "Add New Service" : "Edit Service"}{" "}
+            </div>
 
-          <div>
-            <div>Service Name</div>
-            <input
-              type="text"
-              className="w-full p-2.5 border border-(--terciary-grey) rounded-[10px] text-style__body mt-1"
-              value={
-                isAddingNewService
-                  ? newSerciceData.name
-                  : selectedService?.name || ""
-              }
-              onChange={(e) =>
-                isAddingNewService
-                  ? setNewServiceData((prev) => ({
-                      ...prev,
-                      name: e.target.value,
-                    }))
-                  : setSelectedService((prev) =>
-                      prev ? { ...prev, name: e.target.value } : prev,
-                    )
-              }
-            />
-          </div>
+            <div>
+              <div>Service Name</div>
+              <input
+                type="text"
+                className="w-full p-2.5 border border-(--terciary-grey) rounded-[10px] text-style__body mt-1"
+                value={
+                  isAddingNewService
+                    ? newSerciceData.name
+                    : selectedService?.name || ""
+                }
+                onChange={(e) =>
+                  isAddingNewService
+                    ? setNewServiceData((prev) => ({
+                        ...prev,
+                        name: e.target.value,
+                      }))
+                    : setSelectedService((prev) =>
+                        prev ? { ...prev, name: e.target.value } : prev,
+                      )
+                }
+              />
+            </div>
 
-          <div>
-            <div>Description</div>
-            <textarea
-              className="w-full h-50 p-2.5 border border-(--terciary-grey) rounded-[10px] text-style__body mt-1"
-              value={
-                isAddingNewService
-                  ? newSerciceData.description
-                  : selectedService?.description || ""
-              }
-              onChange={(e) =>
-                isAddingNewService
-                  ? setNewServiceData((prev) => ({
-                      ...prev,
-                      description: e.target.value,
-                    }))
-                  : setSelectedService((prev) =>
-                      prev ? { ...prev, description: e.target.value } : prev,
-                    )
-              }
-            />
-          </div>
+            <div>
+              <div>Description</div>
+              <textarea
+                className="w-full h-50 p-2.5 border border-(--terciary-grey) rounded-[10px] text-style__body mt-1"
+                value={
+                  isAddingNewService
+                    ? newSerciceData.description
+                    : selectedService?.description || ""
+                }
+                onChange={(e) =>
+                  isAddingNewService
+                    ? setNewServiceData((prev) => ({
+                        ...prev,
+                        description: e.target.value,
+                      }))
+                    : setSelectedService((prev) =>
+                        prev ? { ...prev, description: e.target.value } : prev,
+                      )
+                }
+              />
+            </div>
 
-          <div>
-            <div>Image</div>
-            <input
-              type="text"
-              className="w-full p-2.5 border border-(--terciary-grey) rounded-[10px] text-style__body mt-1"
-              value={
-                isAddingNewService
-                  ? newSerciceData.imageUrl
-                  : selectedService?.imageUrl || ""
-              }
-              onChange={(e) =>
-                isAddingNewService
-                  ? setNewServiceData((prev) => ({
-                      ...prev,
-                      imageUrl: e.target.value,
-                    }))
-                  : setSelectedService((prev) =>
-                      prev ? { ...prev, imageUrl: e.target.value } : prev,
-                    )
-              }
-            />
-          </div>
+            <div>
+              <div>Image</div>
+              <input
+                type="text"
+                className="w-full p-2.5 border border-(--terciary-grey) rounded-[10px] text-style__body mt-1"
+                value={
+                  isAddingNewService
+                    ? newSerciceData.imageUrl
+                    : selectedService?.imageUrl || ""
+                }
+                onChange={(e) =>
+                  isAddingNewService
+                    ? setNewServiceData((prev) => ({
+                        ...prev,
+                        imageUrl: e.target.value,
+                      }))
+                    : setSelectedService((prev) =>
+                        prev ? { ...prev, imageUrl: e.target.value } : prev,
+                      )
+                }
+              />
+            </div>
 
-          <div
-            className="flex gap-2.5 items-center"
-            onClick={handleSaveChanges}
-          >
-            <Button buttonText="Save Changes" />
-            {isSaving && <Loader />}
+            <div className="flex justify-between">
+              <div
+                className="flex gap-2.5 items-center"
+                onClick={handleSaveChanges}
+              >
+                <Button buttonText="Save Changes" />
+                {isSaving && <Loader />}
+              </div>
+
+              <div
+                className="flex gap-2.5 items-center"
+                onClick={handleDeleteService}
+              >
+                <ButtonRed buttonText="Delete Service" />
+                {isDeleting && <Loader />}
+              </div>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="flex-1 p-2.5 md:p-5 flex flex-col gap-2.5 md:gap-5 bg-white border border-(--terciary-grey) rounded-[10px]">
+            <div className="text-style__subheading">
+              {isAddingNewService ? "Add New Service" : "Edit Service"}
+            </div>
+            Select a service to start editing
+          </div>
+        )}
       </div>
     </div>
   );

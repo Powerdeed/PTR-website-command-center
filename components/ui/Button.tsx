@@ -5,3 +5,11 @@ export default function Button({ buttonText }: { buttonText: string }) {
     </button>
   );
 }
+
+export function ButtonRed({ buttonText }: { buttonText: string }) {
+  return (
+    <button className="bg-(--primary-red) py-3 px-4 rounded-[10px] text-white text-style__small-text cursor-pointer">
+      {buttonText}
+    </button>
+  );
+}

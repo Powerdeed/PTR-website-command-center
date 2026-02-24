@@ -37,8 +37,8 @@
   --secondary-purple: #ee82ee;
   --black: #000000;
   --white: #ffffff;
-  --primary-grey: #454545;
-  --secondary-grey: #838383;
+  --primary-grey: #838383;
+  --secondary-grey: #c0c0c0;
   --terciary-grey: #cacaca;
 }
 
@@ -195,4 +195,17 @@ body {
 
 .text-style__link {
   @apply text-[11px] font-sans font-normal leading-normal hover:underline;
+}
+
+/********** GLOBAL STYLES **********/
+.vertical-layout__outer {
+  @apply flex flex-col gap-5;
+}
+
+.vertical-layout__inner {
+  @apply flex flex-col gap-2.5;
+}
+
+.input-style {
+  @apply bg-(--secondary-grey)/30 rounded-[10px] p-2 focus:ring-2 focus:ring-(--secondary-grey)/30;
 }

@@ -27,6 +27,7 @@ import {
   faMagnifyingGlass,
   faSuitcase,
   faArrowTrendUp,
+  faArrowUpFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -35,6 +36,7 @@ import {
   faEye,
   faEyeSlash,
   faPenToSquare,
+  faTrashCan,
 } from "@fortawesome/free-regular-svg-icons";
 
 import {} from "@fortawesome/free-brands-svg-icons";
@@ -71,4 +73,6 @@ library.add(
   faArrowTrendUp,
   faPenToSquare,
   faEyeSlash,
+  faArrowUpFromBracket,
+  faTrashCan,
 );

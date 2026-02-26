@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Service } from "@/lib/types";
+import { Service } from "@/lib/types/types";
 import { services } from "@/services/services";
 
 import Button, { ButtonRed } from "@/components/ui/Button";

@@ -2,17 +2,32 @@
 
 import { useState } from "react";
 
-import ButtonLight from "@/components/ui/Button-light";
 import { SubTitle } from "@/components/ui/Title";
 
-import { AboutIntro, aboutIntro, hero } from "@/services/homepage";
-import Button from "@/components/ui/Button";
+import {
+  AboutIntro,
+  aboutIntro,
+  hero,
+  Testimonial,
+  testimonials,
+} from "@/services/homepage";
+import Button, { ButtonLight } from "@/components/ui/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function HomePage() {
   const [heroSectionData, setHeroSectionData] = useState(hero);
   const [aboutSummaryData, setAboutSummaryData] =
     useState<AboutIntro[]>(aboutIntro);
+  const [testimonialData, setTestimonialData] = useState(testimonials);
+
+  const emptyTestimonial: Testimonial = {
+    id: crypto.randomUUID(),
+    name: "",
+    position: "",
+    industry: "",
+    testimonial: "",
+    profilePic: "",
+  };
 
   const updateHeroContent = (key: string, data: string) =>
     setHeroSectionData((prev) => ({
@@ -35,6 +50,42 @@ export default function HomePage() {
 
       return [updatedSectionData, prev[section === 0 ? 1 : 0]];
     });
+
+  const updateTestimonial = (
+    key: string,
+    data: string,
+    testimonialId: string,
+  ) =>
+    setTestimonialData((prev) => {
+      const updatedTestimonials = prev.map((testimonial) => {
+        if (testimonial.id === testimonialId) {
+          return {
+            ...testimonial,
+            [key]: data,
+          };
+        }
+        return testimonial;
+      });
+
+      return updatedTestimonials;
+    });
+
+  const handleAddTestimonial = () => {
+    setTestimonialData((prev) => [...prev, emptyTestimonial]);
+  };
+
+  const handleDeleteTestimonial = (testimonialId: string) =>
+    setTestimonialData((prev) =>
+      prev.filter((testimonial) => testimonial.id !== testimonialId),
+    );
+
+  const resetChanges = () => {
+    setHeroSectionData(hero);
+    setAboutSummaryData(aboutIntro);
+    setTestimonialData(testimonials);
+  };
+
+  const saveAllChanges = () => {};
 
   const handleImageUpload = () => {};
 
@@ -148,54 +199,130 @@ export default function HomePage() {
             <SubTitle subtitle="Testimonial Section" />
           </div>
 
-          <div>
+          <div onClick={handleAddTestimonial}>
             <Button buttonText="+ Add Testimonial" />
           </div>
         </div>
 
-        <div className="vertical-layout__inner border border-(--secondary-grey)/50 bg-(--terciary-grey)/10 rounded-[10px] p-5">
-          <div className="text-style__big-text flex">
-            <div className="flex-1"> Testimonial 1</div>
+        <div className="vertical-layout__inner border border-(--terciary-grey) rounded-[10px] p-2.5 h-100 overflow-y-auto section-scrollbar">
+          {testimonialData.map((testimonial, index) => (
+            <div
+              key={index}
+              className="vertical-layout__inner border border-(--secondary-grey)/50 bg-(--terciary-grey)/10 rounded-[10px] p-5"
+            >
+              <div className="text-style__big-text flex">
+                <div className="flex-1"> Testimonial {index + 1}</div>
 
-            <div className="text-(--secondary-red) cursor-pointer">
-              <FontAwesomeIcon icon={["far", "trash-can"]} />
-            </div>
-          </div>
-
-          <div className="flex gap-5">
-            <div className="flex-1">
-              Profile Image
-              <div className="flex gap-2.5 items-center">
-                <input type="text" className="flex-1 input-style" />
-
-                <div className="py-1.5 px-2 h border border-(--secondary-grey) bg-white rounded-[10px] w-fit hover:bg-(--terciary-grey)/30 duration-100">
-                  <FontAwesomeIcon icon={["fas", "arrow-up-from-bracket"]} />
+                <div
+                  className="text-(--secondary-red) cursor-pointer"
+                  onClick={() => handleDeleteTestimonial(testimonial.id)}
+                >
+                  <FontAwesomeIcon icon={["far", "trash-can"]} />
                 </div>
               </div>
-            </div>
 
-            <div className="flex-1 flex flex-col">
-              Name
-              <input type="text" className="flex-1 input-style" />
-            </div>
-          </div>
+              <div className="flex gap-5">
+                <div className="flex-1">
+                  Profile Image
+                  <div className="flex gap-2.5 items-center">
+                    <input
+                      type="text"
+                      className="flex-1 input-style"
+                      value={testimonial.profilePic}
+                      onChange={(e) =>
+                        updateTestimonial(
+                          "profilePic",
+                          e.target.value,
+                          testimonial.id,
+                        )
+                      }
+                    />
 
-          <div className="flex gap-5">
-            <div className="flex-1 flex flex-col">
-              Position
-              <input type="text" className="flex-1 input-style" />
-            </div>
+                    <div
+                      className="py-1.5 px-2 h border border-(--secondary-grey) bg-white rounded-[10px] w-fit hover:bg-(--terciary-grey)/30 duration-100"
+                      onClick={handleImageUpload}
+                    >
+                      <FontAwesomeIcon
+                        icon={["fas", "arrow-up-from-bracket"]}
+                      />
+                    </div>
+                  </div>
+                </div>
 
-            <div className="flex-1 flex flex-col">
-              Industry / Project
-              <input type="text" className="flex-1 input-style" />
-            </div>
-          </div>
+                <div className="flex-1 flex flex-col">
+                  Name
+                  <input
+                    type="text"
+                    className="flex-1 input-style"
+                    value={testimonial.name}
+                    onChange={(e) =>
+                      updateTestimonial("name", e.target.value, testimonial.id)
+                    }
+                  />
+                </div>
+              </div>
 
-          <div className="flex-1 flex flex-col">
-            Testimonial Text
-            <textarea className="flex-1 input-style" />
-          </div>
+              <div className="flex gap-5">
+                <div className="flex-1 flex flex-col">
+                  Position
+                  <input
+                    type="text"
+                    className="flex-1 input-style"
+                    value={testimonial.position}
+                    onChange={(e) =>
+                      updateTestimonial(
+                        "position",
+                        e.target.value,
+                        testimonial.id,
+                      )
+                    }
+                  />
+                </div>
+
+                <div className="flex-1 flex flex-col">
+                  Industry / Project
+                  <input
+                    type="text"
+                    className="flex-1 input-style"
+                    value={testimonial.industry}
+                    onChange={(e) =>
+                      updateTestimonial(
+                        "industry",
+                        e.target.value,
+                        testimonial.id,
+                      )
+                    }
+                  />
+                </div>
+              </div>
+
+              <div className="flex-1 flex flex-col">
+                Testimonial Text
+                <textarea
+                  className="flex-1 input-style"
+                  value={testimonial.testimonial}
+                  onChange={(e) =>
+                    updateTestimonial(
+                      "testimonial",
+                      e.target.value,
+                      testimonial.id,
+                    )
+                  }
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <SeparatorLine />
+      </div>
+
+      <div className="flex gap-2.5 items-center justify-end">
+        <div onClick={resetChanges}>
+          <ButtonLight buttonText="Reset Changes" />
+        </div>
+        <div onClick={saveAllChanges}>
+          <Button buttonText="Reset Changes" />
         </div>
       </div>
     </div>

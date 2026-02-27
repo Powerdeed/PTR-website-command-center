@@ -207,5 +207,19 @@ body {
 }
 
 .input-style {
-  @apply bg-(--secondary-grey)/30 rounded-[10px] p-2 focus:ring-2 focus:ring-(--secondary-grey)/30;
+  @apply bg-(--secondary-grey)/30 rounded-[10px] p-2;
+}
+
+input {
+  @apply duration-80;
+
+  /* 1. Remove the default browser outline */
+  @apply focus:outline-none;
+
+  /* 2. Remove the border change so layout doesn't "jump" */
+  @apply focus:border-transparent;
+
+  /* 3. Apply a 3px shadow (ring) */
+  /* ring-3 creates a 3px spread */
+  @apply focus:ring-3 focus:ring-(--secondary-grey);
 }

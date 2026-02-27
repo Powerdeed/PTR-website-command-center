@@ -2,7 +2,7 @@ import { DraftifyBlock } from "draftify";
 
 export type AboutUs = {
   title: string;
-  description: DraftifyBlock[];
+  description: DraftifyBlock[] | string[] | string;
 };
 
 export const aboutUs: AboutUs[] = [
@@ -53,41 +53,25 @@ export const aboutUs: AboutUs[] = [
   },
   {
     title: "Mission",
-    description: [
-      {
-        id: "b805a61f-2527-477e-8c72-1b8256784929",
-        type: "paragraph",
-        createdAt: "2026-01-22T13:06:05.776Z",
-        data: {
-          text: "To provide sustainable, safe, and innovative energy and security solutions that empower our clients and communities.",
-        },
-      },
-    ],
+    description:
+      "To provide sustainable, safe, and innovative energy and security solutions that empower our clients and communities.",
   },
   {
     title: "Vision",
-    description: [
-      {
-        id: "b805a61f-2527-477e-8c72-1b8256784929",
-        type: "paragraph",
-        createdAt: "2026-01-22T13:06:05.776Z",
-        data: {
-          text: "To be the most reliable and forward-thinking engineering service provider in Africa, recognized for excellence, safety, and environmental responsibility.",
-        },
-      },
-    ],
+    description:
+      "To be the most reliable and forward-thinking engineering service provider in Africa, recognized for excellence, safety, and environmental responsibility.",
   },
   {
     title: "Why Choose Powerdeed?",
     description: [
-      {
-        id: "b805a61f-2527-477e-8c72-1b8256784929",
-        type: "paragraph",
-        createdAt: "2026-01-22T13:06:05.776Z",
-        data: {
-          text: "We combine experience, professionalism, and a client-first approach to deliver tailored solutions that meet global standards. Our skilled team, compliance with safety regulations, and use of quality materials ensure long-lasting results. Powerdeed is more than a service provider—we’re your reliable partner from consultation to completion.",
-        },
-      },
+      "15+ years of proven industry experience",
+      "Multidisciplinary team of expert engineers",
+      "Commitment of sustainable practices",
+      "Client-focused approach",
+      "500+ successfully completed projects",
+      "Complipance with safety regulations",
+      "Our quality materials ensure long-lasting results",
+      "reliable partner from consultation to completion",
     ],
   },
 ];

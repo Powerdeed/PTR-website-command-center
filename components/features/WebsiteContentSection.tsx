@@ -1,6 +1,6 @@
 "use client";
 
-import PageTitle from "@/components/ui/PageTitle";
+import PageTitle from "@components/ui/PageTitle";
 import { useState } from "react";
 import HomePage from "./WebsiteContentSection/HomePage";
 import ContactPage from "./WebsiteContentSection/ContactPage";

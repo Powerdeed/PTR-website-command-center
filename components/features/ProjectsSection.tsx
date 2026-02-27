@@ -3,14 +3,14 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Project } from "@/lib/types/types";
-import { formattedProjectData } from "@/services/projects";
+import { Project } from "@lib/types/types";
+import { formattedProjectData } from "@services/projects";
 
-import Button, { ButtonRed, ButtonLight } from "@/components/ui/Button";
-import Loader from "@/components/ui/Loader";
-import PageTitle from "@/components/ui/PageTitle";
+import Button, { ButtonRed, ButtonLight } from "@components/ui/Button";
+import Loader from "@components/ui/Loader";
+import PageTitle from "@components/ui/PageTitle";
 
-import { companyServices } from "@/utils/constants/UI-data-constants";
+import { companyServices } from "@utils/constants/UI-data-constants";
 import Toggle from "../ui/Toggle";
 
 const pageMeta = {

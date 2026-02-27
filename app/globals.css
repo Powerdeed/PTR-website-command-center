@@ -210,6 +210,10 @@ body {
   @apply bg-(--secondary-grey)/30 rounded-[10px] p-2;
 }
 
+.container-layout {
+  @apply bg-(--terciary-grey)/20 border border-(--primary-grey)/50 rounded-[10px] p-2.5;
+}
+
 input {
   @apply duration-80;
 

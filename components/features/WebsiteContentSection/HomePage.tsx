@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { SubTitle } from "@/components/ui/Title";
+import { SubTitle } from "@components/ui/Title";
 
 import {
   AboutIntro,
@@ -10,8 +10,8 @@ import {
   hero,
   Testimonial,
   testimonials,
-} from "@/services/homepage";
-import Button, { ButtonLight } from "@/components/ui/Button";
+} from "@services/homepage";
+import Button, { ButtonLight } from "@components/ui/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function HomePage() {
@@ -208,7 +208,7 @@ export default function HomePage() {
           {testimonialData.map((testimonial, index) => (
             <div
               key={index}
-              className="vertical-layout__inner border border-(--secondary-grey)/50 bg-(--terciary-grey)/10 rounded-[10px] p-5"
+              className="vertical-layout__inner container-layout"
             >
               <div className="text-style__big-text flex">
                 <div className="flex-1"> Testimonial {index + 1}</div>

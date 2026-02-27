@@ -2,7 +2,13 @@ import { DraftifyBlock } from "draftify";
 
 export type AboutUs = {
   title: string;
-  description: DraftifyBlock[] | string[] | string;
+  description: DraftifyBlock[] | string | string[] | string[][];
+};
+
+export type CompanyStructure = {
+  id: number;
+  levelName: string;
+  positions: string[];
 };
 
 export const aboutUs: AboutUs[] = [
@@ -72,6 +78,71 @@ export const aboutUs: AboutUs[] = [
       "Complipance with safety regulations",
       "Our quality materials ensure long-lasting results",
       "reliable partner from consultation to completion",
+    ],
+  },
+  {
+    title: "Unique Features",
+    description: [
+      "Turnkey Solutions",
+      "Customized Approach",
+      "Certified Expertise",
+      "Sustainable Focus",
+      "24/7 Support",
+    ],
+  },
+  {
+    title: "Core Values",
+    description: [
+      ["Integrity", "We act honestly and ethically in all we do."],
+      ["Excellence", "We strive for the highest standards and results."],
+      ["Innovation", "We strive for the highest standards and results."],
+      ["Customer Focus", "We prioritize our clients’ needs and satisfaction."],
+      ["Teamwork", "We collaborate and support each other."],
+      ["Safety", "We ensure a safe environment for all."],
+    ],
+  },
+];
+
+export const companyStructure: CompanyStructure[] = [
+  {
+    id: 1,
+    levelName: "Executive Leadership",
+    positions: [
+      "Chief Executive Officer",
+      "Chief Operations Officer",
+      "Chief Technology Officer",
+    ],
+  },
+  {
+    id: 2,
+    levelName: "Department Heads",
+    positions: [
+      "Engineering Director",
+      "Project Management Director",
+      "Quality Assurance Manager",
+    ],
+  },
+  {
+    id: 3,
+    levelName: "Senior Engineers",
+    positions: [
+      "Senior Structural Engineer",
+      "Senior Electrical Engineer",
+      "Senior Mechanical Engineer",
+    ],
+  },
+  {
+    id: 4,
+    levelName: "Engineering Team",
+    positions: ["Project Engineers", "Design Engineers", "Field Engineers"],
+  },
+  {
+    id: 5,
+    levelName: "Support Staff",
+    positions: [
+      "Administrative Team",
+      "Technical Support",
+      "Business Development",
     ],
   },
 ];

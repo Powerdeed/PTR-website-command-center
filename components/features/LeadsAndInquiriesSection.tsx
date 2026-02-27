@@ -1,6 +1,6 @@
 "use client";
 
-import PageTitle from "@/components/ui/PageTitle";
+import PageTitle from "@components/ui/PageTitle";
 
 const pageMeta = {
   title: "Leads & Inquiries",

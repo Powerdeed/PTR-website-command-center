@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Service } from "@/lib/types/types";
-import { services } from "@/services/services";
+import { Service } from "@lib/types/types";
+import { services } from "@services/services";
 
-import Button, { ButtonRed } from "@/components/ui/Button";
-import Loader from "@/components/ui/Loader";
-import PageTitle from "@/components/ui/PageTitle";
+import Button, { ButtonRed } from "@components/ui/Button";
+import Loader from "@components/ui/Loader";
+import PageTitle from "@components/ui/PageTitle";
 
 const pageMeta = {
   title: "Services Management",

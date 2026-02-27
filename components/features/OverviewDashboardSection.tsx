@@ -9,15 +9,15 @@ import {
   recentActivities,
   stats,
   trafficSourceData,
-} from "@/services/web-activities";
+} from "@services/web-activities";
 
-import { sectionAccentColors } from "@/utils/constants/UI-data-constants";
+import { sectionAccentColors } from "@utils/constants/UI-data-constants";
 
 import {
   LineContext,
   PieContext,
-} from "@/components/layout/charts/ChartContext";
-import PageTitle from "@/components/ui/PageTitle";
+} from "@components/layout/charts/ChartContext";
+import PageTitle from "@components/ui/PageTitle";
 
 const PageMetadata = {
   title: "Dashboard Overview",

@@ -131,7 +131,9 @@ export default function useAboutOverview() {
     });
 
   return {
+    aboutUs,
     aboutOverviewData,
+    setAboutOverviewData,
     aboutOverviewSummaryDoc,
     setAboutOverviewSummaryDoc,
     updateAboutOverviewData,

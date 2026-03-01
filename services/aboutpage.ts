@@ -6,7 +6,7 @@ export type AboutUs = {
 };
 
 export type CompanyStructure = {
-  id: number;
+  id: string;
   levelName: string;
   positions: string[];
 };
@@ -105,7 +105,7 @@ export const aboutUs: AboutUs[] = [
 
 export const companyStructure: CompanyStructure[] = [
   {
-    id: 1,
+    id: "1",
     levelName: "Executive Leadership",
     positions: [
       "Chief Executive Officer",
@@ -114,7 +114,7 @@ export const companyStructure: CompanyStructure[] = [
     ],
   },
   {
-    id: 2,
+    id: "2",
     levelName: "Department Heads",
     positions: [
       "Engineering Director",
@@ -123,7 +123,7 @@ export const companyStructure: CompanyStructure[] = [
     ],
   },
   {
-    id: 3,
+    id: "3",
     levelName: "Senior Engineers",
     positions: [
       "Senior Structural Engineer",
@@ -132,12 +132,12 @@ export const companyStructure: CompanyStructure[] = [
     ],
   },
   {
-    id: 4,
+    id: "4",
     levelName: "Engineering Team",
     positions: ["Project Engineers", "Design Engineers", "Field Engineers"],
   },
   {
-    id: 5,
+    id: "5",
     levelName: "Support Staff",
     positions: [
       "Administrative Team",

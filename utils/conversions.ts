@@ -23,3 +23,18 @@ export const convertLinkToLabel = (link: string) => {
       .join(" ");
   }
 };
+
+export const sortBasedOnId = <T extends { id: string | number }>(
+  arr: T[] = [],
+): T[] => {
+  return [...arr].sort((a, b) => {
+    const ai = Number(a.id);
+    const bi = Number(b.id);
+
+    if (Number.isNaN(ai) && Number.isNaN(bi)) return 0;
+    if (Number.isNaN(ai)) return 1;
+    if (Number.isNaN(bi)) return -1;
+
+    return ai - bi;
+  });
+};

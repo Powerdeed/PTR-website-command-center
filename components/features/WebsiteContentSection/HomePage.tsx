@@ -322,7 +322,7 @@ export default function HomePage() {
           <ButtonLight buttonText="Reset Changes" />
         </div>
         <div onClick={saveAllChanges}>
-          <Button buttonText="Reset Changes" />
+          <Button buttonText="Save Changes" />
         </div>
       </div>
     </div>

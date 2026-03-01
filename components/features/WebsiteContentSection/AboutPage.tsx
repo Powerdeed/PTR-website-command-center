@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // component styling
 import DraftifyReact from "draftify-react";
 import "draftify-react/styles.css";
-import { ButtonLight } from "@components/ui/Button";
+import Button, { ButtonLight } from "@components/ui/Button";
 import { SubTitle } from "@components/ui/Title";
 
 // hooks
@@ -14,7 +14,9 @@ import useCompanyStructure from "@hooks/Website content/aboutPage hooks/useCompa
 
 export default function AboutPage() {
   const {
+    aboutUs,
     aboutOverviewData,
+    setAboutOverviewData,
     aboutOverviewSummaryDoc,
     setAboutOverviewSummaryDoc,
     updateAboutOverviewData,
@@ -22,7 +24,23 @@ export default function AboutPage() {
     handleDeleteItems,
   } = useAboutOverview();
 
-  const { companyStructure } = useCompanyStructure();
+  const {
+    companyStructure,
+    companyStructureData,
+    setCompanyStructureData,
+    updateStructure,
+    addHierarchyLevel,
+    deleteHierarchyLevel,
+    addLevelPosition,
+    deleteLevelPosition,
+  } = useCompanyStructure();
+
+  const resetChanges = () => {
+    setAboutOverviewData(aboutUs);
+    setCompanyStructureData(companyStructure);
+  };
+
+  const saveAllChanges = () => {};
 
   return (
     <div className="vertical-layout__outer">
@@ -233,12 +251,12 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div>
+          <div onClick={addHierarchyLevel}>
             <ButtonLight buttonText="+ Add Level" />
           </div>
         </div>
 
-        {companyStructure.map((level) => (
+        {companyStructureData.map((level) => (
           <div
             key={level.id}
             className="container-layout vertical-layout__inner"
@@ -246,7 +264,10 @@ export default function AboutPage() {
             <div className="flex gap-2.5 items-center">
               <div className="font-semibold flex-1">Level {level.id}</div>
 
-              <div className="text-(--primary-red)">
+              <div
+                className="text-(--primary-red)"
+                onClick={() => deleteHierarchyLevel(level.id)}
+              >
                 <FontAwesomeIcon icon={["far", "trash-can"]} />
               </div>
             </div>
@@ -257,14 +278,17 @@ export default function AboutPage() {
                 type="text"
                 className="input-style"
                 value={level.levelName}
-                onChange={() => {}}
+                onChange={(e) => updateStructure(level.id, e.target.value)}
               />
             </div>
 
             <div className="vertical-layout__inner">
               <div className="flex gap-2.5 items-center">
                 <div className="text-style__small-text flex-1">Positions</div>
-                <ButtonLight buttonText="+ Add Position" />
+
+                <div onClick={() => addLevelPosition(level.id)}>
+                  <ButtonLight buttonText="+ Add Position" />
+                </div>
               </div>
 
               {level.positions.map((position, index) => (
@@ -273,10 +297,20 @@ export default function AboutPage() {
                     type="text"
                     className="input-style flex-1"
                     value={position}
-                    onChange={() => {}}
+                    onChange={(e) =>
+                      updateStructure(
+                        level.id,
+                        level.levelName,
+                        index,
+                        e.target.value,
+                      )
+                    }
                   />
 
-                  <div className="text-(--primary-red)">
+                  <div
+                    className="text-(--primary-red)"
+                    onClick={() => deleteLevelPosition(level.id, index)}
+                  >
                     <FontAwesomeIcon icon={["far", "trash-can"]} />
                   </div>
                 </div>
@@ -284,6 +318,16 @@ export default function AboutPage() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="flex gap-2.5 items-center justify-end">
+        <div onClick={resetChanges}>
+          <ButtonLight buttonText="Reset Changes" />
+        </div>
+
+        <div onClick={saveAllChanges}>
+          <Button buttonText="Save Changes" />
+        </div>
       </div>
     </div>
   );

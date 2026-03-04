@@ -14,7 +14,13 @@ export type Testimonial = {
   profilePic: string;
 };
 
-export const hero = {
+export type Hero = {
+  title: string;
+  subtitle: string;
+  image: string;
+};
+
+export const hero: Hero = {
   title: "Powering Kenya's Future: Expert Electrical & Solar Solutions",
   subtitle:
     "Delivering reliable electrical engineering and solar energy solutions across Kenya.",

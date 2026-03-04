@@ -1,93 +1,26 @@
 "use client";
 
-import { useState } from "react";
-
-import { SubTitle } from "@components/ui/Title";
-
-import {
-  AboutIntro,
-  aboutIntro,
-  hero,
-  Testimonial,
-  testimonials,
-} from "@services/homepage";
-import Button, { ButtonLight } from "@components/ui/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { SubTitle } from "@components/ui/Title";
+import Button, { ButtonLight } from "@components/ui/Button";
+
+import useHomePage from "@hooks/Website content/useHomePage";
+
 export default function HomePage() {
-  const [heroSectionData, setHeroSectionData] = useState(hero);
-  const [aboutSummaryData, setAboutSummaryData] =
-    useState<AboutIntro[]>(aboutIntro);
-  const [testimonialData, setTestimonialData] = useState(testimonials);
-
-  const emptyTestimonial: Testimonial = {
-    id: crypto.randomUUID(),
-    name: "",
-    position: "",
-    industry: "",
-    testimonial: "",
-    profilePic: "",
-  };
-
-  const updateHeroContent = (key: string, data: string) =>
-    setHeroSectionData((prev) => ({
-      ...prev,
-      [key]: data,
-    }));
-
-  const updateAboutIntro = (
-    key: string,
-    data: string | boolean,
-    section: number,
-  ) =>
-    setAboutSummaryData((prev) => {
-      const sectionData = prev[section];
-
-      const updatedSectionData: AboutIntro = {
-        ...sectionData,
-        [key]: data,
-      };
-
-      return [updatedSectionData, prev[section === 0 ? 1 : 0]];
-    });
-
-  const updateTestimonial = (
-    key: string,
-    data: string,
-    testimonialId: string,
-  ) =>
-    setTestimonialData((prev) => {
-      const updatedTestimonials = prev.map((testimonial) => {
-        if (testimonial.id === testimonialId) {
-          return {
-            ...testimonial,
-            [key]: data,
-          };
-        }
-        return testimonial;
-      });
-
-      return updatedTestimonials;
-    });
-
-  const handleAddTestimonial = () => {
-    setTestimonialData((prev) => [...prev, emptyTestimonial]);
-  };
-
-  const handleDeleteTestimonial = (testimonialId: string) =>
-    setTestimonialData((prev) =>
-      prev.filter((testimonial) => testimonial.id !== testimonialId),
-    );
-
-  const resetChanges = () => {
-    setHeroSectionData(hero);
-    setAboutSummaryData(aboutIntro);
-    setTestimonialData(testimonials);
-  };
-
-  const saveAllChanges = () => {};
-
-  const handleImageUpload = () => {};
+  const {
+    heroSectionData,
+    aboutSummaryData,
+    testimonialData,
+    updateAboutIntro,
+    updateHeroContent,
+    updateTestimonial,
+    handleAddTestimonial,
+    handleDeleteTestimonial,
+    resetChanges,
+    saveAllChanges,
+    handleImageUpload,
+  } = useHomePage();
 
   return (
     <div className="text-style__body vertical-layout__outer">
@@ -136,7 +69,7 @@ export default function HomePage() {
       </div>
 
       {/* ABOUT US SUMMARY */}
-      {aboutSummaryData.map((about: AboutIntro, index) => (
+      {aboutSummaryData.map((about, index) => (
         <div key={index} className="text-style__body vertical-layout__outer">
           <div className="vertical-layout__inner">
             <SubTitle
@@ -322,7 +255,7 @@ export default function HomePage() {
           <ButtonLight buttonText="Reset Changes" />
         </div>
         <div onClick={saveAllChanges}>
-          <Button buttonText="Save Changes" />
+          <Button buttonText="Save All Changes" />
         </div>
       </div>
     </div>

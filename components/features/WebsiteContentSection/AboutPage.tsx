@@ -326,7 +326,7 @@ export default function AboutPage() {
         </div>
 
         <div onClick={saveAllChanges}>
-          <Button buttonText="Save Changes" />
+          <Button buttonText="Save All Changes" />
         </div>
       </div>
     </div>

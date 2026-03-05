@@ -76,9 +76,10 @@ export default function ServicesManagementSection() {
         <div className="flex-1">
           <PageTitle title={pageMeta.title} subtitle={pageMeta.subtitle} />
         </div>
-        <div onClick={handleAddNewService}>
-          <Button buttonText={"+ Add New Service"} />
-        </div>
+        <Button
+          buttonText={"+ Add New Service"}
+          clickAction={handleAddNewService}
+        />
       </div>
 
       <div className="flex flex-col md:flex-row gap-2.5 md:gap-5">
@@ -215,19 +216,19 @@ export default function ServicesManagementSection() {
             </div>
 
             <div className="flex justify-between">
-              <div
-                className="flex gap-2.5 items-center"
-                onClick={handleSaveChanges}
-              >
-                <Button buttonText="Save Changes" />
+              <div className="flex gap-2.5 items-center">
+                <Button
+                  buttonText="Save Changes"
+                  clickAction={handleSaveChanges}
+                />
                 {isSaving && <Loader />}
               </div>
 
-              <div
-                className="flex gap-2.5 items-center"
-                onClick={handleDeleteService}
-              >
-                <ButtonRed buttonText="Delete Service" />
+              <div className="flex gap-2.5 items-center">
+                <ButtonRed
+                  buttonText="Delete Service"
+                  clickAction={handleDeleteService}
+                />
                 {isDeleting && <Loader />}
               </div>
             </div>

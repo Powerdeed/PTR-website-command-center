@@ -41,9 +41,7 @@ export default function HomePage() {
               onChange={(e) => updateHeroContent("image", e.target.value)}
             />
 
-            <div onClick={handleImageUpload}>
-              <ButtonLight buttonText="Upload" />
-            </div>
+            <ButtonLight buttonText="Upload" clickAction={handleImageUpload} />
           </div>
         </div>
 
@@ -95,9 +93,10 @@ export default function HomePage() {
                 }
               />
 
-              <div onClick={handleImageUpload}>
-                <ButtonLight buttonText="Upload" />
-              </div>
+              <ButtonLight
+                buttonText="Upload"
+                clickAction={handleImageUpload}
+              />
             </div>
           </div>
 
@@ -132,9 +131,10 @@ export default function HomePage() {
             <SubTitle subtitle="Testimonial Section" />
           </div>
 
-          <div onClick={handleAddTestimonial}>
-            <Button buttonText="+ Add Testimonial" />
-          </div>
+          <Button
+            buttonText="+ Add Testimonial"
+            clickAction={handleAddTestimonial}
+          />
         </div>
 
         <div className="vertical-layout__inner border border-(--terciary-grey) rounded-[10px] p-2.5 h-100 overflow-y-auto section-scrollbar">
@@ -251,12 +251,8 @@ export default function HomePage() {
       </div>
 
       <div className="flex gap-2.5 items-center justify-end">
-        <div onClick={resetChanges}>
-          <ButtonLight buttonText="Reset Changes" />
-        </div>
-        <div onClick={saveAllChanges}>
-          <Button buttonText="Save All Changes" />
-        </div>
+        <ButtonLight buttonText="Reset Changes" clickAction={resetChanges} />
+        <Button buttonText="Save All Changes" clickAction={saveAllChanges} />
       </div>
     </div>
   );

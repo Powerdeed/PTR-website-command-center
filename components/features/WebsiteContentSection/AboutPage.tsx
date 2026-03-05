@@ -91,9 +91,10 @@ export default function AboutPage() {
         <div className="vertical-layout__inner">
           <div className="flex gap-2.5">
             <div className="flex-1">Why Choose Us</div>
-            <div onClick={() => handleAddItems("Why Choose Powerdeed?")}>
-              <ButtonLight buttonText="+ Add Item" />
-            </div>
+            <ButtonLight
+              buttonText="+ Add Item"
+              clickAction={() => handleAddItems("Why Choose Powerdeed?")}
+            />
           </div>
 
           <div className="vertical-layout__inner">
@@ -139,8 +140,11 @@ export default function AboutPage() {
         <div className="vertical-layout__inner">
           <div className="flex gap-2.5">
             <div className="flex-1">Unique features & benefits</div>
-            <div onClick={() => handleAddItems("Unique Features")}>
-              <ButtonLight buttonText="+ Add Item" />
+            <div>
+              <ButtonLight
+                buttonText="+ Add Item"
+                clickAction={() => handleAddItems("Unique Features")}
+              />
             </div>
           </div>
 
@@ -168,12 +172,12 @@ export default function AboutPage() {
                     }
                   />
 
-                  <div
+                  <button
                     className="text-(--primary-red) cursor-pointer"
                     onClick={() => handleDeleteItems("Unique Features", index)}
                   >
                     <FontAwesomeIcon icon={["far", "trash-can"]} />
-                  </div>
+                  </button>
                 </div>
               ))}
           </div>
@@ -184,9 +188,10 @@ export default function AboutPage() {
         <div className="vertical-layout__inner">
           <div className="flex gap-2.5">
             <div className="flex-1">Core Values</div>
-            <div onClick={() => handleAddItems("Core Values")}>
-              <ButtonLight buttonText="+ Add Item" />
-            </div>
+            <ButtonLight
+              buttonText="+ Add Item"
+              clickAction={() => handleAddItems("Core Values")}
+            />
           </div>
 
           <div className="vertical-layout__inner">
@@ -251,9 +256,10 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div onClick={addHierarchyLevel}>
-            <ButtonLight buttonText="+ Add Level" />
-          </div>
+          <ButtonLight
+            buttonText="+ Add Level"
+            clickAction={addHierarchyLevel}
+          />
         </div>
 
         {companyStructureData.map((level) => (
@@ -286,9 +292,10 @@ export default function AboutPage() {
               <div className="flex gap-2.5 items-center">
                 <div className="text-style__small-text flex-1">Positions</div>
 
-                <div onClick={() => addLevelPosition(level.id)}>
-                  <ButtonLight buttonText="+ Add Position" />
-                </div>
+                <ButtonLight
+                  buttonText="+ Add Position"
+                  clickAction={() => addLevelPosition(level.id)}
+                />
               </div>
 
               {level.positions.map((position, index) => (
@@ -321,13 +328,8 @@ export default function AboutPage() {
       </div>
 
       <div className="flex gap-2.5 items-center justify-end">
-        <div onClick={resetChanges}>
-          <ButtonLight buttonText="Reset Changes" />
-        </div>
-
-        <div onClick={saveAllChanges}>
-          <Button buttonText="Save All Changes" />
-        </div>
+        <ButtonLight buttonText="Reset Changes" clickAction={resetChanges} />
+        <Button buttonText="Save All Changes" clickAction={saveAllChanges} />
       </div>
     </div>
   );

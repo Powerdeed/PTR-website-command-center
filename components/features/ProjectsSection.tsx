@@ -123,15 +123,18 @@ export default function ProjectsSection() {
     setIsDeleting(false);
   };
 
+  const handleImageUpload = () => {};
+
   return (
     <div className="page-layout">
       <div className="flex items-center">
         <div className="flex-1">
           <PageTitle title={pageMeta.title} subtitle={pageMeta.subtitle} />
         </div>
-        <div onClick={handleAddNewProject}>
-          <Button buttonText={"+ Add New Project"} />
-        </div>
+        <Button
+          buttonText={"+ Add New Project"}
+          clickAction={handleAddNewProject}
+        />
       </div>
 
       <div className="flex flex-col md:flex-row gap-2.5 md:gap-5">
@@ -352,7 +355,10 @@ export default function ProjectsSection() {
                   }
                 }}
               >
-                <ButtonLight buttonText="Add image" />
+                <ButtonLight
+                  buttonText="Add image"
+                  clickAction={handleImageUpload}
+                />
               </div>
             </div>
 
@@ -363,19 +369,19 @@ export default function ProjectsSection() {
             </div>
 
             <div className="flex justify-between">
-              <div
-                className="flex gap-2.5 items-center"
-                onClick={handleSaveChanges}
-              >
-                <Button buttonText="Save Changes" />
+              <div className="flex gap-2.5 items-center">
+                <Button
+                  buttonText="Save Changes"
+                  clickAction={handleSaveChanges}
+                />
                 {isSaving && <Loader />}
               </div>
 
-              <div
-                className="flex gap-2.5 items-center"
-                onClick={handleDeleteProject}
-              >
-                <ButtonRed buttonText="Delete Project" />
+              <div className="flex gap-2.5 items-center">
+                <ButtonRed
+                  buttonText="Delete Project"
+                  clickAction={handleDeleteProject}
+                />
                 {isDeleting && <Loader />}
               </div>
             </div>

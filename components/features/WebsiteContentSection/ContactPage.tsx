@@ -71,17 +71,21 @@ export default function ContactPage() {
         {Object.entries(contactData.ContactInformation).map(
           ([contactType, contacts]) => (
             <div key={contactType} className="vertical-layout__inner">
-              <div className="flex gap-2.5 items-center">
-                <div className="flex-1">{contactType}</div>
-                <Button
-                  buttonText={`+ New ${contactType}`}
-                  clickAction={() =>
-                    handleAddContactInfo(
-                      contactType as keyof Contacts["ContactInformation"],
-                    )
-                  }
-                />
-              </div>
+              <FormWrapper
+                subtitle={contactType}
+                subtitleChildren={
+                  <Button
+                    buttonText={`+ New ${contactType}`}
+                    clickAction={() =>
+                      handleAddContactInfo(
+                        contactType as keyof Contacts["ContactInformation"],
+                      )
+                    }
+                  />
+                }
+              >
+                {null}
+              </FormWrapper>
 
               <div className="vertical-layout__inner">
                 {contacts.map((contact, idx) => (

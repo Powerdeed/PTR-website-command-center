@@ -1,12 +1,14 @@
-import { SubTitle } from "@components/ui/Title";
+import { SectionTitle, SubTitle } from "@components/ui/Title";
 
 export default function FormWrapper({
   keyVal,
+  title,
   subtitle,
   subtitleChildren,
   children,
 }: {
   keyVal?: number | string;
+  title?: string;
   subtitle: string;
   subtitleChildren?: React.ReactNode;
   children: React.ReactNode;
@@ -17,7 +19,11 @@ export default function FormWrapper({
         className={`${subtitleChildren ? "flex gap-2.5 items-center" : "vertical-layout__inner"}`}
       >
         <div className="flex-1">
-          <SubTitle subtitle={subtitle} />
+          {title ? (
+            <SectionTitle title={title} subtitle={subtitle} />
+          ) : (
+            <SubTitle subtitle={subtitle} />
+          )}
         </div>
 
         {subtitleChildren ? subtitleChildren : <SeparatorLine />}

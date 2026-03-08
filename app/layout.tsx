@@ -5,6 +5,8 @@ import "./globals.css";
 import Nav from "@/components/layout/Nav";
 import { ChartProvider } from "@/components/layout/charts/ChartProvider";
 
+import SideBar from "@components/layout/SideBar";
+
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
@@ -31,7 +33,11 @@ export default function RootLayout({
         className={`${plusJakartaSans.variable} ${openSans.variable} antialiased flex flex-col min-h-screen`}
       >
         <Nav />
-        <ChartProvider>{children}</ChartProvider>
+        <SideBar />
+
+        <div className="pl-65 pt-15">
+          <ChartProvider>{children}</ChartProvider>
+        </div>
       </body>
     </html>
   );

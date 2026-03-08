@@ -13,7 +13,6 @@ import CustomizationSection from "@components/features/CustomizationSection";
 import SettingsAndUsersSection from "@components/features/SettingsAndUsersSection";
 import LeadsAndInquiriesSection from "@components/features/LeadsAndInquiriesSection";
 import ServicesManagementSection from "@components/features/ServicesManagementSection";
-import SideBar from "@components/layout/SideBar";
 
 import { convertLinkToLabel } from "@utils/conversions";
 import { MenuLabels } from "@utils/constants/UI-data-constants";
@@ -42,11 +41,5 @@ export default function Section({
 
   const content = sectionMap[sectionLabel];
 
-  return (
-    <div className="pl-65 pt-15">
-      <SideBar currentMenu={sectionLabel} />
-
-      {content}
-    </div>
-  );
+  return content;
 }

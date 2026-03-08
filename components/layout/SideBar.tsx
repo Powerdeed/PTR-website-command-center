@@ -5,13 +5,17 @@ import { IconName } from "@fortawesome/fontawesome-svg-core";
 import { companyName, menuItems } from "@/utils/constants/UI-data-constants";
 import Link from "next/link";
 import { convertLabelToLink } from "@/utils/conversions";
+import { usePathname } from "next/navigation";
+import { convertLinkToLabel } from "@utils/conversions";
 
 const titleMeta = {
   title: "PTR Command Center",
   subtitle: "Operations Hub",
 };
 
-export default function SideBar({ currentMenu }: { currentMenu: string }) {
+export default function SideBar() {
+  const currentMenu = convertLinkToLabel(usePathname().slice(1));
+
   return (
     <aside className="fixed left-0 top-0 flex flex-col w-65 h-full bg-(--primary-blue) text-style__body text-(--terciary-grey)">
       <div className="py-2.5 pl-5 h-20 flex items-center gap-2.5 border-b border-(--secondary-grey)">
@@ -21,7 +25,7 @@ export default function SideBar({ currentMenu }: { currentMenu: string }) {
             className="text-style__logo"
           />
         </div>
-        <div className="h-fit">
+        <div>
           <h2 className="font-extrabold">{titleMeta.title}</h2>
           <h3>{titleMeta.subtitle}</h3>
         </div>
@@ -47,7 +51,7 @@ export default function SideBar({ currentMenu }: { currentMenu: string }) {
         </ul>
       </div>
       <div className="text-style__small-text py-2.5 pl-5 h-20">
-        <div className="">{companyName}</div>
+        <div>{companyName}</div>
         <div>v{process.env.NEXT_PUBLIC_APP_VERSION}</div>
       </div>
     </aside>

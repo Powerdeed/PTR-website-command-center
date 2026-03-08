@@ -1,29 +1,63 @@
 "use client";
 
-import Button from "@components/ui/Button";
-import { SectionTitle } from "@components/ui/Title";
+import FormWrapper from "@components/layout/FormWrapper";
+import Button, { ButtonLight } from "@components/ui/Button";
+import { FontAwesomeIcon } from "@node_modules/@fortawesome/react-fontawesome/dist";
 
 const pageMeta = {
   title: "Media & Assets",
   subtitle: "Central storage for images, documents, and diagrams",
 };
 
+const fileCategories = ["All", "Images", "Documents", "Diagrams"];
+
 export default function MediaAndAssetsSection() {
   return (
     <div className="page-layout">
-      <div className="flex gap-5 items-center">
-        <div className="flex-1 vertical-layout__inner">
-          <SectionTitle title={pageMeta.title} subtitle={pageMeta.subtitle} />
+      <FormWrapper
+        title={pageMeta.title}
+        subtitle={pageMeta.subtitle}
+        subtitleChildren={
+          <Button buttonText="Upload Files" clickAction={() => {}} />
+        }
+      >
+        <div className="feature-container-horizontal">
+          <div className="flex-1 border border-(--terciary-grey) p-1.25 rounded-[10px] focus:shadow-[0_0_0_1px_var(--secondary-blue)] focus-within:shadow-[0_0_0_1px_var(--secondary-blue)] transition-shadow flex items-center">
+            <FontAwesomeIcon
+              icon={["fas", "magnifying-glass"]}
+              className="text-(--terciary-grey) px-1.25"
+            />
+            <input
+              type="text"
+              placeholder="Search assets..."
+              className="w-full outline-none"
+              value=""
+              onChange={() => {}}
+            />
+          </div>
+
+          {fileCategories.map((category) => (
+            <ButtonLight
+              key={category}
+              buttonText={category}
+              clickAction={(val) => console.log(val)}
+            />
+          ))}
         </div>
-        <Button buttonText="Upload Files" clickAction={() => {}} />
-      </div>
 
-      <div className="flex-1 vertical-layout__inner bg-white border border-(--terciary-grey) rounded-[10px]"></div>
-
-      <div className="flex flex-col md:flex-row gap-2.5 md:gap-5">
-        <div className="flex-1 p-2.5 md:p-5 vertical-layout__inner md:gap-5 bg-white border border-(--terciary-grey) rounded-[10px]"></div>
-        <div className="flex-1 p-2.5 md:p-5 vertical-layout__inner md:gap-5 bg-white border border-(--terciary-grey) rounded-[10px]"></div>
-      </div>
+        <div className="feature-container-vertical">
+          <FormWrapper
+            subtitle={`All Assets (${6})`}
+            subtitleChildren={
+              <div className="text-(terciary-grey) text-style__small-text">
+                Total Storage: {14.5} MB
+              </div>
+            }
+          >
+            <div></div>
+          </FormWrapper>
+        </div>
+      </FormWrapper>
     </div>
   );
 }

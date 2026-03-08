@@ -23,58 +23,45 @@ export default function useAboutOverview() {
     index?: number,
     indexOfIndex?: number,
   ) =>
-    setAboutOverviewData((prev) => {
-      const dataToUpdate = prev.find((data) => data.title === dataTitle);
-      const otherData = prev.filter((data) => data.title !== dataTitle);
-      const excludedTitles = [
-        "Why Choose Powerdeed?",
-        "Unique Features",
-        "Core Values",
-      ];
+    setAboutOverviewData((prev) =>
+      prev.map((item) => {
+        if (item.title !== dataTitle) return item;
 
-      if (!dataToUpdate) return prev;
-
-      if (!excludedTitles.includes(dataTitle)) {
-        return [
-          ...otherData,
-          {
-            title: dataToUpdate.title,
-            description: data,
-          },
+        const excludedTitles = [
+          "Why Choose Powerdeed?",
+          "Unique Features",
+          "Core Values",
         ];
-      } else if (
-        dataTitle === "Why Choose Powerdeed?" ||
-        dataTitle === "Unique Features"
-      ) {
-        if (index !== undefined) {
-          const updatedArray = [...(dataToUpdate.description as string[])];
-          updatedArray[index] = data as string;
-          return [
-            ...otherData,
-            {
-              title: dataToUpdate.title,
-              description: updatedArray,
-            },
-          ];
+
+        if (!excludedTitles.includes(dataTitle)) {
+          return { ...item, description: data };
         }
-        return prev;
-      } else if (dataTitle === "Core Values") {
-        if (indexOfIndex !== undefined && index !== undefined) {
-          const updatedArray = [...(dataToUpdate.description as string[][])];
+
+        if (
+          dataTitle === "Why Choose Powerdeed?" ||
+          dataTitle === "Unique Features"
+        ) {
+          if (index === undefined) return item;
+
+          const updatedArray = [...(item.description as string[])];
+          updatedArray[index] = data as string;
+
+          return { ...item, description: updatedArray };
+        }
+
+        if (dataTitle === "Core Values") {
+          if (index === undefined || indexOfIndex === undefined) return item;
+
+          const updatedArray = [...(item.description as string[][])];
+          updatedArray[index] = [...updatedArray[index]];
           updatedArray[index][indexOfIndex] = data as string;
 
-          return [
-            ...otherData,
-            {
-              title: dataToUpdate.title,
-              description: updatedArray,
-            },
-          ];
+          return { ...item, description: updatedArray };
         }
-        return prev;
-      }
-      return prev;
-    });
+
+        return item;
+      }),
+    );
 
   useEffect(() => {
     const updateData = () =>
@@ -87,48 +74,57 @@ export default function useAboutOverview() {
   }, [aboutOverviewSummaryDoc]);
 
   const handleAddItems = (title: string) =>
-    setAboutOverviewData((prev) => {
-      const targetData = prev.find((item) => item.title === title)
-        ?.description as string[] | string[][];
+    setAboutOverviewData((prev) =>
+      prev.map((item) => {
+        if (item.title !== title) return item;
 
-      const otherData = prev.filter((data) => data.title !== title);
+        const targetData = item.description as string[] | string[][];
 
-      if (title !== "Core Values") {
-        return [
-          ...otherData,
-          {
-            title: title,
-            description: [...targetData, ""],
-          } as AboutUs,
-        ];
-      } else {
-        return [
-          ...otherData,
-          {
-            title: title,
-            description: [...targetData, ["", ""]],
-          } as AboutUs,
-        ];
-      }
-    });
+        if (title !== "Core Values") {
+          return {
+            ...item,
+            description: [...(targetData as string[]), ""],
+          };
+        }
+
+        return {
+          ...item,
+          description: [...(targetData as string[][]), ["", ""]],
+        };
+      }),
+    );
 
   const handleDeleteItems = (title: string, index: number) =>
-    setAboutOverviewData((prev) => {
-      const whyChooseItems = prev.find((item) => item.title === title)
-        ?.description as string[];
+    setAboutOverviewData((prev) =>
+      prev.map((item) => {
+        if (item.title !== title) return item;
 
-      const whyChooseItemsUpdated = whyChooseItems.toSpliced(index, 1);
+        const items = item.description as string[];
 
-      const otherData = prev.filter((data) => data.title !== title);
+        return {
+          ...item,
+          description: items.toSpliced(index, 1),
+        };
+      }),
+    );
 
-      return [
-        ...otherData,
-        {
-          title: title,
-          description: whyChooseItemsUpdated,
-        },
-      ];
-    });
+  function isObjectOrDraftifyArr(
+    val: unknown,
+  ): val is string | DraftifyBlock[] {
+    if (typeof val === "string") return true;
+
+    if (Array.isArray(val)) {
+      return (
+        val.length > 0 &&
+        val.every(
+          (item) =>
+            typeof item === "object" && item !== null && !Array.isArray(item),
+        )
+      );
+    }
+
+    return false;
+  }
 
   return {
     aboutUs,
@@ -139,5 +135,6 @@ export default function useAboutOverview() {
     updateAboutOverviewData,
     handleAddItems,
     handleDeleteItems,
+    isObjectOrDraftifyArr,
   };
 }

@@ -5,12 +5,12 @@ import Button, {
   DeleteIconBtn,
   UploadIconBtn,
 } from "@components/ui/Button";
-
-import useHomePage from "@hooks/Website content/useHomePage";
 import FormWrapper, {
   InputArea,
   SeparatorLine,
 } from "@components/layout/FormWrapper";
+
+import useHomePage from "@hooks/Website content/useHomePage";
 
 export default function HomePage() {
   const {

@@ -4,15 +4,15 @@
 import { DraftifyReact } from "draftify-react";
 import "draftify-react/styles.css";
 import Button, { ButtonLight, DeleteIconBtn } from "@components/ui/Button";
-
-// hooks
-import useAboutOverview from "@hooks/Website content/aboutPage hooks/useAboutOverview";
-import useCompanyStructure from "@hooks/Website content/aboutPage hooks/useCompanyStructure";
-
 import FormWrapper, {
   InputArea,
   SeparatorLine,
 } from "@components/layout/FormWrapper";
+
+// hooks
+import useAboutOverview from "@hooks/Website content/aboutPage hooks/useAboutOverview";
+import useCompanyStructure from "@hooks/Website content/aboutPage hooks/useCompanyStructure";
+import Loader from "@components/ui/Loader";
 
 export default function AboutPage() {
   const {
@@ -24,6 +24,7 @@ export default function AboutPage() {
     updateAboutOverviewData,
     handleAddItems,
     handleDeleteItems,
+    isObjectOrDraftifyArr,
   } = useAboutOverview();
 
   const {
@@ -48,119 +49,92 @@ export default function AboutPage() {
     <div className="vertical-layout__outer">
       {/* OVERVIEW SUBSECTION */}
       <FormWrapper subtitle="Overview Subsection">
-        <div className="vertical-layout__inner">
-          Overview Summary
-          <DraftifyReact
-            draftifyDoc={aboutOverviewSummaryDoc}
-            setDoc={setAboutOverviewSummaryDoc}
-            options={["paragraph"]}
-          />
-        </div>
-
-        <InputArea
-          label="Mission Statement"
-          val={
-            aboutOverviewData.find((about) => about.title === "Mission")
-              ?.description as string
-          }
-          changeFunc={(val) => updateAboutOverviewData(val, "Mission")}
-        />
-
-        <InputArea
-          label="Vision Statement"
-          val={
-            aboutOverviewData.find((about) => about.title === "Vision")
-              ?.description as string
-          }
-          changeFunc={(val) => updateAboutOverviewData(val, "Vision")}
-        />
-
-        <SeparatorLine />
-
-        {["Why Choose Powerdeed?", "Unique Features", "Core Values"].map(
-          (info, index) => {
-            const arrDesc = aboutOverviewData.find(
-              (data) => data.title === info,
-            );
-
-            if (!arrDesc) return;
-
-            if (!Array.isArray(arrDesc?.description)) return;
+        {aboutOverviewData ? (
+          aboutOverviewData.map(({ title, description }, index) => {
+            if (isObjectOrDraftifyArr(description)) {
+              if (typeof description !== "string") {
+                return (
+                  <FormWrapper
+                    key={index}
+                    keyVal={index}
+                    subtitleChildren={<></>} // dummy child to remove the separatorLine
+                    subtitle={title}
+                  >
+                    <DraftifyReact
+                      draftifyDoc={aboutOverviewSummaryDoc}
+                      setDoc={setAboutOverviewSummaryDoc}
+                      options={["paragraph"]}
+                    />
+                  </FormWrapper>
+                );
+              } else
+                return (
+                  <InputArea
+                    key={index}
+                    keyVal={index}
+                    label={title}
+                    val={description}
+                    changeFunc={(val) => updateAboutOverviewData(val, title)}
+                  />
+                );
+            }
 
             return (
               <FormWrapper
                 key={index}
                 keyVal={index}
-                subtitle={arrDesc.title}
+                subtitle={title}
                 subtitleChildren={
                   <ButtonLight
                     buttonText="+ Add Item"
-                    clickAction={() => handleAddItems(info)}
+                    clickAction={() => handleAddItems(title)}
                   />
                 }
               >
-                {Array.isArray(arrDesc.description) &&
-                  (arrDesc.description as string[]).map(
-                    (reason: string, index: number) => (
-                      <div
-                        key={index}
-                        className="flex gap-2.5 p-2.5 items-center"
+                {description.map((reason, index) => (
+                  <div key={index} className="flex gap-2.5 p-2.5 items-center">
+                    {!Array.isArray(reason) ? (
+                      <InputArea
+                        label=""
+                        val={reason}
+                        changeFunc={(val) =>
+                          updateAboutOverviewData(val, title, index)
+                        }
                       >
-                        {!Array.isArray(reason) ? (
-                          <InputArea
-                            label=""
-                            val={reason}
-                            changeFunc={(val) =>
-                              updateAboutOverviewData(val, arrDesc.title, index)
-                            }
-                          >
-                            <DeleteIconBtn
-                              deleteFunc={() =>
-                                handleDeleteItems(arrDesc.title, index)
-                              }
-                            />
-                          </InputArea>
-                        ) : (
-                          <InputArea
-                            label=""
-                            val={reason[0]}
-                            changeFunc={(val) =>
-                              updateAboutOverviewData(
-                                val,
-                                "Core Values",
-                                index,
-                                0,
-                              )
-                            }
-                          >
-                            <InputArea
-                              label=""
-                              val={reason[1]}
-                              changeFunc={(val) =>
-                                updateAboutOverviewData(
-                                  val,
-                                  "Core Values",
-                                  index,
-                                  1,
-                                )
-                              }
-                            />
+                        <DeleteIconBtn
+                          deleteFunc={() => handleDeleteItems(title, index)}
+                        />
+                      </InputArea>
+                    ) : (
+                      <InputArea
+                        label=""
+                        val={reason[0]}
+                        changeFunc={(val) =>
+                          updateAboutOverviewData(val, title, index, 0)
+                        }
+                      >
+                        <InputArea
+                          label=""
+                          val={reason[1]}
+                          changeFunc={(val) =>
+                            updateAboutOverviewData(val, title, index, 1)
+                          }
+                        />
 
-                            <DeleteIconBtn
-                              deleteFunc={() =>
-                                handleDeleteItems("Core Values", index)
-                              }
-                            />
-                          </InputArea>
-                        )}
-                      </div>
-                    ),
-                  )}
+                        <DeleteIconBtn
+                          deleteFunc={() => handleDeleteItems(title, index)}
+                        />
+                      </InputArea>
+                    )}
+                  </div>
+                ))}
 
                 <SeparatorLine />
               </FormWrapper>
             );
-          },
+          })
+        ) : (
+          <Loading />
         )}
       </FormWrapper>
 
@@ -174,55 +148,56 @@ export default function AboutPage() {
           />
         }
       >
-        {companyStructureData.map((level) => (
-          <div
-            key={level.id}
-            className="container-layout vertical-layout__inner"
-          >
-            <div className="flex gap-2.5 items-center">
-              <div className="font-semibold flex-1">Level {level.id}</div>
-
-              <DeleteIconBtn
-                deleteFunc={() => deleteHierarchyLevel(level.id)}
-              />
-            </div>
-
-            <InputArea
-              label="Level Name"
-              val={level.levelName}
-              changeFunc={(val) => updateStructure(level.id, val)}
-            />
-
-            <div className="vertical-layout__inner">
-              <div className="flex gap-2.5 items-center">
-                <div className="flex-1">Positions</div>
-
-                <ButtonLight
-                  buttonText="+ Add Position"
-                  clickAction={() => addLevelPosition(level.id)}
+        {companyStructureData ? (
+          companyStructureData.map((level) => (
+            <FormWrapper
+              key={level.id}
+              keyVal={level.id}
+              subtitle={`Level ${level.id}`}
+              subtitleChildren={
+                <DeleteIconBtn
+                  deleteFunc={() => deleteHierarchyLevel(level.id)}
                 />
-              </div>
+              }
+            >
+              <InputArea
+                label="Level Name"
+                val={level.levelName}
+                changeFunc={(val) => updateStructure(level.id, val)}
+              />
 
-              {level.positions.map((position, index) => (
-                <InputArea
-                  key={index}
-                  keyVal={index}
-                  val={position}
-                  label=""
-                  changeFunc={(val) =>
-                    updateStructure(level.id, level.levelName, index, val)
-                  }
-                >
-                  <DeleteIconBtn
-                    deleteFunc={() => deleteLevelPosition(level.id, index)}
+              <FormWrapper
+                subtitle="Positions"
+                subtitleChildren={
+                  <ButtonLight
+                    buttonText="+ Add Position"
+                    clickAction={() => addLevelPosition(level.id)}
                   />
-                </InputArea>
-              ))}
+                }
+              >
+                {level.positions.map((position, index) => (
+                  <InputArea
+                    key={index}
+                    keyVal={index}
+                    val={position}
+                    label=""
+                    changeFunc={(val) =>
+                      updateStructure(level.id, level.levelName, index, val)
+                    }
+                  >
+                    <DeleteIconBtn
+                      deleteFunc={() => deleteLevelPosition(level.id, index)}
+                    />
+                  </InputArea>
+                ))}
+              </FormWrapper>
 
               <SeparatorLine />
-            </div>
-          </div>
-        ))}
+            </FormWrapper>
+          ))
+        ) : (
+          <Loading />
+        )}
       </FormWrapper>
 
       <div className="flex gap-2.5 items-center justify-end">
@@ -230,5 +205,14 @@ export default function AboutPage() {
         <Button buttonText="Save All Changes" clickAction={saveAllChanges} />
       </div>
     </div>
+  );
+}
+
+function Loading() {
+  return (
+    <span>
+      Loading data
+      <Loader />
+    </span>
   );
 }

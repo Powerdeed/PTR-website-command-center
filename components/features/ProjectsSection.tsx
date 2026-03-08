@@ -1,135 +1,49 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { Project } from "@lib/types/types";
-import { formattedProjectData } from "@services/projects";
 
 import Button, { ButtonRed, ButtonLight } from "@components/ui/Button";
 import Loader from "@components/ui/Loader";
-import PageTitle from "@components/ui/PageTitle";
+import { SectionTitle } from "@components/ui/Title";
 
 import { companyServices } from "@utils/constants/UI-data-constants";
 import Toggle from "../ui/Toggle";
+import useProjects from "@hooks/useProjects";
 
 const pageMeta = {
   title: "Projects / Portfolio",
   subtitle: "Showcase completed and ongoing projects",
 };
 
-const emptyProject: Project = {
-  id: crypto.randomUUID(),
-  category: "",
-  name: "",
-  description: "",
-  images: [""],
-  status: "Completed",
-  featured: false,
-};
-
 export default function ProjectsSection() {
-  const [projectsObj, setProjectsObj] = useState<Record<string, Project[]>>(
-    formattedProjectData(),
-  );
-  const [isAddingNewProject, setisAddingNewProject] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(
-    projectsObj["Electrical Installation"][0] || null,
-  );
-  const [newProjectData, setNewProjectData] = useState<Project>(emptyProject);
-  const [selectedCategory, setSelectedCategory] = useState<string>(
-    "Electrical Installation",
-  );
-  const [featuredState, setFeaturedState] = useState(selectedProject.featured);
-
-  const handleSelectedProject = (p: Project) => {
-    setSelectedProject(p || emptyProject);
-
-    if (selectedProject) setFeaturedState(p.featured);
-  };
-
-  const handleAddNewProject = () => {
-    setisAddingNewProject(true);
-    setFeaturedState(false);
-  };
-
-  useEffect(() => {
-    const handleFeaturedProject = () => {
-      if (isAddingNewProject) {
-        setNewProjectData((prev) => ({ ...prev, featured: featuredState }));
-      } else {
-        setSelectedProject((proj) => ({ ...proj, featured: featuredState }));
-      }
-    };
-
-    handleFeaturedProject();
-  }, [featuredState, isAddingNewProject]);
-
-  const handleSaveChanges = () => {
-    setIsSaving(true);
-
-    if (isAddingNewProject) {
-      setProjectsObj((prev) => {
-        const currentProjectsFromCategory = prev[newProjectData.category] || [];
-
-        const updatedProjects: Project[] = [
-          ...currentProjectsFromCategory,
-          newProjectData,
-        ];
-
-        return {
-          ...prev,
-          [newProjectData.category]: updatedProjects,
-        };
-      });
-
-      setNewProjectData(emptyProject);
-
-      setisAddingNewProject(false);
-    } else if (selectedProject) {
-      setProjectsObj((prev) => {
-        const currentProjectsFromCategory = prev[selectedProject.category];
-
-        const updatedProjects = currentProjectsFromCategory.map((s) =>
-          s.id === selectedProject.id ? selectedProject : s,
-        );
-
-        return { ...prev, [selectedProject.category]: updatedProjects };
-      });
-    }
-
-    setIsSaving(false);
-  };
-
-  const handleDeleteProject = () => {
-    setIsDeleting(true);
-    if (isAddingNewProject) {
-      setisAddingNewProject(false);
-      setNewProjectData(emptyProject);
-    } else if (selectedProject) {
-      setProjectsObj((prev) => {
-        const currentProjectsFromCategory = prev[selectedCategory];
-
-        const updatedProjects = currentProjectsFromCategory.filter(
-          (project) => project.id !== selectedProject.id,
-        );
-
-        return { ...prev, [selectedCategory]: updatedProjects };
-      });
-      setSelectedProject(emptyProject);
-    }
-    setIsDeleting(false);
-  };
-
-  const handleImageUpload = () => {};
+  const {
+    projectsObj,
+    newProjectData,
+    setNewProjectData,
+    handleAddNewProject,
+    selectedCategory,
+    setSelectedCategory,
+    selectedProject,
+    setSelectedProject,
+    handleSelectedProject,
+    emptyProject,
+    isAddingNewProject,
+    featuredState,
+    setFeaturedState,
+    completedState,
+    setCompletedState,
+    handleImageUpload,
+    handleSaveChanges,
+    handleDeleteProject,
+    isSaving,
+    isDeleting,
+  } = useProjects();
 
   return (
     <div className="page-layout">
       <div className="flex items-center">
         <div className="flex-1">
-          <PageTitle title={pageMeta.title} subtitle={pageMeta.subtitle} />
+          <SectionTitle title={pageMeta.title} subtitle={pageMeta.subtitle} />
         </div>
         <Button
           buttonText={"+ Add New Project"}
@@ -137,9 +51,9 @@ export default function ProjectsSection() {
         />
       </div>
 
-      <div className="flex flex-col md:flex-row gap-2.5 md:gap-5">
+      <div className="flex gap-5">
         {/* All projects */}
-        <div className="flex-1 p-2.5 md:p-5 flex flex-col gap-1 bg-white border border-(--terciary-grey) rounded-[10px] text-style__body">
+        <div className="flex-1 feature-container-vertical text-style__body">
           <div className="text-style__subheading">All Projects</div>
 
           {Object.entries(projectsObj).map(([category, projects]) => (
@@ -172,7 +86,7 @@ export default function ProjectsSection() {
                     {projects.map((p) => (
                       <div
                         key={p.id}
-                        className={`flex flex-col gap-2.5 border border-(--terciary-grey) rounded-[10px] p-5 text-style__small-text cursor-pointer`}
+                        className={`feature-container-vertical text-style__small-text cursor-pointer`}
                         onClick={() => handleSelectedProject(p)}
                       >
                         <div className="flex gap-2.5 items-center">
@@ -213,16 +127,16 @@ export default function ProjectsSection() {
 
         {/* Edit project */}
         {selectedProject !== emptyProject ? (
-          <div className="flex-1 h-fit p-2.5 md:p-5 flex flex-col gap-2.5 md:gap-5 bg-white border border-(--terciary-grey) rounded-[10px]">
+          <div className="flex-1 h-fit feature-container-vertical">
             <div className="text-style__subheading">
               {isAddingNewProject ? "Add New Project" : "Edit Project"}
             </div>
 
-            <div>
-              <div>Project Name</div>
+            <div className="text-style__body">
+              Project Name
               <input
                 type="text"
-                className="w-full p-2.5 border border-(--terciary-grey) rounded-[10px] text-style__body mt-1"
+                className="input-style w-full mt-1"
                 value={
                   isAddingNewProject
                     ? newProjectData.name
@@ -241,11 +155,10 @@ export default function ProjectsSection() {
               />
             </div>
 
-            <div>
-              <div>Description</div>
-
+            <div className="text-style__body">
+              Description
               <textarea
-                className="w-full h-50 p-2.5 border border-(--terciary-grey) rounded-[10px] text-style__body mt-1"
+                className="w-full h-50 input-style mt-1"
                 value={
                   isAddingNewProject
                     ? newProjectData.description
@@ -264,10 +177,9 @@ export default function ProjectsSection() {
               />
             </div>
 
-            <div>
-              <div>Select category</div>
-
-              <div className="w-full h-10 border border-(--terciary-grey) rounded-[10px] px-1 text-style__body flex items-center focus-within:ring-2 focus-within:ring-(--primary-blue)">
+            <div className="text-style__body">
+              Select category
+              <div className="w-full h-10 border border-(--terciary-grey) rounded-[10px] px-1 flex items-center focus-within:ring-2 focus-within:ring-(--primary-blue)">
                 <select
                   className="w-full h-full rounded-[10px] focus:outline-none"
                   value={
@@ -302,15 +214,14 @@ export default function ProjectsSection() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2.5">
-              <div>Images</div>
-
+            <div className="flex flex-col gap-2.5 text-style__body">
+              Images
               {isAddingNewProject
                 ? newProjectData.images.map((image, index) => (
                     <input
                       key={index}
                       type="text"
-                      className="w-full p-2.5 border border-(--terciary-grey) rounded-[10px] text-style__body mt-1"
+                      className="w-full input-style text-style__body mt-1"
                       value={image}
                       onChange={(e) =>
                         setNewProjectData((prev) => {
@@ -325,7 +236,7 @@ export default function ProjectsSection() {
                     <input
                       key={index}
                       type="text"
-                      className="w-full p-2.5 border border-(--terciary-grey) rounded-[10px] text-style__body mt-1"
+                      className="w-full input-style text-style__body mt-1"
                       value={image}
                       onChange={(e) =>
                         setSelectedProject((prev) => {
@@ -337,7 +248,6 @@ export default function ProjectsSection() {
                       }
                     />
                   ))}
-
               <div
                 className="w-fit"
                 onClick={() => {
@@ -363,9 +273,15 @@ export default function ProjectsSection() {
             </div>
 
             <div className="flex">
-              <div className="flex-1">Set as Featured</div>
+              <div className="flex-1 text-style__body">Set as Featured</div>
 
               <Toggle state={featuredState} stateSetter={setFeaturedState} />
+            </div>
+
+            <div className="flex">
+              <div className="flex-1 text-style__body">Set as Completed</div>
+
+              <Toggle state={completedState} stateSetter={setCompletedState} />
             </div>
 
             <div className="flex justify-between">
@@ -387,7 +303,7 @@ export default function ProjectsSection() {
             </div>
           </div>
         ) : (
-          <div className="flex-1 h-fit p-2.5 md:p-5 flex flex-col gap-2.5 md:gap-5 bg-white border border-(--terciary-grey) rounded-[10px] text-style__body">
+          <div className="flex-1 h-fit feature-container-vertical text-style__body">
             <div className="text-style__subheading">
               {isAddingNewProject ? "Add New Project" : "Edit Project"}
             </div>

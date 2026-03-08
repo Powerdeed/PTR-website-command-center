@@ -1,16 +1,18 @@
 "use client";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 // component styling
-import DraftifyReact from "draftify-react";
+import { DraftifyReact } from "draftify-react";
 import "draftify-react/styles.css";
-import Button, { ButtonLight } from "@components/ui/Button";
-import { SubTitle } from "@components/ui/Title";
+import Button, { ButtonLight, DeleteIconBtn } from "@components/ui/Button";
 
 // hooks
 import useAboutOverview from "@hooks/Website content/aboutPage hooks/useAboutOverview";
 import useCompanyStructure from "@hooks/Website content/aboutPage hooks/useCompanyStructure";
+
+import FormWrapper, {
+  InputArea,
+  SeparatorLine,
+} from "@components/layout/FormWrapper";
 
 export default function AboutPage() {
   const {
@@ -45,12 +47,7 @@ export default function AboutPage() {
   return (
     <div className="vertical-layout__outer">
       {/* OVERVIEW SUBSECTION */}
-      <div className="vertical-layout__outer">
-        <div className="vertical-layout__inner">
-          <SubTitle subtitle="Overview Subsection" />
-          <SeparatorLine />
-        </div>
-
+      <FormWrapper subtitle="Overview Subsection">
         <div className="vertical-layout__inner">
           Overview Summary
           <DraftifyReact
@@ -60,208 +57,123 @@ export default function AboutPage() {
           />
         </div>
 
-        <div className="vertical-layout__inner">
-          Mission Statement
-          <input
-            type="text"
-            className="input-style"
-            value={
-              aboutOverviewData.find((about) => about.title === "Mission")
-                ?.description as string
-            }
-            onChange={(e) => updateAboutOverviewData(e.target.value, "Mission")}
-          />
-        </div>
+        <InputArea
+          label="Mission Statement"
+          val={
+            aboutOverviewData.find((about) => about.title === "Mission")
+              ?.description as string
+          }
+          changeFunc={(val) => updateAboutOverviewData(val, "Mission")}
+        />
 
-        <div className="vertical-layout__inner">
-          Vision Statement
-          <input
-            type="text"
-            className="input-style input-focus"
-            value={
-              aboutOverviewData.find((about) => about.title === "Vision")
-                ?.description as string
-            }
-            onChange={(e) => updateAboutOverviewData(e.target.value, "Vision")}
-          />
-        </div>
+        <InputArea
+          label="Vision Statement"
+          val={
+            aboutOverviewData.find((about) => about.title === "Vision")
+              ?.description as string
+          }
+          changeFunc={(val) => updateAboutOverviewData(val, "Vision")}
+        />
 
         <SeparatorLine />
 
-        <div className="vertical-layout__inner">
-          <div className="flex gap-2.5">
-            <div className="flex-1">Why Choose Us</div>
-            <ButtonLight
-              buttonText="+ Add Item"
-              clickAction={() => handleAddItems("Why Choose Powerdeed?")}
-            />
-          </div>
+        {["Why Choose Powerdeed?", "Unique Features", "Core Values"].map(
+          (info, index) => {
+            const arrDesc = aboutOverviewData.find(
+              (data) => data.title === info,
+            );
 
-          <div className="vertical-layout__inner">
-            {Array.isArray(
-              aboutOverviewData.find(
-                (data) => data.title === "Why Choose Powerdeed?",
-              )?.description,
-            ) &&
-              (
-                aboutOverviewData.find(
-                  (data) => data.title === "Why Choose Powerdeed?",
-                )?.description as string[]
-              ).map((reason: string, index: number) => (
-                <div key={index} className="flex gap-2.5 p-2.5 items-center">
-                  <input
-                    type="text"
-                    className="flex-1 w-full outline-none input-style"
-                    value={reason}
-                    onChange={(e) =>
-                      updateAboutOverviewData(
-                        e.target.value,
-                        "Why Choose Powerdeed?",
-                        index,
-                      )
-                    }
+            if (!arrDesc) return;
+
+            if (!Array.isArray(arrDesc?.description)) return;
+
+            return (
+              <FormWrapper
+                key={index}
+                keyVal={index}
+                subtitle={arrDesc.title}
+                subtitleChildren={
+                  <ButtonLight
+                    buttonText="+ Add Item"
+                    clickAction={() => handleAddItems(info)}
                   />
+                }
+              >
+                {Array.isArray(arrDesc.description) &&
+                  (arrDesc.description as string[]).map(
+                    (reason: string, index: number) => (
+                      <div
+                        key={index}
+                        className="flex gap-2.5 p-2.5 items-center"
+                      >
+                        {!Array.isArray(reason) ? (
+                          <InputArea
+                            label=""
+                            val={reason}
+                            changeFunc={(val) =>
+                              updateAboutOverviewData(val, arrDesc.title, index)
+                            }
+                          >
+                            <DeleteIconBtn
+                              deleteFunc={() =>
+                                handleDeleteItems(arrDesc.title, index)
+                              }
+                            />
+                          </InputArea>
+                        ) : (
+                          <InputArea
+                            label=""
+                            val={reason[0]}
+                            changeFunc={(val) =>
+                              updateAboutOverviewData(
+                                val,
+                                "Core Values",
+                                index,
+                                0,
+                              )
+                            }
+                          >
+                            <InputArea
+                              label=""
+                              val={reason[1]}
+                              changeFunc={(val) =>
+                                updateAboutOverviewData(
+                                  val,
+                                  "Core Values",
+                                  index,
+                                  1,
+                                )
+                              }
+                            />
 
-                  <div
-                    className="text-(--primary-red) cursor-pointer"
-                    onClick={() =>
-                      handleDeleteItems("Why Choose Powerdeed?", index)
-                    }
-                  >
-                    <FontAwesomeIcon icon={["far", "trash-can"]} />
-                  </div>
-                </div>
-              ))}
-          </div>
+                            <DeleteIconBtn
+                              deleteFunc={() =>
+                                handleDeleteItems("Core Values", index)
+                              }
+                            />
+                          </InputArea>
+                        )}
+                      </div>
+                    ),
+                  )}
 
-          <SeparatorLine />
-        </div>
-
-        <div className="vertical-layout__inner">
-          <div className="flex gap-2.5">
-            <div className="flex-1">Unique features & benefits</div>
-            <div>
-              <ButtonLight
-                buttonText="+ Add Item"
-                clickAction={() => handleAddItems("Unique Features")}
-              />
-            </div>
-          </div>
-
-          <div className="vertical-layout__inner">
-            {Array.isArray(
-              aboutOverviewData.find((data) => data.title === "Unique Features")
-                ?.description,
-            ) &&
-              (
-                aboutOverviewData.find(
-                  (data) => data.title === "Unique Features",
-                )?.description as string[]
-              ).map((reason: string, index: number) => (
-                <div key={index} className="flex gap-2.5 p-2.5 items-center">
-                  <input
-                    type="text"
-                    className="flex-1 w-full outline-none input-style"
-                    value={reason}
-                    onChange={(e) =>
-                      updateAboutOverviewData(
-                        e.target.value,
-                        "Unique Features",
-                        index,
-                      )
-                    }
-                  />
-
-                  <button
-                    className="text-(--primary-red) cursor-pointer"
-                    onClick={() => handleDeleteItems("Unique Features", index)}
-                  >
-                    <FontAwesomeIcon icon={["far", "trash-can"]} />
-                  </button>
-                </div>
-              ))}
-          </div>
-
-          <SeparatorLine />
-        </div>
-
-        <div className="vertical-layout__inner">
-          <div className="flex gap-2.5">
-            <div className="flex-1">Core Values</div>
-            <ButtonLight
-              buttonText="+ Add Item"
-              clickAction={() => handleAddItems("Core Values")}
-            />
-          </div>
-
-          <div className="vertical-layout__inner">
-            {Array.isArray(
-              aboutOverviewData.find((data) => data.title === "Core Values")
-                ?.description,
-            ) &&
-              (
-                aboutOverviewData.find((data) => data.title === "Core Values")
-                  ?.description as string[]
-              ).map((reason: string, index: number) => (
-                <div key={index} className="flex gap-2.5 p-2.5 items-center">
-                  <input
-                    type="text"
-                    className="flex-1 w-full outline-none input-style"
-                    value={reason[0]}
-                    onChange={(e) =>
-                      updateAboutOverviewData(
-                        e.target.value,
-                        "Core Values",
-                        index,
-                        0,
-                      )
-                    }
-                  />
-
-                  <input
-                    type="text"
-                    className="flex-1 w-full outline-none input-style"
-                    value={reason[1]}
-                    onChange={(e) =>
-                      updateAboutOverviewData(
-                        e.target.value,
-                        "Core Values",
-                        index,
-                        1,
-                      )
-                    }
-                  />
-
-                  <div
-                    className="text-(--primary-red) cursor-pointer"
-                    onClick={() => handleDeleteItems("Core Values", index)}
-                  >
-                    <FontAwesomeIcon icon={["far", "trash-can"]} />
-                  </div>
-                </div>
-              ))}
-          </div>
-
-          <SeparatorLine />
-        </div>
-      </div>
+                <SeparatorLine />
+              </FormWrapper>
+            );
+          },
+        )}
+      </FormWrapper>
 
       {/* STRUCTURE SUBSECTION */}
-      <div className="vertical-layout__outer">
-        <div className="flex gap-2.5 items-center">
-          <div className="vertical-layout__inner flex-1">
-            <SubTitle subtitle="Overview Subsection" />
-            <div className="text-style__small-text text-(--terciary-grey)">
-              Company hierarchy and organizational structure
-            </div>
-          </div>
-
+      <FormWrapper
+        subtitle="Company Structure"
+        subtitleChildren={
           <ButtonLight
             buttonText="+ Add Level"
             clickAction={addHierarchyLevel}
           />
-        </div>
-
+        }
+      >
         {companyStructureData.map((level) => (
           <div
             key={level.id}
@@ -270,27 +182,20 @@ export default function AboutPage() {
             <div className="flex gap-2.5 items-center">
               <div className="font-semibold flex-1">Level {level.id}</div>
 
-              <div
-                className="text-(--primary-red)"
-                onClick={() => deleteHierarchyLevel(level.id)}
-              >
-                <FontAwesomeIcon icon={["far", "trash-can"]} />
-              </div>
-            </div>
-
-            <div className="vertical-layout__inner">
-              <div className="text-style__small-text">Level Name</div>
-              <input
-                type="text"
-                className="input-style"
-                value={level.levelName}
-                onChange={(e) => updateStructure(level.id, e.target.value)}
+              <DeleteIconBtn
+                deleteFunc={() => deleteHierarchyLevel(level.id)}
               />
             </div>
 
+            <InputArea
+              label="Level Name"
+              val={level.levelName}
+              changeFunc={(val) => updateStructure(level.id, val)}
+            />
+
             <div className="vertical-layout__inner">
               <div className="flex gap-2.5 items-center">
-                <div className="text-style__small-text flex-1">Positions</div>
+                <div className="flex-1">Positions</div>
 
                 <ButtonLight
                   buttonText="+ Add Position"
@@ -299,33 +204,26 @@ export default function AboutPage() {
               </div>
 
               {level.positions.map((position, index) => (
-                <div key={index} className="flex gap-2.5 items-center">
-                  <input
-                    type="text"
-                    className="input-style flex-1"
-                    value={position}
-                    onChange={(e) =>
-                      updateStructure(
-                        level.id,
-                        level.levelName,
-                        index,
-                        e.target.value,
-                      )
-                    }
+                <InputArea
+                  key={index}
+                  keyVal={index}
+                  val={position}
+                  label=""
+                  changeFunc={(val) =>
+                    updateStructure(level.id, level.levelName, index, val)
+                  }
+                >
+                  <DeleteIconBtn
+                    deleteFunc={() => deleteLevelPosition(level.id, index)}
                   />
-
-                  <div
-                    className="text-(--primary-red)"
-                    onClick={() => deleteLevelPosition(level.id, index)}
-                  >
-                    <FontAwesomeIcon icon={["far", "trash-can"]} />
-                  </div>
-                </div>
+                </InputArea>
               ))}
+
+              <SeparatorLine />
             </div>
           </div>
         ))}
-      </div>
+      </FormWrapper>
 
       <div className="flex gap-2.5 items-center justify-end">
         <ButtonLight buttonText="Reset Changes" clickAction={resetChanges} />
@@ -333,8 +231,4 @@ export default function AboutPage() {
       </div>
     </div>
   );
-}
-
-function SeparatorLine() {
-  return <hr className="border-t border-(--terciary-grey)" />;
 }

@@ -144,7 +144,7 @@ body {
 
 /********** TEXT STYLES **********/
 .page-layout {
-  @apply p-2.5 lg:p-5 flex flex-col gap-2.5 lg:gap-5;
+  @apply p-5 flex flex-col gap-5;
 }
 
 /********** TEXT STYLES **********/
@@ -198,6 +198,14 @@ body {
 }
 
 /********** GLOBAL STYLES **********/
+.feature-container-vertical {
+  @apply p-2.5 md:p-5 flex flex-col gap-2.5 md:gap-5 bg-white border border-(--terciary-grey) rounded-[10px];
+}
+
+.feature-container-horizontal {
+  @apply flex gap-2.5 items-center p-2.5 md:p-5 border border-(--terciary-grey) rounded-[10px] bg-white;
+}
+
 .vertical-layout__outer {
   @apply flex flex-col gap-5;
 }
@@ -207,14 +215,6 @@ body {
 }
 
 .input-style {
-  @apply bg-(--secondary-grey)/30 rounded-[10px] p-2;
-}
-
-.container-layout {
-  @apply bg-(--terciary-grey)/20 border border-(--primary-grey)/50 rounded-[10px] p-2.5;
-}
-
-input {
   @apply duration-80;
 
   /* 1. Remove the default browser outline */
@@ -226,4 +226,7 @@ input {
   /* 3. Apply a 3px shadow (ring) */
   /* ring-3 creates a 3px spread */
   @apply focus:ring-3 focus:ring-(--secondary-grey);
+
+  /* 4. Extra styling */
+  @apply bg-(--secondary-grey)/30 rounded-[10px] p-2;
 }

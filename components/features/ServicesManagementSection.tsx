@@ -8,7 +8,7 @@ import { services } from "@services/services";
 
 import Button, { ButtonRed } from "@components/ui/Button";
 import Loader from "@components/ui/Loader";
-import PageTitle from "@components/ui/PageTitle";
+import { SectionTitle } from "@components/ui/Title";
 
 const pageMeta = {
   title: "Services Management",
@@ -74,7 +74,7 @@ export default function ServicesManagementSection() {
     <div className="page-layout">
       <div className="flex items-center">
         <div className="flex-1">
-          <PageTitle title={pageMeta.title} subtitle={pageMeta.subtitle} />
+          <SectionTitle title={pageMeta.title} subtitle={pageMeta.subtitle} />
         </div>
         <Button
           buttonText={"+ Add New Service"}
@@ -84,7 +84,7 @@ export default function ServicesManagementSection() {
 
       <div className="flex flex-col md:flex-row gap-2.5 md:gap-5">
         {/* All services */}
-        <div className="flex-1 p-2.5 md:p-5 flex flex-col gap-2.5 md:gap-5 bg-white border border-(--terciary-grey) rounded-[10px] text-style__body">
+        <div className="flex-1 feature-container-vertical text-style__body">
           <div className="text-style__subheading">All Services</div>
 
           <table>
@@ -142,7 +142,7 @@ export default function ServicesManagementSection() {
 
         {/* Edit service */}
         {selectedService !== emptyServiceObj ? (
-          <div className="flex-1 p-2.5 md:p-5 flex flex-col gap-2.5 md:gap-5 bg-white border border-(--terciary-grey) rounded-[10px]">
+          <div className="flex-1 feature-container-vertical">
             <div className="text-style__subheading">
               {isAddingNewService ? "Add New Service" : "Edit Service"}{" "}
             </div>

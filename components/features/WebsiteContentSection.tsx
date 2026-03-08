@@ -1,6 +1,6 @@
 "use client";
 
-import PageTitle from "@components/ui/PageTitle";
+import { SectionTitle } from "@components/ui/Title";
 import { useState } from "react";
 import HomePage from "./WebsiteContentSection/HomePage";
 import ContactPage from "./WebsiteContentSection/ContactPage";
@@ -17,9 +17,9 @@ export default function WebsiteContentSection() {
   const [activeSection, setActiveSection] = useState("Home Page");
   return (
     <div className="page-layout">
-      <PageTitle title={pageMeta.title} subtitle={pageMeta.subtitle} />
+      <SectionTitle title={pageMeta.title} subtitle={pageMeta.subtitle} />
 
-      <div className="flex-1 p-2.5 md:p-5 flex flex-col gap-2.5 md:gap-5 bg-white border border-(--terciary-grey) rounded-[10px] text-style__body">
+      <div className="flex-1 feature-container-vertical text-style__body">
         <div className="text-style__subheading">Page Content Editor</div>
 
         {/* Sections selector */}

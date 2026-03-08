@@ -1,11 +1,16 @@
 "use client";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { SubTitle } from "@components/ui/Title";
-import Button, { ButtonLight } from "@components/ui/Button";
+import Button, {
+  ButtonLight,
+  DeleteIconBtn,
+  UploadIconBtn,
+} from "@components/ui/Button";
 
 import useHomePage from "@hooks/Website content/useHomePage";
+import FormWrapper, {
+  InputArea,
+  SeparatorLine,
+} from "@components/layout/FormWrapper";
 
 export default function HomePage() {
   const {
@@ -25,119 +30,77 @@ export default function HomePage() {
   return (
     <div className="text-style__body vertical-layout__outer">
       {/* HERO SECTION EDIT */}
-      <div className="vertical-layout__outer">
-        <div className="vertical-layout__inner">
-          <SubTitle subtitle="Hero Section" />
-          <SeparatorLine />
-        </div>
+      <FormWrapper subtitle="Hero Section">
+        <InputArea
+          label="Hero Image"
+          val={heroSectionData.image}
+          changeFunc={(val) => updateHeroContent("image", val)}
+        >
+          <ButtonLight buttonText="Upload" clickAction={handleImageUpload} />
+        </InputArea>
 
-        <div className="vertical-layout__inner">
-          Hero Image
-          <div className="w-full flex gap-2.5">
-            <input
-              type="text"
-              className="flex-1 input-style"
-              value={heroSectionData.image}
-              onChange={(e) => updateHeroContent("image", e.target.value)}
-            />
+        <InputArea
+          label="Hero Title"
+          val={heroSectionData.title}
+          changeFunc={(val) => updateHeroContent("title", val)}
+        />
 
-            <ButtonLight buttonText="Upload" clickAction={handleImageUpload} />
-          </div>
-        </div>
-
-        <div className="vertical-layout__inner">
-          Hero Title
-          <textarea
-            className="flex-1 input-style field-sizing-content"
-            value={heroSectionData.title}
-            onChange={(e) => updateHeroContent("title", e.target.value)}
-          />
-        </div>
-
-        <div className="vertical-layout__inner">
-          Hero Subtitle
-          <textarea
-            className="flex-1 input-style field-sizing-content"
-            value={heroSectionData.subtitle}
-            onChange={(e) => updateHeroContent("subtitle", e.target.value)}
-          />
-        </div>
+        <InputArea
+          label="Hero Subtitle"
+          val={heroSectionData.subtitle}
+          changeFunc={(val) => updateHeroContent("subtitle", val)}
+        />
 
         <SeparatorLine />
-      </div>
+      </FormWrapper>
 
       {/* ABOUT US SUMMARY */}
       {aboutSummaryData.map((about, index) => (
-        <div key={index} className="text-style__body vertical-layout__outer">
-          <div className="vertical-layout__inner">
-            <SubTitle
-              subtitle={`About Sumary - ${index === 0 ? "Top" : "Bottom"} Section`}
-            />
-            <SeparatorLine />
-          </div>
-
+        <FormWrapper
+          key={index}
+          keyVal={index}
+          subtitle={`About Summary - ${index === 0 ? "Top" : "Bottom"} Section`}
+        >
           <em className="text-(--secondary-grey) text-style__small-text">
             Image on the {index === 0 ? "left" : "right"}, content on the{" "}
             {index === 0 ? "right" : "left"}
           </em>
 
-          <div className="vertical-layout__inner">
-            Image
-            <div className="w-full flex gap-2.5">
-              <input
-                type="text"
-                className="flex-1 input-style"
-                value={about.image}
-                onChange={(e) =>
-                  updateAboutIntro("image", e.target.value, index)
-                }
-              />
+          <InputArea
+            label="Image"
+            val={about.image}
+            changeFunc={(val) => updateAboutIntro("image", val, index)}
+          >
+            <ButtonLight buttonText="Upload" clickAction={handleImageUpload} />
+          </InputArea>
 
-              <ButtonLight
-                buttonText="Upload"
-                clickAction={handleImageUpload}
-              />
-            </div>
-          </div>
+          <InputArea
+            label="Title"
+            val={about.title}
+            changeFunc={(val) => updateAboutIntro("title", val, index)}
+          />
 
-          <div className="vertical-layout__inner">
-            Title
-            <textarea
-              className="flex-1 input-style field-sizing-content"
-              value={about.title}
-              onChange={(e) => updateAboutIntro("title", e.target.value, index)}
-            />
-          </div>
-
-          <div className="vertical-layout__inner">
-            Description
-            <textarea
-              className="flex-1 input-style field-sizing-content"
-              value={about.description}
-              onChange={(e) =>
-                updateAboutIntro("description", e.target.value, index)
-              }
-            />
-          </div>
+          <InputArea
+            label="Description"
+            val={about.description}
+            changeFunc={(val) => updateAboutIntro("description", val, index)}
+          />
 
           <SeparatorLine />
-        </div>
+        </FormWrapper>
       ))}
 
       {/* TESTIMONIALS SECTION */}
-      <div className="vertical-layout__outer">
-        <div className="flex gap-2.5 items-center">
-          <div className="flex-1">
-            <SubTitle subtitle="Testimonial Section" />
-          </div>
-
+      <FormWrapper
+        subtitle="Testimonial Section"
+        subtitleChildren={
           <Button
             buttonText="+ Add Testimonial"
             clickAction={handleAddTestimonial}
           />
-        </div>
-
-        <div className="vertical-layout__inner border border-(--terciary-grey) rounded-[10px] p-2.5 h-100 overflow-y-auto section-scrollbar">
+        }
+      >
+        <div className="border border-(--terciary-grey) rounded-[10px] p-2.5 h-100 overflow-y-auto section-scrollbar">
           {testimonialData.map((testimonial, index) => (
             <div
               key={index}
@@ -146,109 +109,61 @@ export default function HomePage() {
               <div className="text-style__big-text flex">
                 <div className="flex-1"> Testimonial {index + 1}</div>
 
-                <div
-                  className="text-(--secondary-red) cursor-pointer"
-                  onClick={() => handleDeleteTestimonial(testimonial.id)}
+                <DeleteIconBtn
+                  deleteFunc={() => handleDeleteTestimonial(testimonial.id)}
+                />
+              </div>
+
+              <div className="flex gap-5">
+                <InputArea
+                  label="Profile Image"
+                  val={testimonial.profilePic}
+                  changeFunc={(val) =>
+                    updateTestimonial("profilePic", val, testimonial.id)
+                  }
                 >
-                  <FontAwesomeIcon icon={["far", "trash-can"]} />
-                </div>
-              </div>
+                  <UploadIconBtn uploadFunc={handleImageUpload} />
+                </InputArea>
 
-              <div className="flex gap-5">
-                <div className="flex-1">
-                  Profile Image
-                  <div className="flex gap-2.5 items-center">
-                    <input
-                      type="text"
-                      className="flex-1 input-style"
-                      value={testimonial.profilePic}
-                      onChange={(e) =>
-                        updateTestimonial(
-                          "profilePic",
-                          e.target.value,
-                          testimonial.id,
-                        )
-                      }
-                    />
-
-                    <div
-                      className="py-1.5 px-2 h border border-(--secondary-grey) bg-white rounded-[10px] w-fit hover:bg-(--terciary-grey)/30 duration-100"
-                      onClick={handleImageUpload}
-                    >
-                      <FontAwesomeIcon
-                        icon={["fas", "arrow-up-from-bracket"]}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex-1 flex flex-col">
-                  Name
-                  <input
-                    type="text"
-                    className="flex-1 input-style"
-                    value={testimonial.name}
-                    onChange={(e) =>
-                      updateTestimonial("name", e.target.value, testimonial.id)
-                    }
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-5">
-                <div className="flex-1 flex flex-col">
-                  Position
-                  <input
-                    type="text"
-                    className="flex-1 input-style"
-                    value={testimonial.position}
-                    onChange={(e) =>
-                      updateTestimonial(
-                        "position",
-                        e.target.value,
-                        testimonial.id,
-                      )
-                    }
-                  />
-                </div>
-
-                <div className="flex-1 flex flex-col">
-                  Industry / Project
-                  <input
-                    type="text"
-                    className="flex-1 input-style"
-                    value={testimonial.industry}
-                    onChange={(e) =>
-                      updateTestimonial(
-                        "industry",
-                        e.target.value,
-                        testimonial.id,
-                      )
-                    }
-                  />
-                </div>
-              </div>
-
-              <div className="flex-1 flex flex-col">
-                Testimonial Text
-                <textarea
-                  className="flex-1 input-style"
-                  value={testimonial.testimonial}
-                  onChange={(e) =>
-                    updateTestimonial(
-                      "testimonial",
-                      e.target.value,
-                      testimonial.id,
-                    )
+                <InputArea
+                  label="Name"
+                  val={testimonial.name}
+                  changeFunc={(val) =>
+                    updateTestimonial("name", val, testimonial.id)
                   }
                 />
               </div>
+
+              <div className="flex gap-5">
+                <InputArea
+                  label="Position"
+                  val={testimonial.position}
+                  changeFunc={(val) =>
+                    updateTestimonial("position", val, testimonial.id)
+                  }
+                />
+                <InputArea
+                  label="Industry / Project"
+                  val={testimonial.industry}
+                  changeFunc={(val) =>
+                    updateTestimonial("industry", val, testimonial.id)
+                  }
+                />
+              </div>
+
+              <InputArea
+                label="Testimonial Text"
+                val={testimonial.testimonial}
+                changeFunc={(val) =>
+                  updateTestimonial("testimonial", val, testimonial.id)
+                }
+              />
             </div>
           ))}
-        </div>
 
-        <SeparatorLine />
-      </div>
+          <SeparatorLine />
+        </div>
+      </FormWrapper>
 
       <div className="flex gap-2.5 items-center justify-end">
         <ButtonLight buttonText="Reset Changes" clickAction={resetChanges} />
@@ -256,8 +171,4 @@ export default function HomePage() {
       </div>
     </div>
   );
-}
-
-function SeparatorLine() {
-  return <hr className="border-t border-(--terciary-grey)" />;
 }

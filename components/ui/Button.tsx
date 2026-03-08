@@ -1,3 +1,7 @@
+"use client";
+
+import { FontAwesomeIcon } from "@node_modules/@fortawesome/react-fontawesome/dist";
+
 export default function Button({
   buttonText,
   clickAction,
@@ -46,5 +50,24 @@ export function ButtonRed({
     >
       {buttonText}
     </button>
+  );
+}
+
+export function DeleteIconBtn({ deleteFunc }: { deleteFunc: () => void }) {
+  return (
+    <div className="text-(--secondary-red) cursor-pointer" onClick={deleteFunc}>
+      <FontAwesomeIcon icon={["far", "trash-can"]} />
+    </div>
+  );
+}
+
+export function UploadIconBtn({ uploadFunc }: { uploadFunc: () => void }) {
+  return (
+    <div
+      className="py-1.5 px-2 h border border-(--secondary-grey) bg-white rounded-[10px] w-fit hover:bg-(--terciary-grey)/30 duration-100"
+      onClick={uploadFunc}
+    >
+      <FontAwesomeIcon icon={["fas", "arrow-up-from-bracket"]} />
+    </div>
   );
 }

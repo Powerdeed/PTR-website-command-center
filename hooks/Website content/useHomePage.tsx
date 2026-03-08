@@ -26,16 +26,11 @@ export default function useHomePage() {
     data: string | boolean,
     section: number,
   ) =>
-    setAboutSummaryData((prev) => {
-      const sectionData = prev[section];
-
-      const updatedSectionData: AboutIntro = {
-        ...sectionData,
-        [key]: data,
-      };
-
-      return [updatedSectionData, prev[section === 0 ? 1 : 0]];
-    });
+    setAboutSummaryData((prev) =>
+      prev.map((item, index) =>
+        index === section ? { ...item, [key]: data } : item
+      )
+    );
 
   const updateTestimonial = (
     key: string,

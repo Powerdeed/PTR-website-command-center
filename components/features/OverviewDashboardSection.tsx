@@ -17,7 +17,7 @@ import {
   LineContext,
   PieContext,
 } from "@components/layout/charts/ChartContext";
-import PageTitle from "@components/ui/PageTitle";
+import { SectionTitle } from "@components/ui/Title";
 
 const PageMetadata = {
   title: "Dashboard Overview",
@@ -69,15 +69,15 @@ export default function OverviewDashboardSection() {
 
   return (
     <main className="page-layout">
-      <PageTitle title={PageMetadata.title} subtitle={PageMetadata.subtitle} />
+      <SectionTitle
+        title={PageMetadata.title}
+        subtitle={PageMetadata.subtitle}
+      />
 
       {/* STATS */}
-      <div className="grid lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-4 gap-5">
         {stats.map((stat, index) => (
-          <div
-            key={index}
-            className="flex gap-2.5 items-center p-2 lg:p-5 border border-(--terciary-grey) rounded-[10px] bg-white"
-          >
+          <div key={index} className="feature-container-horizontal">
             <div className="text-style__body">
               <div className="font-medium">{stat.label}</div>
               <div className="text-style__heading">{stat.value}</div>
@@ -98,21 +98,25 @@ export default function OverviewDashboardSection() {
       </div>
 
       {/* CHART TRENDS */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div className="h-100 p-5 pb-10 bg-white border border-(--terciary-grey) rounded-[10px]">
+      <div className="grid grid-cols-2 gap-5">
+        <div className="h-100 pb-10 feature-container-vertical">
           <div className="text-style__body mb-2.5">Inquiry Trends</div>
-          <LineGraph />
+          <div className="h-80">
+            <LineGraph />
+          </div>
         </div>
-        <div className="h-100 p-5 pb-10 bg-white border border-(--terciary-grey) rounded-[10px] flex flex-col items-center">
+        <div className="h-100 pb-10 feature-container-vertical">
           <div className="text-style__body mb-2.5 w-full h-fit text-left">
             Traffic Sources
           </div>
-          <PieDoughnut />
+          <div className="h-80">
+            <PieDoughnut />
+          </div>
         </div>
       </div>
 
       {/* RECENT ACTIVITIES */}
-      <div className="flex flex-col gap-2.5 border border-(--terciary-grey) rounded-[10px] p-2.5 lg:p-5 bg-white">
+      <div className="feature-container-vertical">
         <div className="text-style__subheading">Recent Activity</div>
 
         {recentActivities.slice(0, visibleCount).map((activity, index) => (

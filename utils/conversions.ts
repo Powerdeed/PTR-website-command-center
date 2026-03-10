@@ -61,3 +61,49 @@ export function to12Hour(time: string): string {
 
   return `${hours}:${minutes} ${modifier}`;
 }
+
+export const mediaType = (url?: string) => {
+  if (!url || typeof url !== "string") return "unknown";
+
+  const imageExtensions = [
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".bmp",
+    ".webp",
+    ".avif",
+  ];
+
+  const diagramExtensions = [".svg"];
+
+  const videoExtensions = [
+    ".mp4",
+    ".avi",
+    ".mov",
+    ".wmv",
+    ".flv",
+    ".mkv",
+    ".webm",
+  ];
+
+  const docExtensions = [".pdf", ".docx", ".doc", ".csv"];
+
+  for (const ext of imageExtensions) {
+    if (url.toLowerCase().includes(ext)) return "image";
+  }
+
+  for (const ext of videoExtensions) {
+    if (url.toLowerCase().includes(ext)) return "video";
+  }
+
+  for (const ext of docExtensions) {
+    if (url.toLowerCase().includes(ext)) return "document";
+  }
+
+  for (const ext of diagramExtensions) {
+    if (url.toLowerCase().includes(ext)) return "diagram";
+  }
+
+  return "unknown";
+};

@@ -11,7 +11,7 @@ export default function Button({
 }) {
   return (
     <button
-      className="bg-(--primary-blue) py-3 px-4 rounded-[10px] text-white text-style__small-text cursor-pointer"
+      className="bg-(--primary-blue) py-3 px-4 rounded-[10px] text-white hover:bg-(--secondary-blue) duration-300 text-style__small-text cursor-pointer"
       onClick={clickAction}
     >
       {buttonText}
@@ -22,16 +22,21 @@ export default function Button({
 export function ButtonLight({
   buttonText,
   clickAction,
+  icon,
 }: {
   buttonText: string;
   clickAction: (args: unknown) => void;
+  icon?: React.ReactNode;
 }) {
   return (
     <button
-      className="border border-(--primary-blue) py-2.75 px-4 rounded-[10px] text-(--primary-blue) text-style__small-text cursor-pointer"
+      className="border border-(--secondary-blue) py-2.75 px-4 rounded-[10px] text-(--primary-blue) bg-white hover:bg-(--terciary-grey)/40 duration-300 text-style__small-text cursor-pointer"
       onClick={clickAction}
     >
-      {buttonText}
+      <div className={icon ? "flex items-center" : ""}>
+        {icon}
+        {buttonText}
+      </div>
     </button>
   );
 }

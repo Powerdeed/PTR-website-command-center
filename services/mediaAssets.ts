@@ -1,7 +1,7 @@
 export interface Asset {
-  id: number | string;
+  id: string;
   name: string; // File name with extension
-  type: string; // 'image', 'document', 'diagram', etc.
+  type: "image" | "document" | "diagram"; // 'image', 'document', 'diagram', etc.
   size: string; // Human-readable size (e.g., "2.4 MB")
   usage: string; // Where/how the asset is used
   uploadDate: string; // ISO date string or formatted date

@@ -28,6 +28,8 @@ import {
   faSuitcase,
   faArrowTrendUp,
   faArrowUpFromBracket,
+  faImage,
+  faDownload,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -75,4 +77,7 @@ library.add(
   faEyeSlash,
   faArrowUpFromBracket,
   faTrashCan,
+  faImage,
+  faFileLines,
+  faDownload,
 );

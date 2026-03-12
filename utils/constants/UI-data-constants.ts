@@ -46,12 +46,3 @@ export const sectionAccentColors = {
     text: "text-(--primary-blue)",
   },
 };
-
-export const companyServices = [
-  "Electrical Installation",
-  "Solar Installation",
-  "Generators",
-  "Automation",
-  "Alarms",
-  "CCTVs",
-];

@@ -107,3 +107,14 @@ export const mediaType = (url?: string) => {
 
   return "unknown";
 };
+
+export const truncateString = (str: string, maxLength: number) => {
+  // Check if the string's length is greater than the maximum allowed length
+  if (str.length > maxLength) {
+    // If it is, slice the string to the maxLength and append "..."
+    return str.slice(0, maxLength) + "...";
+  } else {
+    // Otherwise, return the original string
+    return str;
+  }
+};

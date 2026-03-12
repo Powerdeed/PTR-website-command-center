@@ -6,7 +6,7 @@ import Button, { ButtonRed, ButtonLight } from "@components/ui/Button";
 import Loader from "@components/ui/Loader";
 import { SectionTitle } from "@components/ui/Title";
 
-import { companyServices } from "@utils/constants/UI-data-constants";
+import { companyServices } from "@services/services";
 import Toggle from "../ui/Toggle";
 import useProjects from "@hooks/useProjects";
 

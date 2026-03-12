@@ -42,3 +42,12 @@ export const services: Service[] = [
     status: false,
   },
 ];
+
+export const companyServices = [
+  "Electrical Installation",
+  "Solar Installation",
+  "Generators",
+  "Automation",
+  "Alarms",
+  "CCTVs",
+];

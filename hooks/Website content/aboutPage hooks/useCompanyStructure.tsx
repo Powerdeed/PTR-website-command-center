@@ -1,6 +1,9 @@
 "use client";
 
-import { CompanyStructure, companyStructure } from "@/services/aboutpage";
+import {
+  CompanyStructure,
+  companyStructure,
+} from "@/services/companyStructure";
 import { sortBasedOnId } from "@utils/conversions";
 import { useState } from "react";
 

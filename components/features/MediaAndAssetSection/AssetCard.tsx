@@ -3,9 +3,7 @@
 import { SeparatorLine } from "@components/layout/FormWrapper";
 import { ButtonLight } from "@components/ui/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import UseMediaAssets from "@hooks/useMediaAssets";
 import { Asset } from "@services/mediaAssets";
-import { truncateString } from "@utils/conversions";
 
 type AssetCardProps = {
   asset: Asset;
@@ -13,8 +11,6 @@ type AssetCardProps = {
 };
 
 export default function AssetCard({ asset, iconColors }: AssetCardProps) {
-  const { mediumScreen } = UseMediaAssets();
-
   return (
     <div className="p-5 flex flex-col border border-(--terciary-grey)/40 hover:border-(--secondary-blue) hover:bg-(--secondary-blue)/5 rounded-[10px] gap-2.5 h-60">
       <div className="flex gap-2.5 h-12">
@@ -26,9 +22,10 @@ export default function AssetCard({ asset, iconColors }: AssetCardProps) {
         </div>
 
         <div>
-          <div className="text-style__body--bold">
-            {!mediumScreen ? truncateString(asset.name, 25) : asset.name}
+          <div className="w-full h-8 text-style__small-text--bold overflow-hidden">
+            {asset.name}
           </div>
+
           <div className="text-style__small-text text-(--secondary-grey)">
             {asset.size}
           </div>

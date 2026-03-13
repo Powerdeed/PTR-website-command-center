@@ -1,4 +1,4 @@
-import { companyServices } from "@/utils/constants/UI-data-constants";
+import { companyServices } from "@services/services";
 
 export interface Service {
   id: string;

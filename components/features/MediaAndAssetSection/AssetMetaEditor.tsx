@@ -7,6 +7,8 @@ type AssetMetaEditorProps = {
   currentAsset: Asset | null;
   assetCategory: string;
   setAssetCategory: Dispatch<SetStateAction<string>>;
+  fileName: string;
+  setFileName: Dispatch<SetStateAction<string>>;
   setFirstPathArr: (value: SetStateAction<string[] | null>) => void;
   assetUsagePaths: Record<string, string[]>;
   firstPathArr: string[] | null;
@@ -14,13 +16,14 @@ type AssetMetaEditorProps = {
   secondPath: string | undefined;
   setFirstPath: (value: SetStateAction<string | undefined>) => void;
   setSecondPath: (value: SetStateAction<string | undefined>) => void;
-  updateAsset: (key: string, val: string) => void;
 };
 
 export default function AssetMetaEditor({
   handleSubmit,
   currentAsset,
   assetCategory,
+  fileName,
+  setFileName,
   setAssetCategory,
   setFirstPathArr,
   assetUsagePaths,
@@ -29,45 +32,37 @@ export default function AssetMetaEditor({
   setFirstPath,
   secondPath,
   setSecondPath,
-  updateAsset,
 }: AssetMetaEditorProps) {
   return (
     <form onSubmit={handleSubmit} className="feature-container-vertical h-full">
-      <div>Edit file meta data before uploading</div>
+      <div>
+        {
+          "Edit file meta data before uploading (areas with '*' must be updated)."
+        }
+      </div>
 
       <div className="flex-1 grid grid-cols-2 gap-2.5">
         {currentAsset &&
           Object.entries(currentAsset).map(([key, value]) => {
-            const editableFields: Partial<Record<keyof Asset, string>> = {
-              name: "Rename file",
-            };
-            const assetKey = key as keyof Asset;
-            const placeholder = editableFields[assetKey];
-            const isEditable = Boolean(placeholder);
+            if (key === "name" || key === "category" || key === "usage") return;
 
-            if (key === "usage" || key === "category") return;
-
-            return (
-              <MetaWrapper
-                key={key}
-                meta={
-                  isEditable
-                    ? assetKey === "name"
-                      ? `${key}(optional)*`
-                      : `${key}*`
-                    : key
-                }
-                val={value}
-                {...(isEditable && {
-                  placeholder,
-                  changeHandler: (val) => updateAsset(assetKey, val),
-                })}
-              />
-            );
+            return <MetaWrapper key={key} meta={key} val={value} />;
           })}
 
         <div className="flex gap-2.5 items-center">
-          <div className="w-55">select category:</div>
+          <div className="w-55">name(optional)*:</div>
+          <textarea
+            placeholder="Rename file"
+            value={fileName.split(".").slice(0, -1)}
+            onChange={(e) => {
+              setFileName(`${e.target.value}.${fileName.split(".").pop()}`);
+            }}
+            className="w-full input-style field-sizing-content"
+          />
+        </div>
+
+        <div className="flex gap-2.5 items-center">
+          <div className="w-55">select category*:</div>
 
           <select
             value={assetCategory}
@@ -97,8 +92,8 @@ export default function AssetMetaEditor({
       <div className="flex gap-2.5 items-center">
         <div className="w-33">usage*:</div>
 
-        {firstPathArr &&
-          (firstPathArr.length > 0 ? (
+        {firstPathArr ? (
+          firstPathArr.length > 0 ? (
             <div className="flex gap-2.5 items-center">
               <select
                 value={firstPath}
@@ -139,11 +134,12 @@ export default function AssetMetaEditor({
                 </select>
               )}
             </div>
-          ) : firstPathArr?.length === 0 ? (
-            <div>no path selection needed</div>
           ) : (
-            <div className="input-style">select a category first</div>
-          ))}
+            <div>no path selection needed</div>
+          )
+        ) : (
+          <div>select a category first</div>
+        )}
       </div>
 
       <Button buttonText="Upload asset" clickAction={handleSubmit} />
@@ -151,32 +147,13 @@ export default function AssetMetaEditor({
   );
 }
 
-function MetaWrapper({
-  meta,
-  placeholder,
-  val,
-  changeHandler,
-}: {
-  meta: string;
-  placeholder?: string;
-  val: string;
-  changeHandler?: (val: string) => void;
-}) {
+function MetaWrapper({ meta, val }: { meta: string; val: string }) {
   return (
     <div className="flex gap-2.5 items-center">
       <div className="w-55">{meta}:</div>
-      {placeholder && changeHandler ? (
-        <textarea
-          placeholder={placeholder}
-          value={val}
-          onChange={(e) => changeHandler(e.target.value)}
-          className="w-full input-style field-sizing-content"
-        />
-      ) : (
-        <div className="w-full min-h-10 input-style field-sizing-content">
-          {val}
-        </div>
-      )}
+      <div className="w-full min-h-10 input-style field-sizing-content">
+        {val}
+      </div>
     </div>
   );
 }

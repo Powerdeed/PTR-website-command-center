@@ -5,7 +5,8 @@ import { Asset, sampleProcessedAssets } from "@services/mediaAssets";
 import { companyServices } from "@services/services";
 import { companyStructure } from "@services/companyStructure";
 import { projects } from "@services/projects";
-import { mediaType } from "@utils/conversions";
+
+import { getCurrentDateFormatted, mediaType } from "@utils/conversions";
 
 export default function UseMediaAssets() {
   const [mediaAssets, setMediaAssets] = useState<Asset[]>(
@@ -14,43 +15,36 @@ export default function UseMediaAssets() {
   const [currentAsset, setCurrentAsset] = useState<Asset | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [file, setFile] = useState<File | null>(null);
-  const [fileName, setFileName] = useState<string>("");
   const [compressing, setCompressing] = useState<boolean>(false);
   const [error, setError] = useState<boolean | null>(null);
   const [compressionProgress, setCompressionProgress] = useState<number>(0);
   const [currentAssetNew, setCurrentAssetNew] = useState(false);
-  const [assetCategory, setAssetCategory] = useState("");
   const [firstPathArr, setFirstPathArr] = useState<string[] | null>(null);
   const [firstPath, setFirstPath] = useState<string>();
   const [secondPath, setSecondPath] = useState<string>();
-  const [mediumScreen, setMediumScreen] = useState(false);
+
+  const [fileName, setFileName] = useState<string>("");
+  const [assetCategory, setAssetCategory] = useState("");
+  const [assetUsage, setAssetUsage] = useState<string>("");
 
   const fileType = mediaType(fileName);
   const supportedTypes = ["document", "diagram", "image"];
   const isSupportedFile = supportedTypes.includes(fileType);
 
   useEffect(() => {
-    const screenSizeSetter = () => setMediumScreen(window.innerWidth < 1024);
-
-    screenSizeSetter();
-    window.addEventListener("resize", screenSizeSetter);
-
-    return () => window.removeEventListener("resize", screenSizeSetter);
-  }, []);
-
-  useEffect(() => {
     if (file) {
       setCurrentAsset({
-        id: "",
+        id: crypto.randomUUID(),
         name: fileName,
-        type: "image",
-        size: "",
+        type:
+          fileType === "video" || fileType === "unknown" ? "image" : fileType,
+        size: `${file.size / 1000000} MB`,
         usage: "",
-        uploadDate: "",
+        uploadDate: getCurrentDateFormatted(),
         url: "",
         fullPath: "",
         category: "",
-        contentType: "",
+        contentType: `.${fileName.split(".").pop()}`,
       });
       setCurrentAssetNew(true);
     } else {
@@ -69,7 +63,29 @@ export default function UseMediaAssets() {
     contact: ["Hero"],
   };
 
-  const updateAsset = (key: string, val: string) => {};
+  useEffect(() => {
+    const updateCurrentAsset = () => {
+      setCurrentAsset((prev) =>
+        prev
+          ? {
+              ...prev,
+              ["name"]: fileName,
+              ["category"]: assetCategory,
+              ["usage"]: `${firstPath}/${secondPath !== undefined ? secondPath : ""}`,
+              ["fullPath"]: `${assetCategory}/${firstPath}/${secondPath !== undefined ? secondPath : ""}`,
+            }
+          : prev,
+      );
+    };
+
+    updateCurrentAsset();
+  }, [fileName, assetCategory, firstPath, secondPath]);
+
+  useEffect(() => {
+    console.log(currentAsset);
+  }, [currentAsset]);
+
+  const handleSubmit = () => {};
 
   return {
     mediaAssets,
@@ -87,7 +103,6 @@ export default function UseMediaAssets() {
     setError,
     isSupportedFile,
     currentAsset,
-    updateAsset,
     currentAssetNew,
     assetCategory,
     setAssetCategory,
@@ -98,6 +113,6 @@ export default function UseMediaAssets() {
     setFirstPath,
     secondPath,
     setSecondPath,
-    mediumScreen,
+    handleSubmit,
   };
 }

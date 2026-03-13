@@ -55,7 +55,7 @@ export default function DropZone(props: DropZoneProps) {
       />
       <label
         htmlFor="file"
-        className="flex flex-col justify-center items-center text-center gap-5 px-4 py-2 rounded-[10px] cursor-pointer"
+        className="flex h-full flex-col justify-center items-center text-center gap-5 px-4 py-2 rounded-[10px] cursor-pointer"
       >
         <div className="border rounded-[50%] flex justify-center items-center w-15 h-15 text-[20px] cursor-pointer">
           <FontAwesomeIcon icon={["fas", "arrow-up-from-bracket"]} />

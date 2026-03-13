@@ -34,13 +34,13 @@ export default function MediaAndAssetsSection() {
     setSearchQuery,
     file,
     setFile,
+    fileName,
     setFileName,
     setCompressing,
     setCompressionProgress,
     setError,
     isSupportedFile,
     currentAsset,
-    updateAsset,
     assetCategory,
     setAssetCategory,
     assetUsagePaths,
@@ -50,9 +50,8 @@ export default function MediaAndAssetsSection() {
     setFirstPath,
     secondPath,
     setSecondPath,
+    handleSubmit,
   } = UseMediaAssets();
-
-  const handleSubmit = () => {};
 
   return (
     <div className="page-layout">
@@ -114,7 +113,8 @@ export default function MediaAndAssetsSection() {
               secondPath={secondPath}
               setSecondPath={setSecondPath}
               handleSubmit={handleSubmit}
-              updateAsset={updateAsset}
+              fileName={fileName}
+              setFileName={setFileName}
             />
           ) : (
             <UnsupportedFile setFile={setFile} setFileName={setFileName} />

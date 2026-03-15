@@ -1,4 +1,10 @@
-export const stats = [
+import {
+  RecentActivities,
+  TrafficSourceData,
+} from "../types/recentActivities.types";
+import { Stats } from "../types/stats.types";
+
+export const stats: Stats[] = [
   {
     label: "New Inquiries",
     value: "23",
@@ -33,7 +39,7 @@ export const stats = [
   },
 ];
 
-export const recentActivities = [
+export const recentActivities: RecentActivities[] = [
   {
     section: "Form Inquiry",
     description: "New contact form submission from Sarah Mitchell",
@@ -71,7 +77,7 @@ export const inquiryTrendsData = {
   Jul: 25,
 };
 
-export const trafficSourceData = {
+export const trafficSourceData: TrafficSourceData = {
   channel: ["Organic Search", "Direct", "Referral", "Social"],
   users: [45, 25, 20, 10],
 };

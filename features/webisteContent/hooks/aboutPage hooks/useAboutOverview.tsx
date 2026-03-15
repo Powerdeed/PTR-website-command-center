@@ -1,6 +1,6 @@
 "use client";
 
-import { aboutUs, AboutUs } from "@features/webisteContent/services/aboutpage";
+import { aboutUs, AboutUs } from "../../services/aboutpage";
 import { DraftifyBlock, DraftifyDocument } from "draftify";
 import { useEffect, useState } from "react";
 

@@ -3,8 +3,9 @@
 import {
   CompanyStructure,
   companyStructure,
-} from "@features/webisteContent/services/companyStructure";
-import { sortBasedOnId } from "@global-utils/conversions";
+} from "../../services/companyStructure";
+
+import { sortBasedOnId } from "../../utils/conversions";
 import { useState } from "react";
 
 export default function useCompanyStructure() {

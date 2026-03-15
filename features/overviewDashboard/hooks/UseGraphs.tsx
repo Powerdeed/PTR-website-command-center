@@ -10,7 +10,7 @@ import {
   trafficSourceData,
 } from "@features/overviewDashboard/services/web-activities";
 
-export default function UseGraphs() {
+export default function useGraphs() {
   const lContext = useContext(LineContext);
   const pieContext = useContext(PieContext);
 

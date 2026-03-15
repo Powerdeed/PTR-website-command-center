@@ -1,4 +1,4 @@
-export type Contacts = {
+export interface Contacts {
   Hero: {
     image: string;
     title: string;
@@ -21,4 +21,4 @@ export type Contacts = {
     } | null;
   };
   Socials: [string, string][];
-};
+}

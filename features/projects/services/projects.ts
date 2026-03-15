@@ -1,4 +1,4 @@
-import { Project } from "../types/projects.types";
+import { CategorizedProjectsData, Project } from "../types/projects.types";
 
 export const projects: Project[] = [
   {
@@ -234,7 +234,7 @@ export const projects: Project[] = [
 ];
 
 export const formattedProjectData = () => {
-  const projectMap: Record<string, Project[]> = {};
+  const projectMap: CategorizedProjectsData = {};
   projects.forEach((project) => {
     if (!projectMap[project.category]) {
       projectMap[project.category] = [];

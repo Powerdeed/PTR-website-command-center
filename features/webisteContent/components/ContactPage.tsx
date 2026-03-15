@@ -8,9 +8,9 @@ import Toggle from "@global components/ui/Toggle";
 import FormWrapper, { InputArea } from "@global components/layout/FormWrapper";
 
 import useContactPage from "../hooks/useContactPage";
-import { to12Hour, to24Hour } from "@global-utils/conversions";
 
 import { Contacts } from "../types/contact.types";
+import { to12Hour, to24Hour } from "../utils/conversions";
 
 export default function ContactPage() {
   const {

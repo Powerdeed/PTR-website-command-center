@@ -2,31 +2,18 @@
 
 import { useEffect, useState } from "react";
 
-import { sampleProcessedAssets } from "@features/mediaAndAssets/services/mediaAssets";
-
-import { companyServices } from "@global-utils/constants/COMPANY_PROVISIONS";
-import { companyStructure } from "@features/webisteContent/services/companyStructure";
-import { projects } from "@features/projects/services/projects";
+import { sampleProcessedAssets } from "../services/mediaAssets";
 
 import {
   getCurrentDateFormatted,
   mediaType,
   sizeOfFile,
-} from "@global-utils/conversions";
+} from "../utils/conversions";
+
 import { Asset } from "../types/mediaAssets.assets";
+import { assetUsagePaths } from "../constants/assetUsagePaths";
 
-const assetUsagePaths: Record<string, string[]> = {
-  "home page": ["Hero", "about top", "about bottom"],
-  services: companyServices,
-  "about structure": companyStructure.flatMap(({ levelName, positions }) =>
-    positions.map((position) => `${levelName}-${position}`),
-  ),
-  "about certificates": [],
-  projects: projects.map(({ category, name }) => `${category}-${name}`),
-  "contact page": ["Hero"],
-};
-
-export default function UseMediaAssets() {
+export default function useMediaAssets() {
   // data
   const [mediaAssets, setMediaAssets] = useState<Asset[]>(
     sampleProcessedAssets,
@@ -55,7 +42,6 @@ export default function UseMediaAssets() {
   const [secondPath, setSecondPath] = useState<string | undefined>(undefined);
   const [assetUsage, setAssetUsage] = useState("");
 
-  const supportedTypes: Asset["type"][] = ["document", "diagram", "image"];
   const fileType = mediaType(fileName);
   const includesSecondPath = () =>
     assetUsagePaths[assetCategory][0].includes("-");
@@ -75,27 +61,38 @@ export default function UseMediaAssets() {
           : "";
 
   useEffect(() => {
-    setAssetUsage(
-      firstPath ? `${firstPath}${secondPath ? `/${secondPath}` : ""}` : "",
-    );
+    const setAssetUsageFunc = () =>
+      setAssetUsage(
+        firstPath ? `${firstPath}${secondPath ? `/${secondPath}` : ""}` : "",
+      );
+    setAssetUsageFunc();
   }, [firstPath, secondPath]);
 
   useEffect(() => {
-    if (file)
-      setIsSupportedFile(supportedTypes.includes(fileType as Asset["type"]));
+    if (file) {
+      const setIsSupportedFileFunc = () =>
+        setIsSupportedFile(
+          ["document", "diagram", "image"].includes(fileType as Asset["type"]),
+        );
+      setIsSupportedFileFunc();
+    }
 
-    setCurrentAsset({
-      id: crypto.randomUUID(),
-      name: fileName,
-      type: fileType === "video" || fileType === "unknown" ? "image" : fileType,
-      size: file ? sizeOfFile(file.size) : "unknown",
-      usage: "",
-      uploadDate: getCurrentDateFormatted(),
-      url: "",
-      fullPath: "",
-      category: "",
-      contentType: `.${fileName.split(".").pop()}`,
-    });
+    const setCurrentAssetFunc = () =>
+      setCurrentAsset({
+        id: crypto.randomUUID(),
+        name: fileName,
+        type:
+          fileType === "video" || fileType === "unknown" ? "image" : fileType,
+        size: file ? sizeOfFile(file.size) : "unknown",
+        usage: "",
+        uploadDate: getCurrentDateFormatted(),
+        url: "",
+        fullPath: "",
+        category: "",
+        contentType: `.${fileName.split(".").pop()}`,
+      });
+
+    setCurrentAssetFunc();
   }, [file, fileName, fileType]);
 
   useEffect(() => {
@@ -117,25 +114,35 @@ export default function UseMediaAssets() {
   }, [fileName, assetCategory, assetUsage]);
 
   useEffect(() => {
-    setFirstPath(undefined);
-    setSecondPath(undefined);
+    const setPaths = () => {
+      setFirstPath(undefined);
+      setSecondPath(undefined);
+    };
 
-    if (assetCategory)
-      setFirstPathArr(
-        assetUsagePaths[assetCategory].map((path) => path.split("-")[0]),
-      );
+    setPaths();
+
+    if (assetCategory) {
+      const setFirstPathArrFunc = () =>
+        setFirstPathArr(
+          assetUsagePaths[assetCategory].map((path) => path.split("-")[0]),
+        );
+      setFirstPathArrFunc();
+    }
   }, [assetCategory]);
 
   useEffect(() => {
     const query = searchQuery.toLowerCase();
 
-    setMediaAssets(
-      sampleProcessedAssets.filter(
-        (asset) =>
-          asset.name.toLowerCase().includes(query) ||
-          asset.usage.toLowerCase().includes(query),
-      ),
-    );
+    const setMediaAssetsFunc = () =>
+      setMediaAssets(
+        sampleProcessedAssets.filter(
+          (asset) =>
+            asset.name.toLowerCase().includes(query) ||
+            asset.usage.toLowerCase().includes(query),
+        ),
+      );
+
+    setMediaAssetsFunc();
   }, [searchQuery]);
 
   useEffect(() => {
@@ -203,7 +210,6 @@ export default function UseMediaAssets() {
     mediaAssets,
     searchQuery,
     setSearchQuery,
-    supportedTypes,
     targetAssetType,
     setTargetAssetType,
     file,

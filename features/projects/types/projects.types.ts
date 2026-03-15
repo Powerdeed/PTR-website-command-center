@@ -9,3 +9,7 @@ export interface Project {
   status: "Ongoing" | "Completed";
   featured: boolean;
 }
+
+export interface CategorizedProjectsData {
+  [key: Project["category"]]: Project[];
+}

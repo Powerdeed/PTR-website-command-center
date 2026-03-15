@@ -7,7 +7,8 @@ import SearchBar from "@global components/ui/SearchBar";
 import { ProgressDonut } from "@global components/ui/Loader";
 
 // utils
-import { toCamelCase } from "@global-utils/conversions";
+import { toCamelCase } from "./utils/conversions";
+import { supportedAssetTypes } from "./constants/supportedAssetTypes";
 
 // feature components
 import AssetCard from "./components/AssetCard";
@@ -16,8 +17,9 @@ import AssetMetaEditor from "./components/AssetMetaEditor";
 import AssetHandlingError from "./components/AssetHandlingError";
 
 // hooks
-import UseMediaAssets from "./hooks/useMediaAssets";
+import useMediaAssets from "./hooks/useMediaAssets";
 
+// constants
 import { PAGE_META } from "./constants/pageMeta";
 import { ICON_COLORS } from "./constants/iconColors";
 
@@ -26,7 +28,6 @@ export default function MediaAndAssets() {
     mediaAssets,
     searchQuery,
     setSearchQuery,
-    supportedTypes,
     targetAssetType,
     setTargetAssetType,
     file,
@@ -54,7 +55,7 @@ export default function MediaAndAssets() {
     copying,
     includesSecondPath,
     handleReUpload,
-  } = UseMediaAssets();
+  } = useMediaAssets();
 
   return (
     <div className="page-layout">
@@ -72,7 +73,7 @@ export default function MediaAndAssets() {
             changeFunc={(val) => setSearchQuery(val)}
           />
 
-          {["All", ...supportedTypes].map((category) => (
+          {["All", ...supportedAssetTypes].map((category) => (
             <ButtonLight
               key={category}
               buttonText={category}

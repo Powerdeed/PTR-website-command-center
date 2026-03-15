@@ -10,8 +10,8 @@ import {
 
 import { SectionTitle } from "@global components/ui/Title";
 import { PageMetadata } from "./constants/PageMetaData";
-import UseGraphs from "./hooks/UseGraphs";
-import UseCount from "./hooks/UseCount";
+import UseGraphs from "./hooks/useGraphs";
+import UseCount from "./hooks/useCount";
 
 import { VISIBLE_COUNT_INCREMENT } from "./constants/visibleCountIncrement";
 import { SECTION_ACCENT_COLORS } from "./constants/sectionAccentColors";

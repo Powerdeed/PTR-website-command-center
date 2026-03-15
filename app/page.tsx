@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
-import { menuItems } from "@utils/constants/UI-data-constants";
-import { convertLabelToLink } from "@utils/conversions";
+import { menuItems } from "@global-utils/constants/NAV_MENU_AND_LABELS";
+import { convertLabelToLink } from "@global-utils/conversions";
 
 export default function Home() {
   redirect(convertLabelToLink(menuItems[0].label));

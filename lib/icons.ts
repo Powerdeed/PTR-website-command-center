@@ -30,6 +30,8 @@ import {
   faArrowUpFromBracket,
   faImage,
   faDownload,
+  faCheck,
+  faCopy,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -80,4 +82,6 @@ library.add(
   faImage,
   faFileLines,
   faDownload,
+  faCopy,
+  faCheck,
 );

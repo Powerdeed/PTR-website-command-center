@@ -2,20 +2,20 @@
 
 import { use } from "react";
 
-import OverviewDashboardSection from "@components/features/OverviewDashboardSection";
-import ProjectsSection from "@components/features/ProjectsSection";
-import WebsiteContentSection from "@components/features/WebsiteContentSection";
-import ArticlesAndInsightsSection from "@components/features/ArticlesAndInsightsSection";
-import MediaAndAssetsSection from "@components/features/MediaAndAssetsSection";
-import SchedulingAndVisibilitySection from "@components/features/SchedulingAndVisibilitySection";
-import DataAndReportsSection from "@components/features/DataAndReportsSection";
-import CustomizationSection from "@components/features/CustomizationSection";
-import SettingsAndUsersSection from "@components/features/SettingsAndUsersSection";
-import LeadsAndInquiriesSection from "@components/features/LeadsAndInquiriesSection";
-import ServicesManagementSection from "@components/features/ServicesManagementSection";
+import { convertLinkToLabel } from "@global-utils/conversions";
+import { MenuLabels } from "@global-utils/constants/NAV_MENU_AND_LABELS";
 
-import { convertLinkToLabel } from "@utils/conversions";
-import { MenuLabels } from "@utils/constants/UI-data-constants";
+import SettingsAndUsers from "@features/settingsAndUser/SettingsAndUsers";
+import Customization from "@features/customization/Customization";
+import DataAndReports from "@features/dataAndReports/DataAndReports";
+import SchedulingAndVisibility from "@features/schedulingAndVisiblity/SchedulingAndVisibility";
+import MediaAndAssets from "@features/mediaAndAssets/MediaAndAssets";
+import ArticlesAndInsights from "@features/articlesAndInsights/ArticlesAndInsights";
+import WebsiteContent from "@features/webisteContent/WebsiteContent";
+import Projects from "@features/projects/Projects";
+import ServicesManagement from "@features/servicesManagement/ServicesManagement";
+import LeadsAndInquiries from "@features/leadsAndInquiries/LeadsAndInquiries";
+import OverviewDashboard from "@features/overviewDashboard/OverviewDashboard";
 
 export default function Section({
   params,
@@ -26,17 +26,17 @@ export default function Section({
   const sectionLabel = convertLinkToLabel(decodeURIComponent(section));
 
   const sectionMap: Record<MenuLabels, React.ReactNode> = {
-    "Dashboard Overview": <OverviewDashboardSection />,
-    "Leads & Inquiries": <LeadsAndInquiriesSection />,
-    "Services Management": <ServicesManagementSection />,
-    Projects: <ProjectsSection />,
-    "Website Content": <WebsiteContentSection />,
-    "Articles & Insights": <ArticlesAndInsightsSection />,
-    "Media & Assets": <MediaAndAssetsSection />,
-    "Scheduling & Visibility": <SchedulingAndVisibilitySection />,
-    "Data & Reports": <DataAndReportsSection />,
-    Customization: <CustomizationSection />,
-    "Settings & Users": <SettingsAndUsersSection />,
+    "Dashboard Overview": <OverviewDashboard />,
+    "Leads & Inquiries": <LeadsAndInquiries />,
+    "Services Management": <ServicesManagement />,
+    Projects: <Projects />,
+    "Website Content": <WebsiteContent />,
+    "Articles & Insights": <ArticlesAndInsights />,
+    "Media & Assets": <MediaAndAssets />,
+    "Scheduling & Visibility": <SchedulingAndVisibility />,
+    "Data & Reports": <DataAndReports />,
+    Customization: <Customization />,
+    "Settings & Users": <SettingsAndUsers />,
   };
 
   const content = sectionMap[sectionLabel];

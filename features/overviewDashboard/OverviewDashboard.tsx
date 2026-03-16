@@ -10,15 +10,15 @@ import {
 
 import { SectionTitle } from "@global components/ui/Title";
 import { PageMetadata } from "./constants/PageMetaData";
-import UseGraphs from "./hooks/useGraphs";
-import UseCount from "./hooks/useCount";
+import useGraphs from "./hooks/useGraphs";
+import useCount from "./hooks/useCount";
 
 import { VISIBLE_COUNT_INCREMENT } from "./constants/visibleCountIncrement";
 import { SECTION_ACCENT_COLORS } from "./constants/sectionAccentColors";
 
 export default function OverviewDashboard() {
-  const { LineGraph, PieDoughnut } = UseGraphs();
-  const { visibleCount, setVisibleCount } = UseCount();
+  const { LineGraph, PieDoughnut } = useGraphs();
+  const { visibleCount, setVisibleCount } = useCount();
 
   return (
     <main className="page-layout">

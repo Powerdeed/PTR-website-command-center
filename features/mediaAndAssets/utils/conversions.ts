@@ -1,3 +1,5 @@
+import { getMediaAssets } from "../services/mediaAssets";
+
 export const mediaType = (url?: string) => {
   if (!url || typeof url !== "string") return "unknown";
 
@@ -66,3 +68,18 @@ export const sizeOfFile = (bytes: number) => {
 
 export const toCamelCase = (word: string) =>
   word.charAt(0).toUpperCase() + word.slice(1);
+
+export const getTotalUsedSpace = () => {
+  const total = getMediaAssets().reduce((acc, asset) => {
+    const [value, unit] = asset.size.split(" ");
+
+    let sizeInMB = Number(value);
+
+    if (unit === "KB") sizeInMB /= 1024;
+    if (unit === "GB") sizeInMB *= 1024;
+
+    return acc + sizeInMB;
+  }, 0);
+
+  return parseFloat(total.toFixed(2));
+};

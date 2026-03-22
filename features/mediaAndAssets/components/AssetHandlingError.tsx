@@ -1,16 +1,19 @@
+"use client";
+
 import Button from "@global components/ui/Button";
+import useMediaAssets from "../hooks/useMediaAssets";
 
-type AssetHandlingErrorProps = {
-  errorMessage: string;
-  handleReUpload: () => void;
-};
+export default function AssetHandlingError() {
+  const { actions } = useMediaAssets();
 
-export default function AssetHandlingError(props: AssetHandlingErrorProps) {
   return (
     <div className="feature-container-vertical h-full grid items-center justify-center text-style__body text-center">
-      {props.errorMessage}
+      {actions.errorMsg}
 
-      <Button buttonText="Re-upload file" clickAction={props.handleReUpload} />
+      <Button
+        buttonText="Re-upload file"
+        clickAction={() => actions.handleResetAssetStates("re-upload")}
+      />
     </div>
   );
 }

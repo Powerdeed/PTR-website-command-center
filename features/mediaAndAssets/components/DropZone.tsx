@@ -1,23 +1,22 @@
 "use client";
 
-import { Dispatch, SetStateAction, useRef } from "react";
+import { useRef } from "react";
+
 import {
   dragHandler,
   dragLeaveHandler,
   dropHandler,
   onFileChange,
 } from "draftify-react";
-import { FontAwesomeIcon } from "@node_modules/@fortawesome/react-fontawesome/dist";
 
-type DropZoneProps = {
-  setFile: Dispatch<SetStateAction<File | null>>;
-  setFileName: Dispatch<SetStateAction<string>>;
-  setCompressing: Dispatch<SetStateAction<boolean>>;
-  setCompressionProgress: Dispatch<SetStateAction<number>>;
-};
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function DropZone(props: DropZoneProps) {
+import useMediaAssets from "../hooks/useMediaAssets";
+
+export default function DropZone() {
   const mediaDropRef = useRef<HTMLDivElement | null>(null);
+
+  const { state } = useMediaAssets();
 
   return (
     <div
@@ -25,16 +24,16 @@ export default function DropZone(props: DropZoneProps) {
       onDrop={(e) =>
         dropHandler(
           e,
-          props.setFile,
-          props.setFileName,
-          props.setCompressing,
-          props.setCompressionProgress,
+          state.setFile,
+          state.setFileName,
+          state.setCompressing,
+          state.setCompressionProgress,
         )
       }
       onDragOver={(e) => dragHandler(e, mediaDropRef)}
       onDragLeave={(e) => dragLeaveHandler(e, mediaDropRef)}
       onMouseLeave={(e) => dragLeaveHandler(e, mediaDropRef)}
-      className="w-full h-80 grid items-center border-2 border-(--secondary-blue) border-dashed rounded-[10px] text-(--secondary-blue) bg-white"
+      className="h-80 grid items-center border-2 border-(--secondary-blue) border-dashed rounded-[10px] text-(--secondary-blue)"
     >
       <input
         type="file"
@@ -43,10 +42,10 @@ export default function DropZone(props: DropZoneProps) {
         onChange={(e) =>
           onFileChange(
             e,
-            props.setFile,
-            props.setFileName,
-            props.setCompressing,
-            props.setCompressionProgress,
+            state.setFile,
+            state.setFileName,
+            state.setCompressing,
+            state.setCompressionProgress,
           )
         }
       />

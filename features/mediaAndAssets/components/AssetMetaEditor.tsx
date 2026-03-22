@@ -1,7 +1,6 @@
 "use client";
 
 // modules
-import { Dispatch, SetStateAction } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // services
@@ -11,25 +10,10 @@ import { Asset } from "../types/mediaAssets.assets";
 import Button, { ButtonLight } from "@global components/ui/Button";
 import Loader from "@global components/ui/Loader";
 
-type AssetMetaEditorProps = {
-  handleSubmit: (e: React.SubmitEvent<HTMLFormElement>) => void;
-  currentAsset: Asset | null;
-  assetCategory: string;
-  setAssetCategory: Dispatch<SetStateAction<string>>;
-  fileName: string;
-  setFileName: Dispatch<SetStateAction<string>>;
-  assetUsagePaths: Record<string, string[]>;
-  firstPathArr: string[] | null;
-  firstPath: string | undefined;
-  secondPath: string | undefined;
-  setFirstPath: (value: SetStateAction<string | undefined>) => void;
-  setSecondPath: (value: SetStateAction<string | undefined>) => void;
-  handleCopy: (key: keyof Asset) => void;
-  copying: boolean;
-  includesSecondPath: () => boolean;
-  handleReUpload: () => void;
-  uploadingStatus: boolean;
-};
+// constants
+import { assetUsagePaths } from "../constants/assetUsagePaths";
+
+import useMediaAssets from "../hooks/useMediaAssets";
 
 const fieldsToReview: (keyof Asset)[] = [
   "type",
@@ -38,31 +22,20 @@ const fieldsToReview: (keyof Asset)[] = [
   "contentType",
 ];
 
-export default function AssetMetaEditor({
-  handleSubmit,
-  currentAsset,
-  assetCategory,
-  fileName,
-  setFileName,
-  setAssetCategory,
-  assetUsagePaths,
-  firstPathArr,
-  firstPath,
-  setFirstPath,
-  secondPath,
-  setSecondPath,
-  handleCopy,
-  copying,
-  includesSecondPath,
-  handleReUpload,
-  uploadingStatus,
-}: AssetMetaEditorProps) {
+export default function AssetMetaEditor() {
+  const { state, actions } = useMediaAssets();
+  const currentAsset = state.currentAsset;
+
   if (!currentAsset) return;
 
   return (
     <form
-      onSubmit={(e) => handleSubmit(e)}
-      className="feature-container-vertical h-full text-style__body"
+      onSubmit={(e) =>
+        state.assetMode === "new"
+          ? actions.handleSubmitMediaAsset(e, currentAsset)
+          : actions.handleUpdateCurrentAsset(e)
+      }
+      className="feature-container-vertical h-fit text-style__body"
     >
       {"Edit file meta data before uploading (areas with '*' must be updated)."}
 
@@ -73,9 +46,9 @@ export default function AssetMetaEditor({
               <MetaWrapper key={key} meta={key} val={value}>
                 {key === "fullPath" && (
                   <FontAwesomeIcon
-                    icon={["fas", copying ? "check" : "copy"]}
+                    icon={["fas", state.copying ? "check" : "copy"]}
                     className="cursor-pointer"
-                    onClick={() => handleCopy(key)}
+                    onClick={() => actions.handleCopyAssetPath(key)}
                   />
                 )}
               </MetaWrapper>
@@ -92,9 +65,9 @@ export default function AssetMetaEditor({
 
           <textarea
             placeholder="Rename file"
-            value={fileName.split(".").slice(0, -1)}
+            value={state.fileName.split(".").slice(0, -1).join(".")}
             onChange={(e) =>
-              setFileName(`${e.target.value}.${currentAsset.contentType}`)
+              state.setFileName(`${e.target.value}${currentAsset.contentType}`)
             }
             className="w-full input-style field-sizing-content"
           />
@@ -106,9 +79,10 @@ export default function AssetMetaEditor({
           </div>
 
           <select
-            value={assetCategory}
+            value={state.assetCategory}
             onChange={(e) => {
-              setAssetCategory(e.target.value);
+              state.setAssetCategory(e.target.value);
+              actions.getFirstPaths(e.target.value);
             }}
             className="input-style w-full"
           >
@@ -130,46 +104,40 @@ export default function AssetMetaEditor({
           usage<span className="text-(--primary-red)">*</span>:
         </div>
 
-        {firstPathArr ? (
-          firstPathArr.length > 0 ? (
+        {state.firstPathArr ? (
+          state.firstPathArr.length > 0 ? (
             <div className="w-full flex gap-2.5 items-center">
               <select
-                value={firstPath}
+                value={state.firstPath}
                 onChange={(e) => {
-                  setFirstPath(e.target.value);
-                  setSecondPath(undefined);
+                  state.setFirstPath(e.target.value);
+                  state.setSecondPath(undefined);
                 }}
                 className="input-style w-full"
               >
                 <option value={undefined}>select specific location</option>
 
-                {[...new Set(firstPathArr)].map((paths) => (
+                {[...new Set(state.firstPathArr)].map((paths) => (
                   <option key={paths} value={paths}>
                     {paths}
                   </option>
                 ))}
               </select>
 
-              {firstPath && includesSecondPath() && (
+              {state.firstPath && actions.includesSecondPath() && (
                 <select
-                  value={secondPath}
-                  onChange={(e) => setSecondPath(e.target.value)}
+                  value={state.secondPath}
+                  onChange={(e) => state.setSecondPath(e.target.value)}
                   className="input-style w-full"
                 >
-                  <option value={undefined}>which {firstPath}?</option>
+                  <option value={undefined}>which {state.firstPath}?</option>
 
-                  {assetUsagePaths[assetCategory].map((paths) => {
-                    const path = paths.split("-")[1];
-
-                    if (paths.includes(firstPath)) {
-                      return (
-                        <option key={path} value={path}>
-                          {path}
-                        </option>
-                      );
-                    }
-
-                    return;
+                  {actions.getSecondPaths().map((path) => {
+                    return (
+                      <option key={path} value={path}>
+                        {path}
+                      </option>
+                    );
                   })}
                 </select>
               )}
@@ -186,13 +154,20 @@ export default function AssetMetaEditor({
         <Button
           type="submit"
           className="flex-1"
-          buttonText="Upload asset"
-          clickAction={() => handleSubmit}
+          buttonText={
+            state.assetMode === "new" ? "Upload asset" : "Update asset"
+          }
+          clickAction={() => {}}
         >
-          {uploadingStatus && <Loader />}
+          {state.uploadingStatus && <Loader />}
         </Button>
 
-        <ButtonLight buttonText="re-upload" clickAction={handleReUpload} />
+        {state.assetMode === "new" && (
+          <ButtonLight
+            buttonText="re-upload"
+            clickAction={() => actions.handleResetAssetStates("re-upload")}
+          />
+        )}
       </div>
     </form>
   );

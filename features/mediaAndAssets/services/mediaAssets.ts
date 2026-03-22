@@ -494,3 +494,5 @@ export const sampleRawGCSFiles: GCSFileMetadata[] = [
     },
   },
 ];
+
+export const getMediaAssets = () => sampleProcessedAssets;

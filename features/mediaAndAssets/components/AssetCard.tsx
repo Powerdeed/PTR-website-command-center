@@ -2,23 +2,33 @@
 
 import { SeparatorLine } from "@global components/layout/FormWrapper";
 import { ButtonLight } from "@global components/ui/Button";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { Asset } from "../types/mediaAssets.assets";
+
+import { ICON_COLORS } from "../constants/iconColors";
+
+import useMediaAssets from "../hooks/useMediaAssets";
 
 type AssetCardProps = {
   asset: Asset;
-  iconColors: Record<string, string>;
 };
 
-export default function AssetCard({ asset, iconColors }: AssetCardProps) {
+export default function AssetCard({ asset }: AssetCardProps) {
+  const { actions } = useMediaAssets();
+
   return (
-    <div className="p-5 vertical-layout__inner border border-(--terciary-grey)/40 hover:border-(--secondary-blue) hover:bg-(--secondary-blue)/5 rounded-[10px]">
+    <div
+      className="p-5 vertical-layout__inner border border-(--terciary-grey)/40 hover:border-(--secondary-blue) hover:bg-(--secondary-blue)/5 rounded-[10px]"
+      onClick={() => actions.handleCurrentAsset("existing", asset)}
+    >
       <div className="vertical-layout__inner">
         <div className="flex gap-2.5 h-12">
           <div>
             <FontAwesomeIcon
               icon={["fas", asset.type === "document" ? "file-lines" : "image"]}
-              className={`text-style__heading p-3 bg-(--terciary-grey)/30 rounded-[10px] ${iconColors[asset.type]}`}
+              className={`text-style__heading p-3 bg-(--terciary-grey)/30 rounded-[10px] ${ICON_COLORS[asset.type]}`}
             />
           </div>
 

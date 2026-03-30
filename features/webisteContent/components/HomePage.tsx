@@ -14,11 +14,9 @@ import useHomePage from "@features/webisteContent/hooks/useHomePage";
 
 export default function HomePage() {
   const {
-    heroSectionData,
-    aboutSummaryData,
+    homepage,
     testimonialData,
-    updateAboutIntro,
-    updateHeroContent,
+    updateHomePageData,
     updateTestimonial,
     handleAddTestimonial,
     handleDeleteTestimonial,
@@ -33,29 +31,29 @@ export default function HomePage() {
       <FormWrapper subtitle="Hero Section">
         <InputArea
           label="Hero Image"
-          val={heroSectionData.image}
-          changeFunc={(val) => updateHeroContent("image", val)}
+          val={homepage.hero.image}
+          changeFunc={(val) => updateHomePageData("image", "hero", val)}
         >
           <ButtonLight buttonText="Upload" clickAction={handleImageUpload} />
         </InputArea>
 
         <InputArea
           label="Hero Title"
-          val={heroSectionData.title}
-          changeFunc={(val) => updateHeroContent("title", val)}
+          val={homepage.hero.title}
+          changeFunc={(val) => updateHomePageData("title", "hero", val)}
         />
 
         <InputArea
           label="Hero Subtitle"
-          val={heroSectionData.subtitle}
-          changeFunc={(val) => updateHeroContent("subtitle", val)}
+          val={homepage.hero.subtitle}
+          changeFunc={(val) => updateHomePageData("subtitle", "hero", val)}
         />
 
         <SeparatorLine />
       </FormWrapper>
 
       {/* ABOUT US SUMMARY */}
-      {aboutSummaryData.map((about, index) => (
+      {homepage.aboutIntro.map((about, index) => (
         <FormWrapper
           key={index}
           keyVal={index}
@@ -69,7 +67,9 @@ export default function HomePage() {
           <InputArea
             label="Image"
             val={about.image}
-            changeFunc={(val) => updateAboutIntro("image", val, index)}
+            changeFunc={(val) =>
+              updateHomePageData("image", "aboutIntro", val, index)
+            }
           >
             <ButtonLight buttonText="Upload" clickAction={handleImageUpload} />
           </InputArea>
@@ -77,13 +77,17 @@ export default function HomePage() {
           <InputArea
             label="Title"
             val={about.title}
-            changeFunc={(val) => updateAboutIntro("title", val, index)}
+            changeFunc={(val) =>
+              updateHomePageData("title", "aboutIntro", val, index)
+            }
           />
 
           <InputArea
             label="Description"
             val={about.description}
-            changeFunc={(val) => updateAboutIntro("description", val, index)}
+            changeFunc={(val) =>
+              updateHomePageData("description", "aboutIntro", val, index)
+            }
           />
 
           <SeparatorLine />

@@ -198,7 +198,7 @@ body {
 }
 
 .text-style__link {
-  @apply text-[11px] font-sans font-normal leading-normal hover:underline;
+  @apply text-(--secondary-blue) text-[12px] font-sans font-semibold leading-tight hover:underline cursor-pointer;
 }
 
 /********** GLOBAL STYLES **********/
@@ -233,6 +233,10 @@ body {
 
   /* 4. Extra styling */
   @apply bg-(--secondary-grey)/30 rounded-[10px] p-2;
+}
+
+.wrapped-input-style {
+  @apply w-full bg-(--secondary-grey)/30 rounded-[10px] px-2.5 py-2 focus-within:ring-3 focus-within:ring-(--secondary-grey) duration-80 flex items-center gap-2.5;
 }
 
 .asset-handling-interface {

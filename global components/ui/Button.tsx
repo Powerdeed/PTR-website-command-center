@@ -8,18 +8,21 @@ export default function Button({
   type = "button",
   className = "",
   children,
+  disabled,
 }: {
   buttonText: string;
-  clickAction: () => void;
+  clickAction?: () => void;
   type?: "button" | "submit" | "reset";
   className?: string;
   children?: React.ReactNode;
+  disabled?: boolean;
 }) {
   return (
     <button
       type={type}
       className={`bg-(--primary-blue) py-3 px-4 rounded-[10px] text-white hover:bg-(--secondary-blue) duration-300 text-style__small-text cursor-pointer ${className}`}
       onClick={clickAction}
+      disabled={disabled}
     >
       <div className={children ? "flex items-center" : ""}>
         <div className="flex-1">{buttonText}</div>

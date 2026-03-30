@@ -32,6 +32,8 @@ import {
   faDownload,
   faCheck,
   faCopy,
+  faShieldHalved,
+  faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -84,4 +86,6 @@ library.add(
   faDownload,
   faCopy,
   faCheck,
+  faShieldHalved,
+  faChartLine,
 );

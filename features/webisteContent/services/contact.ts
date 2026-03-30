@@ -20,7 +20,7 @@ export type Contacts = {
       to: string;
     } | null;
   };
-  Socials: [string, string][];
+  Socials: { name: string; url: string }[];
 };
 
 export const contacts: Contacts = {
@@ -55,13 +55,13 @@ export const contacts: Contacts = {
     Sunday: null,
   },
   Socials: [
-    [
-      "LinkedIn",
-      "https://www.linkedin.com/in/alfred-kuria-58199a106/?originalSubdomain=ke",
-    ],
-    [
-      "WhatsApp",
-      "https://wa.me/254722316721?text=Hi%2C%20I%20found%20you%20on%20the%20website",
-    ],
+    {
+      name: "LinkedIn",
+      url: "https://www.linkedin.com/in/alfred-kuria-58199a106/?originalSubdomain=ke",
+    },
+    {
+      name: "WhatsApp",
+      url: "https://wa.me/254722316721?text=Hi%2C%20I%20found%20you%20on%20the%20website",
+    },
   ],
 };

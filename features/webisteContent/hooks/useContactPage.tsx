@@ -62,7 +62,10 @@ export default function useContactPage() {
   const handleAddSocials = () =>
     setContactData((prev) => ({
       ...prev,
-      Socials: [...prev.Socials, ["Social Platform", "Social Link"]],
+      Socials: [
+        ...prev.Socials,
+        { name: "Social Platform", url: "Social Link" },
+      ],
     }));
 
   const handleDeleteSocials = (idx: number) =>

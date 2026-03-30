@@ -133,14 +133,16 @@ export default function ContactPage() {
             <div className="w-full vertical-layout__inner">
               <InputArea
                 label=""
-                val={socialPlatform[0]}
-                changeFunc={(val) => updateByPath(["Socials", idx, 0], val)}
+                val={socialPlatform.name}
+                changeFunc={(val) =>
+                  updateByPath(["Socials", idx, "name"], val)
+                }
               />
 
               <InputArea
                 label=""
-                val={socialPlatform[1]}
-                changeFunc={(val) => updateByPath(["Socials", idx, 1], val)}
+                val={socialPlatform.url}
+                changeFunc={(val) => updateByPath(["Socials", idx, "url"], val)}
               />
             </div>
 

@@ -2,35 +2,41 @@
 
 import { useState } from "react";
 import {
-  aboutIntro,
-  AboutIntro,
-  hero,
+  homepageData,
   testimonials,
   Testimonial,
+  Homepage,
 } from "@features/webisteContent/services/homepage";
 
 export default function useHomePage() {
-  const [heroSectionData, setHeroSectionData] = useState(hero);
-  const [aboutSummaryData, setAboutSummaryData] =
-    useState<AboutIntro[]>(aboutIntro);
+  const [homepage, setHomepage] = useState<Homepage>(homepageData);
   const [testimonialData, setTestimonialData] = useState(testimonials);
 
-  const updateHeroContent = (key: string, data: string) =>
-    setHeroSectionData((prev) => ({
-      ...prev,
-      [key]: data,
-    }));
-
-  const updateAboutIntro = (
+  const updateHomePageData = (
     key: string,
+    innerKey: keyof Homepage,
     data: string | boolean,
-    section: number,
-  ) =>
-    setAboutSummaryData((prev) =>
-      prev.map((item, index) =>
-        index === section ? { ...item, [key]: data } : item,
-      ),
-    );
+    section?: number,
+  ) => {
+    const { hero, aboutIntro } = homepage;
+
+    if (innerKey === "hero") {
+      setHomepage((prev) => ({
+        ...prev,
+        hero: { ...hero, [key]: data },
+      }));
+    } else if (innerKey === "aboutIntro") {
+      setHomepage(() => {
+        const updatedIntro = aboutIntro.map((item, index) =>
+          index === section ? { ...item, [key]: data } : item,
+        );
+        return {
+          hero,
+          aboutIntro: updatedIntro,
+        };
+      });
+    }
+  };
 
   const updateTestimonial = (
     key: string,
@@ -71,8 +77,7 @@ export default function useHomePage() {
     );
 
   const resetChanges = () => {
-    setHeroSectionData(hero);
-    setAboutSummaryData(aboutIntro);
+    setHomepage(homepageData);
     setTestimonialData(testimonials);
   };
 
@@ -81,11 +86,9 @@ export default function useHomePage() {
   const handleImageUpload = () => {};
 
   return {
-    heroSectionData,
-    aboutSummaryData,
+    homepage,
     testimonialData,
-    updateAboutIntro,
-    updateHeroContent,
+    updateHomePageData,
     updateTestimonial,
     handleAddTestimonial,
     handleDeleteTestimonial,

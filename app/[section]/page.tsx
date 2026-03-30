@@ -1,6 +1,7 @@
 "use client";
 
-import { use } from "react";
+import { use, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 import { convertLinkToLabel } from "@global-utils/conversions";
 import { MenuLabels } from "@global-utils/constants/NAV_MENU_AND_LABELS";
@@ -16,6 +17,9 @@ import Projects from "@features/projects/Projects";
 import ServicesManagement from "@features/servicesManagement/ServicesManagement";
 import LeadsAndInquiries from "@features/leadsAndInquiries/LeadsAndInquiries";
 import OverviewDashboard from "@features/overviewDashboard/OverviewDashboard";
+import Nav from "@global components/layout/nav/Nav";
+import SideBar from "@global components/layout/SideBar";
+import { ChartProvider } from "@global components/layout/charts/ChartProvider";
 
 export default function Section({
   params,
@@ -24,6 +28,12 @@ export default function Section({
 }) {
   const { section } = use(params);
   const sectionLabel = convertLinkToLabel(decodeURIComponent(section));
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) router.push("/login");
+  }, [router]);
 
   const sectionMap: Record<MenuLabels, React.ReactNode> = {
     "Dashboard Overview": <OverviewDashboard />,
@@ -41,5 +51,14 @@ export default function Section({
 
   const content = sectionMap[sectionLabel];
 
-  return content;
+  return (
+    <div>
+      <Nav />
+      <SideBar />
+
+      <div className="pl-65 pt-15">
+        <ChartProvider>{content}</ChartProvider>
+      </div>
+    </div>
+  );
 }

@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Open_Sans } from "next/font/google";
 import "./globals.css";
 
-import Nav from "@global components/layout/Nav";
-import { ChartProvider } from "@global components/layout/charts/ChartProvider";
-
-import SideBar from "@global components/layout/SideBar";
+import "../lib/icons";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -48,12 +45,7 @@ export default function RootLayout({
       <body
         className={`${plusJakartaSans.variable} ${openSans.variable} antialiased flex flex-col min-h-screen`}
       >
-        <Nav />
-        <SideBar />
-
-        <div className="pl-65 pt-15">
-          <ChartProvider>{children}</ChartProvider>
-        </div>
+        {children}
       </body>
     </html>
   );

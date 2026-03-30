@@ -73,33 +73,33 @@ export function MediaAssetsView() {
             </div>
           </FormWrapper>
         </div>
-
-        {state.currentAsset && (
-          <div
-            className="asset-handling-interface"
-            onClick={() => actions.handleResetAssetStates("cancel")}
-          >
-            <div
-              onClick={(e) => e.stopPropagation()}
-              className="w-full h-80 bg-white rounded-[10px]"
-            >
-              {/* Ready to upload */}
-              {actions.popUpToDisplay.dropZone && <DropZone />}
-
-              {/* Compressing */}
-              {actions.popUpToDisplay.compressing && <CompressingAsset />}
-
-              {/* Editor */}
-              {actions.popUpToDisplay.assetMediaEditor && <AssetMetaEditor />}
-
-              {/* Error */}
-              {actions.popUpToDisplay.assetHandlingError && (
-                <AssetHandlingError />
-              )}
-            </div>
-          </div>
-        )}
       </FormWrapper>
+
+      {state.currentAsset && (
+        <div
+          className="asset-handling-interface"
+          onClick={() => actions.handleResetAssetStates("cancel")}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full h-80 bg-white rounded-[10px]"
+          >
+            {/* Ready to upload */}
+            {actions.popUpToDisplay.dropZone && <DropZone />}
+
+            {/* Compressing */}
+            {actions.popUpToDisplay.compressing && <CompressingAsset />}
+
+            {/* Editor */}
+            {actions.popUpToDisplay.assetMediaEditor && <AssetMetaEditor />}
+
+            {/* Error */}
+            {actions.popUpToDisplay.assetHandlingError && (
+              <AssetHandlingError />
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

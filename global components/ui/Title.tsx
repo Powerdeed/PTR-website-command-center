@@ -9,12 +9,14 @@ export function SubTitle({ subtitle }: { subtitle: string }) {
 export function SectionTitle({
   title,
   subtitle,
+  style,
 }: {
   title: string;
-  subtitle: string;
+  subtitle?: string;
+  style?: string;
 }) {
   return (
-    <div>
+    <div className={`text-(--primary-blue) ${style}`}>
       <div className="text-style__heading">{title}</div>
       <div className="text-style__body">{subtitle}</div>
     </div>

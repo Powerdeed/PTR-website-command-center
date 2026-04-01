@@ -11,7 +11,7 @@ import { SectionTitle } from "@global components/ui/Title";
 
 import useLogin from "../hooks/useLogin";
 
-import { PLATFORM_NAME } from "@global-utils/constants/COMPANY_NAME";
+import { PLATFORM_NAME } from "@global utils/constants/COMPANY_NAME";
 
 export function LoginView() {
   const { state, actions } = useLogin();

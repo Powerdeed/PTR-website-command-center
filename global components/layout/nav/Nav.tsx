@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchBar from "@global components/ui/SearchBar";
 import { SeparatorLine } from "../FormWrapper";
 
-import "@/lib/icons";
+import "@global components/icons/icons";
 
 import useNav from "./hooks/useNav";
 

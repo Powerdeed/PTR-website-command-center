@@ -1,14 +1,14 @@
-export * from "./components/AboutPage";
-export * from "./components/ContactPage";
-export * from "./components/HomePage";
+export * from "./components/aboutpage/AboutPage";
+export * from "./components/contactpage/ContactPage";
+export * from "./components/homepage/HomePage";
 export * from "./constants/PageMetaData";
 export * from "./constants/pages";
 
-export * from "./hooks/aboutPage hooks/useAboutOverview";
-export * from "./hooks/aboutPage hooks/useCompanyStructure";
-export * from "./hooks/useActiveSection";
-export * from "./hooks/useContactPage";
-export * from "./hooks/useHomePage";
+export * from "./hooks/aboutPage/useAboutOverview";
+export * from "./hooks/aboutPage/useCompanyStructure";
+export * from "./hooks/useWebsiteContentState";
+export * from "./hooks/contactpage/useContactPage";
+export * from "./hooks/homepage/useHomePage";
 
 export * from "./services/aboutpage";
 export * from "./services/companyStructure";

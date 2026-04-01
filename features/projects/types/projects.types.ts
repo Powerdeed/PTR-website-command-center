@@ -1,4 +1,4 @@
-import { companyServices } from "@global-utils/constants/COMPANY_PROVISIONS";
+import { companyServices } from "@global utils/constants/COMPANY_PROVISIONS";
 
 export interface Project {
   id: string;

@@ -3,53 +3,45 @@
 import React, { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-import { apiRequest } from "@lib/api/api.js";
-import { getAuth } from "@lib/api/auth/getAuth";
+import { loginUser } from "../services/authUser";
+
+import { getAuth } from "../utils/getAuth";
 
 import { LoginContext } from "../context/LoginContext";
+import { ApiError } from "@lib/utils/apiError";
 
 export default function useLoginApi() {
+  const router = useRouter();
   const loginContext = useContext(LoginContext);
 
   if (!loginContext) {
     throw new Error("login must be used within a MediaAssetsProvider");
   }
 
-  const router = useRouter();
   const { userCredentials, setLoading, setError } = loginContext;
 
   const handleLogin = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!userCredentials.email || !userCredentials.password) {
+      setError("Email and password are required");
+      return;
+    }
+
     try {
       setLoading(true);
       setError("");
 
-      if (!userCredentials.email || !userCredentials.password) {
-        setError("Email and password are required");
-        return;
-      }
+      const data = await loginUser(userCredentials);
 
-      const data = await apiRequest({
-        method: "POST",
-        url: "/auth/sign-in",
-        data: userCredentials,
-      });
-
-      try {
-        localStorage.setItem("accessToken", data.data.accessToken);
-        localStorage.setItem("refreshToken", data.data.refreshToken);
-        localStorage.setItem("user", JSON.stringify(data.data.user));
-      } catch {
-        setError("Failed to store session");
-      }
+      localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("refreshToken", data.refreshToken);
+      localStorage.setItem("user", JSON.stringify(data.user));
 
       router.push("/dashboard-overview");
-    } catch (err) {
-      if (err instanceof Error) {
+    } catch (err: unknown) {
+      if (err instanceof ApiError) {
         setError(err.message);
-      } else {
-        setError("Something went wrong");
       }
     } finally {
       setLoading(false);

@@ -4,7 +4,7 @@ import { useContext, useEffect } from "react";
 import {
   LineContext,
   PieContext,
-} from "@global components/layout/charts/ChartContext";
+} from "@global components/layout/charts/context/ChartContext";
 import {
   inquiryTrendsData,
   trafficSourceData,

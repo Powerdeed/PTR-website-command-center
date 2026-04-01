@@ -3,8 +3,8 @@
 import { use, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-import { convertLinkToLabel } from "@global-utils/conversions";
-import { MenuLabels } from "@global-utils/constants/NAV_MENU_AND_LABELS";
+import { convertLinkToLabel } from "@global utils/conversions/urlConversions";
+import { MenuLabels } from "@global utils/constants/NAV_MENU_AND_LABELS";
 
 import SettingsAndUsers from "@features/settingsAndUser/SettingsAndUsers";
 import Customization from "@features/customization/Customization";
@@ -19,7 +19,7 @@ import LeadsAndInquiries from "@features/leadsAndInquiries/LeadsAndInquiries";
 import OverviewDashboard from "@features/overviewDashboard/OverviewDashboard";
 import Nav from "@global components/layout/nav/Nav";
 import SideBar from "@global components/layout/SideBar";
-import { ChartProvider } from "@global components/layout/charts/ChartProvider";
+import { ChartProvider } from "@global components/layout/charts/context/ChartProvider";
 
 export default function Section({
   params,

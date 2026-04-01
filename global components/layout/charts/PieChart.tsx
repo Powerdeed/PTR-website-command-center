@@ -9,7 +9,7 @@ import {
 import { Pie } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
-import { type PieProps } from "./ChartContext";
+import { type PieProps } from "./context/ChartContext";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 

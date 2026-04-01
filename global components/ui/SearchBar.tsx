@@ -1,6 +1,6 @@
 "use client";
 
-import { FontAwesomeIcon } from "@node_modules/@fortawesome/react-fontawesome/dist";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function SearchBar({
   placeholder,

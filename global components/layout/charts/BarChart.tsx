@@ -9,7 +9,7 @@ import {
   type ChartOptions,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import type { barProps } from "./ChartContext";
+import type { barProps } from "./context/ChartContext";
 
 ChartJS.register(
   CategoryScale,
@@ -17,7 +17,7 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 const options: ChartOptions<"bar"> = {

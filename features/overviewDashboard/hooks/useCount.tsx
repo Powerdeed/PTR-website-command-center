@@ -1,8 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useContext } from "react";
+import { overviewContext } from "../context/overviewContext";
 
 export default function useCount() {
-  const [visibleCount, setVisibleCount] = useState(5);
-  return { visibleCount, setVisibleCount };
+  const overViewContext = useContext(overviewContext);
+
+  if (!overViewContext)
+    throw new Error("Overview context must be within a provider");
+
+  return { ...overViewContext };
 }

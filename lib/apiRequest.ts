@@ -5,10 +5,10 @@ import { ApiError } from "./utils/apiError";
 
 export const apiRequest = async <T>(config: AxiosRequestConfig): Promise<T> => {
   try {
-    const res: AxiosResponse<T> = await api(config);
-    return res.data;
+    const res: AxiosResponse<{ success: boolean; data: T }> = await api(config);
+
+    return res.data.data;
   } catch (err: unknown) {
-    // Narrow unknown to AxiosError
     if (axios.isAxiosError(err)) {
       throw new ApiError(
         err.response?.data?.message || "Something went wrong",

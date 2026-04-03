@@ -1,61 +1,36 @@
 "use client";
 
-import { useContext } from "react";
-import { DEFAULT_SERVICE } from "../constants/defaultService";
+import { useContext, useEffect } from "react";
 import { serviceContext } from "../context/serviceContext";
+import { NewService } from "../types/services.types";
 
 export default function useServiceEdit() {
   const sContext = useContext(serviceContext);
 
   if (!sContext) throw new Error("sContext must be within a provider");
 
-  const {
-    setIsSaving,
-    isAddingNewService,
-    setIsAddingNewService,
-    setNewServiceData,
-    selectedService,
-    setSelectedService,
-    newSerciceData,
-    servicesArr,
-    setServicesArr,
-    setIsDeleting,
-  } = sContext;
+  const { selectedService, setSelectedService, selectedServiceStatus } =
+    sContext;
 
-  const handleAddNewService = () => {
-    setIsAddingNewService(true);
+  const selectValue = (field: Exclude<keyof NewService, "status" | "id">) => {
+    if (!selectedService) return;
+    return selectedService[field];
   };
 
-  const handleSaveServiceChanges = () => {
-    setIsSaving(true);
+  const modifyService = (
+    field: Exclude<keyof NewService, "status" | "id">,
+    value: string,
+  ) =>
+    setSelectedService((prev) => (prev ? { ...prev, [field]: value } : prev));
 
-    if (isAddingNewService) {
-      setServicesArr((prev) => [...prev, newSerciceData]);
-      setNewServiceData(DEFAULT_SERVICE);
-      setIsAddingNewService(false);
-    } else if (selectedService) {
-      setServicesArr((prev) =>
-        prev.map((s) => (s.id === selectedService.id ? selectedService : s)),
-      );
+  useEffect(() => {
+    setSelectedService((prev) =>
+      prev ? { ...prev, status: selectedServiceStatus } : prev,
+    );
+  }, [selectedServiceStatus, setSelectedService]);
 
-      console.log(servicesArr);
-    }
-
-    setIsSaving(false);
+  return {
+    selectValue,
+    modifyService,
   };
-
-  const handleDeleteService = () => {
-    setIsDeleting(true);
-
-    if (isAddingNewService) {
-      setIsAddingNewService(false);
-      setNewServiceData(DEFAULT_SERVICE);
-    } else if (selectedService) {
-      setServicesArr((prev) => prev.filter((s) => s.id !== selectedService.id));
-      setSelectedService(DEFAULT_SERVICE);
-    }
-    setIsDeleting(false);
-  };
-
-  return { handleAddNewService, handleSaveServiceChanges, handleDeleteService };
 }

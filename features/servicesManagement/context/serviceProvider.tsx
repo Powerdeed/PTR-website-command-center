@@ -2,25 +2,34 @@
 
 import { useState } from "react";
 import { serviceContext } from "./serviceContext";
-import { services } from "../services/services";
-import { DEFAULT_SERVICE } from "../constants/defaultService";
-import { Service } from "../types/services.types";
+import { NewService, Service } from "../types/services.types";
 
 export default function ServiceProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [servicesArr, setServicesArr] = useState(services);
-  const [selectedService, setSelectedService] = useState(
-    servicesArr.find((s) => s.status) || servicesArr[0] || null,
-  );
-  const [isAddingNewService, setIsAddingNewService] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [servicesArr, setServicesArr] = useState<Service[] | null>([]);
 
-  const [newSerciceData, setNewServiceData] =
-    useState<Service>(DEFAULT_SERVICE);
+  const [selectedService, setSelectedService] = useState<NewService | null>(
+    null,
+  );
+
+  const [selectedServiceId, setSelectedServiceId] = useState<string | null>(
+    null,
+  );
+
+  const [selectedServiceStatus, setSelectedServiceStatus] = useState(false);
+
+  const [isUploading, setIsUploading] = useState(false);
+
+  const [isNewService, setIsNewService] = useState(false);
+
+  const [error, setError] = useState("");
+
+  const [fetchServicesError, setFetchServicesError] = useState("");
+
+  const [isDeleting, setIsDeleting] = useState(false);
 
   return (
     <serviceContext.Provider
@@ -29,14 +38,20 @@ export default function ServiceProvider({
         setServicesArr,
         selectedService,
         setSelectedService,
-        isAddingNewService,
-        setIsAddingNewService,
-        isSaving,
-        setIsSaving,
+        selectedServiceId,
+        setSelectedServiceId,
+        selectedServiceStatus,
+        setSelectedServiceStatus,
+        isUploading,
+        setIsUploading,
+        isNewService,
+        setIsNewService,
+        error,
+        setError,
+        fetchServicesError,
+        setFetchServicesError,
         isDeleting,
         setIsDeleting,
-        newSerciceData,
-        setNewServiceData,
       }}
     >
       {children}

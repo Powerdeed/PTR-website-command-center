@@ -1,5 +1,12 @@
 export interface Service {
-  id: string;
+  _id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  status: boolean;
+}
+
+export interface NewService {
   name: string;
   description: string;
   imageUrl: string;

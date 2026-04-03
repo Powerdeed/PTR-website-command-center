@@ -60,7 +60,13 @@ export default function useProjectsHandlers() {
     };
 
     handleFeaturedProject();
-  }, [featuredState, completedState, isAddingNewProject]);
+  }, [
+    featuredState,
+    completedState,
+    isAddingNewProject,
+    setNewProjectData,
+    setSelectedProject,
+  ]);
 
   const handleSaveChanges = () => {
     setIsSaving(true);

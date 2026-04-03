@@ -2,27 +2,35 @@
 
 import { createContext, Dispatch } from "react";
 
-import { Service } from "../types/services.types";
+import { NewService, Service } from "../types/services.types";
 
 type serviceState = {
-  // asset and meta
-  servicesArr: Service[];
-  setServicesArr: Dispatch<React.SetStateAction<Service[]>>;
+  servicesArr: Service[] | null;
+  setServicesArr: Dispatch<React.SetStateAction<Service[] | null>>;
 
-  selectedService: Service;
-  setSelectedService: Dispatch<React.SetStateAction<Service>>;
+  selectedService: NewService | null;
+  setSelectedService: Dispatch<React.SetStateAction<NewService | null>>;
 
-  isAddingNewService: boolean;
-  setIsAddingNewService: Dispatch<React.SetStateAction<boolean>>;
+  selectedServiceId: string | null;
+  setSelectedServiceId: Dispatch<React.SetStateAction<string | null>>;
 
-  isSaving: boolean;
-  setIsSaving: Dispatch<React.SetStateAction<boolean>>;
+  selectedServiceStatus: boolean;
+  setSelectedServiceStatus: Dispatch<React.SetStateAction<boolean>>;
+
+  isUploading: boolean;
+  setIsUploading: Dispatch<React.SetStateAction<boolean>>;
+
+  isNewService: boolean;
+  setIsNewService: Dispatch<React.SetStateAction<boolean>>;
+
+  error: string;
+  setError: Dispatch<React.SetStateAction<string>>;
+
+  fetchServicesError: string;
+  setFetchServicesError: Dispatch<React.SetStateAction<string>>;
 
   isDeleting: boolean;
   setIsDeleting: Dispatch<React.SetStateAction<boolean>>;
-
-  newSerciceData: Service;
-  setNewServiceData: Dispatch<React.SetStateAction<Service>>;
 };
 
 export const serviceContext = createContext<serviceState | null>(null);

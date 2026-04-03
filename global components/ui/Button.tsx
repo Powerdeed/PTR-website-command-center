@@ -1,6 +1,6 @@
 "use client";
 
-import { FontAwesomeIcon } from "@node_modules/@fortawesome/react-fontawesome/dist";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Button({
   buttonText,
@@ -25,8 +25,7 @@ export default function Button({
       disabled={disabled}
     >
       <div className={children ? "flex items-center" : ""}>
-        <div className="flex-1">{buttonText}</div>
-        {children}
+        <div className="flex-1">{buttonText}</div> {children}
       </div>
     </button>
   );
@@ -35,16 +34,23 @@ export default function Button({
 export function ButtonLight({
   buttonText,
   clickAction,
+  type,
   icon,
+  disabled,
 }: {
   buttonText: string;
   clickAction: () => void;
+  type?: "button" | "submit" | "reset";
   icon?: React.ReactNode;
+  children?: React.ReactNode;
+  disabled?: boolean;
 }) {
   return (
     <button
+      type={type}
       className="border border-(--secondary-blue) py-2.75 px-4 rounded-[10px] text-(--primary-blue) bg-white hover:bg-(--terciary-grey)/40 duration-300 text-style__small-text cursor-pointer"
       onClick={clickAction}
+      disabled={disabled}
     >
       <div className={icon ? "flex items-center" : ""}>
         {icon}
@@ -57,16 +63,29 @@ export function ButtonLight({
 export function ButtonRed({
   buttonText,
   clickAction,
+  type = "button",
+  className = "",
+  children,
+  disabled,
 }: {
   buttonText: string;
-  clickAction: () => void;
+  clickAction?: () => void;
+  type?: "button" | "submit" | "reset";
+  className?: string;
+  children?: React.ReactNode;
+  disabled?: boolean;
 }) {
   return (
     <button
-      className="bg-(--primary-red) py-3 px-4 rounded-[10px] text-white text-style__small-text cursor-pointer"
+      type={type}
+      className={`bg-(--primary-red) py-3 px-4 rounded-[10px] text-white text-style__small-text cursor-pointer ${className}`}
       onClick={clickAction}
+      disabled={disabled}
     >
-      {buttonText}
+      <div className={children ? "flex items-center" : ""}>
+        <div className="flex-1">{buttonText}</div>
+        {children}
+      </div>
     </button>
   );
 }

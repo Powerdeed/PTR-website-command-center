@@ -7,6 +7,8 @@ import useProjects from "../hooks/useProjects";
 export default function AllProjects() {
   const { state, actions } = useProjects();
 
+  if (!state.projectsObj) return;
+
   return (
     <div className="flex-1 feature-container-vertical text-style__body">
       <div className="text-style__subheading">All Projects</div>
@@ -40,7 +42,7 @@ export default function AllProjects() {
               <div className="flex flex-col gap-1.5">
                 {projects.map((p) => (
                   <div
-                    key={p.id}
+                    key={p._id}
                     className={`feature-container-vertical text-style__small-text cursor-pointer`}
                     onClick={() => actions.handleSelectedProject(p)}
                   >

@@ -1,18 +1,18 @@
 "use client";
 
 import useProjectsState from "./useProjectsState";
-import useProjectsHandlers from "./useProjectsHandlers";
+import useProjectsEdit from "./useProjectsEdit";
 import useProjectImage from "./useProjectImage";
 import useProjectsApi from "./useProjectsApi";
 
 export default function useProjects() {
   const state = useProjectsState();
-  const projectHandlers = useProjectsHandlers();
+  const editHandlers = useProjectsEdit();
   const imageHandlers = useProjectImage();
   const api = useProjectsApi();
 
   return {
     state,
-    actions: { ...projectHandlers, ...imageHandlers, ...api },
+    actions: { ...editHandlers, ...imageHandlers, ...api },
   };
 }

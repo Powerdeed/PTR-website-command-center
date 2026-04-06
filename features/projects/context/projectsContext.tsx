@@ -1,26 +1,32 @@
 "use client";
 
 import { createContext, Dispatch } from "react";
-import { Project } from "../types/projects.types";
+import { CategorizedProjects, Project } from "../types/projects.types";
 
 type projectState = {
-  projectsObj: Record<string, Project[]>;
-  setProjectsObj: Dispatch<React.SetStateAction<Record<string, Project[]>>>;
+  projectsObj: CategorizedProjects | null;
+  setProjectsObj: Dispatch<React.SetStateAction<CategorizedProjects | null>>;
 
-  selectedProject: Project;
-  setSelectedProject: Dispatch<React.SetStateAction<Project>>;
+  selectedProject: Project | null;
+  setSelectedProject: Dispatch<React.SetStateAction<Project | null>>;
 
-  isAddingNewProject: boolean;
-  setisAddingNewProject: Dispatch<React.SetStateAction<boolean>>;
+  selectedProjectId: string;
+  setSelectedProjectId: Dispatch<React.SetStateAction<string>>;
 
-  isSaving: boolean;
-  setIsSaving: Dispatch<React.SetStateAction<boolean>>;
+  isNewProject: boolean;
+  setisNewProject: Dispatch<React.SetStateAction<boolean>>;
+
+  error: string;
+  setError: Dispatch<React.SetStateAction<string>>;
+
+  getProjectsError: string;
+  setGetProjectsError: Dispatch<React.SetStateAction<string>>;
+
+  isUploading: boolean;
+  setIsUploading: Dispatch<React.SetStateAction<boolean>>;
 
   isDeleting: boolean;
   setIsDeleting: Dispatch<React.SetStateAction<boolean>>;
-
-  newProjectData: Project;
-  setNewProjectData: Dispatch<React.SetStateAction<Project>>;
 
   selectedCategory: string;
   setSelectedCategory: Dispatch<React.SetStateAction<string>>;
@@ -30,6 +36,9 @@ type projectState = {
 
   completedState: boolean;
   setCompletedState: Dispatch<React.SetStateAction<boolean>>;
+
+  refreshProjects: boolean;
+  setRefreshProjects: Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const projectContext = createContext<projectState | null>(null);

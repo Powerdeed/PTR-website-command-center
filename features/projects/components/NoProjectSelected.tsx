@@ -8,7 +8,7 @@ export default function NoProjectSelected() {
   return (
     <div className="flex-1 h-fit feature-container-vertical text-style__body">
       <div className="text-style__subheading">
-        {state.isAddingNewProject ? "Add New Project" : "Edit Project"}
+        {state.isNewProject ? "Add New Project" : "Edit Project"}
       </div>
       Select a project to start editing
     </div>

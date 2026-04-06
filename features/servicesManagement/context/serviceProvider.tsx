@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { serviceContext } from "./serviceContext";
-import { NewService, Service } from "../types/services.types";
+import { Service } from "../types/services.types";
 
 export default function ServiceProvider({
   children,
@@ -11,9 +11,7 @@ export default function ServiceProvider({
 }) {
   const [servicesArr, setServicesArr] = useState<Service[] | null>([]);
 
-  const [selectedService, setSelectedService] = useState<NewService | null>(
-    null,
-  );
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
 
   const [selectedServiceId, setSelectedServiceId] = useState<string | null>(
     null,

@@ -28,7 +28,7 @@ export default function ServicesDisplay() {
                 onClick={() => {
                   const { _id, ...s } = service;
                   state.setSelectedService(s);
-                  state.setSelectedServiceId(_id);
+                  state.setSelectedServiceId(_id || "");
                   state.setIsNewService(false);
                   state.setSelectedServiceStatus(service.status);
                 }}

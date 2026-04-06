@@ -2,14 +2,14 @@
 
 import { createContext, Dispatch } from "react";
 
-import { NewService, Service } from "../types/services.types";
+import { Service } from "../types/services.types";
 
-type serviceState = {
+type ServiceState = {
   servicesArr: Service[] | null;
   setServicesArr: Dispatch<React.SetStateAction<Service[] | null>>;
 
-  selectedService: NewService | null;
-  setSelectedService: Dispatch<React.SetStateAction<NewService | null>>;
+  selectedService: Service | null;
+  setSelectedService: Dispatch<React.SetStateAction<Service | null>>;
 
   selectedServiceId: string | null;
   setSelectedServiceId: Dispatch<React.SetStateAction<string | null>>;
@@ -33,4 +33,4 @@ type serviceState = {
   setIsDeleting: Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const serviceContext = createContext<serviceState | null>(null);
+export const serviceContext = createContext<ServiceState | null>(null);

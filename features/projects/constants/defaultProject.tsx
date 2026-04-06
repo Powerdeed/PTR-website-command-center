@@ -1,10 +1,10 @@
 import { Project } from "../types/projects.types";
 
-export const EMPTY_PROJECT: Project = {
-  id: crypto.randomUUID(),
+export const DEFAULT_PROJECT: Project = {
   category: "",
   name: "",
   description: "",
+  featuredImage: "",
   images: [""],
   status: "Ongoing",
   featured: false,

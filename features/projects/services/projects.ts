@@ -1,10 +1,16 @@
-import { CategorizedProjectsData, Project } from "../types/projects.types";
+import { apiRequest } from "@lib/api/apiRequest";
+import {
+  CategorizedProjects,
+  Project,
+  FetchedProject,
+} from "../types/projects.types";
 
 export const projects: Project[] = [
   {
-    id: "686f8a913673b0db0950398b",
+    _id: "686f8a913673b0db0950398b",
     category: "Electrical Installation",
     name: "Commercial Office Wiring Upgrade",
+    featuredImage: "expansionProject",
     images: [
       "expansionProject",
       "gridScale",
@@ -17,9 +23,10 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: "686f8c333673b0db0950398d",
+    _id: "686f8c333673b0db0950398d",
     category: "Electrical Installation",
     name: "Residential Smart Home Installation",
+    featuredImage: "solarPower",
     images: [
       "solarPower",
       "electricalInstallation3",
@@ -32,9 +39,10 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    id: "686f955050a5c5fc27b617e2",
+    _id: "686f955050a5c5fc27b617e2",
     category: "Electrical Installation",
     name: "Industrial Panel Board Replacement",
+    featuredImage: "electricalInstallation3",
     images: [
       "electricalInstallation3",
       "electricalInstallation",
@@ -47,9 +55,10 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    id: "686f95f450a5c5fc27b617ec",
+    _id: "686f95f450a5c5fc27b617ec",
     category: "Electrical Installation",
     name: "Hospital Emergency Power System",
+    featuredImage: "electricalInstallation2",
     images: [
       "electricalInstallation2",
       "solarEnergy",
@@ -62,9 +71,10 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    id: "686f962750a5c5fc27b617f0",
+    _id: "686f962750a5c5fc27b617f0",
     category: "Electrical Installation",
     name: "School Electrical Renovation",
+    featuredImage: "electricalInstallation3",
     images: [
       "electricalInstallation3",
       "gridScale",
@@ -77,9 +87,10 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    id: "686f967650a5c5fc27b617f4",
+    _id: "686f967650a5c5fc27b617f4",
     category: "Solar Installation",
     name: "Commercial Rooftop Solar PV System",
+    featuredImage: "hydrogenProduction",
     images: [
       "hydrogenProduction",
       "solarPanelImage",
@@ -92,9 +103,10 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: "686f969c50a5c5fc27b617f8",
+    _id: "686f969c50a5c5fc27b617f8",
     category: "Solar Installation",
     name: "Residential Solar Water Heating",
+    featuredImage: "gridScale",
     images: ["gridScale", "solarResources", "hydrogenProduction", "solarPower"],
     description:
       "Integration of solar water heating panels in a residential housing project.",
@@ -102,9 +114,10 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    id: "686f96c250a5c5fc27b617fc",
+    _id: "686f96c250a5c5fc27b617fc",
     category: "Solar Installation",
     name: "Solar-Powered Irrigation System",
+    featuredImage: "solarPower",
     images: ["solarPower", "expansionProject", "powerPost", "wasteRecycle"],
     description:
       "Design and implementation of a solar-powered irrigation system for an agricultural farm.",
@@ -112,9 +125,10 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    id: "686f96e750a5c5fc27b61800",
+    _id: "686f96e750a5c5fc27b61800",
     category: "Solar Installation",
     name: "Grid-Tied Solar Power Plant",
+    featuredImage: "hydrogenProduction",
     images: [
       "hydrogenProduction",
       "expansionProject",
@@ -127,9 +141,10 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    id: "686f974e50a5c5fc27b61808",
+    _id: "686f974e50a5c5fc27b61808",
     category: "Generators",
     name: "Hospital Standby Generator Installation",
+    featuredImage: "hydrogenProduction",
     images: [
       "hydrogenProduction",
       "industrialCommercial",
@@ -142,9 +157,10 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: "686f97a450a5c5fc27b6180c",
+    _id: "686f97a450a5c5fc27b6180c",
     category: "Generators",
     name: "Industrial Diesel Generator Upgrade",
+    featuredImage: "expansionProject",
     images: ["expansionProject", "solarRural", "solarPanelImage", "powerPost"],
     description:
       "Upgrade and maintenance of diesel generators for a large-scale manufacturing plant.",
@@ -152,9 +168,10 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    id: "686f97e950a5c5fc27b61814",
+    _id: "686f97e950a5c5fc27b61814",
     category: "Generators",
     name: "Commercial Generator Synchronization",
+    featuredImage: "hydrogenProduction",
     images: [
       "hydrogenProduction",
       "solarEnergy",
@@ -167,9 +184,10 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    id: "686f981350a5c5fc27b61818",
+    _id: "686f981350a5c5fc27b61818",
     category: "Generators",
     name: "Data Center Backup Power Solution",
+    featuredImage: "electricalInstallation3",
     images: [
       "electricalInstallation3",
       "electricalInstallation",
@@ -182,9 +200,10 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    id: "686f983350a5c5fc27b6181c",
+    _id: "686f983350a5c5fc27b6181c",
     category: "Generators",
     name: "Residential Estate Generator Supply",
+    featuredImage: "expansionProject",
     images: [
       "expansionProject",
       "solarResources",
@@ -197,9 +216,10 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    id: "686f985b50a5c5fc27b61820",
+    _id: "686f985b50a5c5fc27b61820",
     category: "Automation",
     name: "Factory Process Automation Upgrade",
+    featuredImage: "wasteRecycle",
     images: [
       "wasteRecycle",
       "powerPost",
@@ -212,9 +232,10 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: "686f987d50a5c5fc27b61824",
+    _id: "686f987d50a5c5fc27b61824",
     category: "Automation",
     name: "Building Management System Integration",
+    featuredImage: "gridScale",
     images: ["gridScale", "powerPost", "expansionProject", "wasteRecycle"],
     description:
       "Integration of a centralized building management system for automated control of HVAC, lighting, and security.",
@@ -222,9 +243,10 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    id: "686f98a450a5c5fc27b61828",
+    _id: "686f98a450a5c5fc27b61828",
     category: "Automation",
     name: "Automated Lighting Control",
+    featuredImage: "solarRural",
     images: ["solarRural", "solarEnergy", "expansionProject", "gridScale"],
     description:
       "Design and installation of automated lighting control for a large-scale commercial project.",
@@ -233,8 +255,8 @@ export const projects: Project[] = [
   },
 ];
 
-export const formattedProjectData = () => {
-  const projectMap: CategorizedProjectsData = {};
+export const formattedProjectData = (projects: Project[]) => {
+  const projectMap: CategorizedProjects = {};
   projects.forEach((project) => {
     if (!projectMap[project.category]) {
       projectMap[project.category] = [];
@@ -243,3 +265,60 @@ export const formattedProjectData = () => {
   });
   return projectMap;
 };
+
+export const getProjects = async (): Promise<CategorizedProjects> => {
+  const projects = await apiRequest<FetchedProject[]>({
+    method: "GET",
+    url: "/projects",
+  });
+
+  const filteredProjects: Project[] = projects.map(
+    ({ createdAt, updatedAt, ...rest }) => rest,
+  );
+
+  return formattedProjectData(filteredProjects);
+};
+
+export const getProject = async (projectId: string): Promise<Project> => {
+  const project: FetchedProject = await apiRequest<FetchedProject>({
+    method: "GET",
+    url: `/projects/${projectId}`,
+  });
+
+  const { createdAt, updatedAt, ...rest } = project;
+
+  return rest;
+};
+
+export const createProject = async (data: Project): Promise<Project> => {
+  const project: FetchedProject = await apiRequest<FetchedProject>({
+    method: "POST",
+    url: `/projects`,
+    data,
+  });
+
+  const { createdAt, updatedAt, ...rest } = project;
+
+  return rest;
+};
+
+export const updateProject = async (
+  projectId: string,
+  data: Project,
+): Promise<Project> => {
+  const project: FetchedProject = await apiRequest<FetchedProject>({
+    method: "PUT",
+    url: `/projects/${projectId}`,
+    data,
+  });
+
+  const { createdAt, updatedAt, ...rest } = project;
+
+  return rest;
+};
+
+export const deleteProject = async (projectId: string): Promise<void> =>
+  await apiRequest({
+    method: "DELETE",
+    url: `/projects/${projectId}`,
+  });

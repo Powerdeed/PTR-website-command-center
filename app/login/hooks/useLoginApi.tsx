@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation";
 
 import { loginUser } from "../services/authUser";
 
-import { getAuth } from "../utils/getAuth";
+import { getAuth } from "@lib/api/getAuth";
 
 import { LoginContext } from "../context/LoginContext";
-import { ApiError } from "@lib/utils/apiError";
+import { ApiError } from "@lib/api/utils/apiError";
 
 export default function useLoginApi() {
   const router = useRouter();

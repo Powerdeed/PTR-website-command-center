@@ -1,4 +1,4 @@
-import { apiRequest } from "@/lib/apiRequest";
+import { apiRequest } from "@lib/api/apiRequest";
 // import { getAuth } from "../utils/getAuth";
 import { UserCredentials, UserType } from "../types/userCredentials.types";
 

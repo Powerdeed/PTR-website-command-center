@@ -2,30 +2,41 @@
 
 import { useState } from "react";
 import { projectContext } from "./projectsContext";
-import { formattedProjectData } from "../services/projects";
-import { Project } from "../types/projects.types";
-import { EMPTY_PROJECT } from "../constants/emptyProject";
+import { CategorizedProjects, Project } from "../types/projects.types";
+import { DEFAULT_PROJECT } from "../constants/defaultProject";
 
 export default function ProjectProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [projectsObj, setProjectsObj] = useState<Record<string, Project[]>>(
-    formattedProjectData(),
+  const [projectsObj, setProjectsObj] = useState<CategorizedProjects | null>(
+    null,
   );
-  const [selectedProject, setSelectedProject] = useState(
-    projectsObj["Electrical Installation"][0] || null,
-  );
-  const [isAddingNewProject, setisAddingNewProject] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [newProjectData, setNewProjectData] = useState<Project>(EMPTY_PROJECT);
+
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  const [selectedProjectId, setSelectedProjectId] = useState("");
+
   const [selectedCategory, setSelectedCategory] = useState<string>(
     "Electrical Installation",
   );
-  const [featuredState, setFeaturedState] = useState(selectedProject.featured);
+
+  const [featuredState, setFeaturedState] = useState(false);
+
   const [completedState, setCompletedState] = useState(false);
+
+  const [isNewProject, setisNewProject] = useState(false);
+
+  const [getProjectsError, setGetProjectsError] = useState("");
+
+  const [error, setError] = useState("");
+
+  const [isUploading, setIsUploading] = useState(false);
+
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const [refreshProjects, setRefreshProjects] = useState(false);
 
   return (
     <projectContext.Provider
@@ -34,20 +45,26 @@ export default function ProjectProvider({
         setProjectsObj,
         selectedProject,
         setSelectedProject,
-        isAddingNewProject,
-        setisAddingNewProject,
-        isSaving,
-        setIsSaving,
+        selectedProjectId,
+        setSelectedProjectId,
+        isNewProject,
+        setisNewProject,
+        error,
+        setError,
+        getProjectsError,
+        setGetProjectsError,
+        isUploading,
+        setIsUploading,
         isDeleting,
         setIsDeleting,
-        newProjectData,
-        setNewProjectData,
         selectedCategory,
         setSelectedCategory,
         featuredState,
         setFeaturedState,
         completedState,
         setCompletedState,
+        refreshProjects,
+        setRefreshProjects,
       }}
     >
       {children}

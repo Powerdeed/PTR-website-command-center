@@ -1,15 +1,29 @@
-import { companyServices } from "@global utils/constants/COMPANY_PROVISIONS";
+import { companyServices } from "@lib/constants/COMPANY_PROVISIONS";
 
-export interface Project {
-  id: string;
+export interface FetchedProject {
+  _id: string;
   category: (typeof companyServices)[number];
   name: string;
+  featuredImage: string;
+  images: string[];
+  description: string;
+  status: "Ongoing" | "Completed";
+  featured: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Project {
+  _id?: string;
+  category: (typeof companyServices)[number];
+  name: string;
+  featuredImage: string;
   images: string[];
   description: string;
   status: "Ongoing" | "Completed";
   featured: boolean;
 }
 
-export interface CategorizedProjectsData {
+export interface CategorizedProjects {
   [key: Project["category"]]: Project[];
 }

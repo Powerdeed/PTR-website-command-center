@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import { menuItems } from "@global utils/constants/NAV_MENU_AND_LABELS";
+import { menuItems } from "@lib/constants/NAV_MENU_AND_LABELS";
 import { convertLabelToLink } from "@global utils/conversions/urlConversions";
 
 export default function Home() {

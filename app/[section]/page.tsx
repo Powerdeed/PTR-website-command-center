@@ -4,7 +4,7 @@ import { use, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import { convertLinkToLabel } from "@global utils/conversions/urlConversions";
-import { MenuLabels } from "@global utils/constants/NAV_MENU_AND_LABELS";
+import { MenuLabels } from "@lib/constants/NAV_MENU_AND_LABELS";
 
 import SettingsAndUsers from "@features/settingsAndUser/SettingsAndUsers";
 import Customization from "@features/customization/Customization";

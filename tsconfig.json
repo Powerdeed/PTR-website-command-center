@@ -29,8 +29,8 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts",
-    "lib/apiRequest.ts",
-    "lib/utils/apiError.ts"
+    "lib/api/apiRequest.ts",
+    "lib/api/utils/apiError.ts"
   ],
   "exclude": ["node_modules"]
 }

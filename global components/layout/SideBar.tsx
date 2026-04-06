@@ -2,13 +2,13 @@
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconName } from "@fortawesome/fontawesome-svg-core";
-import { menuItems } from "@global utils/constants/NAV_MENU_AND_LABELS";
+import { menuItems } from "@lib/constants/NAV_MENU_AND_LABELS";
 import Link from "next/link";
 import { convertLabelToLink } from "@global utils/conversions/urlConversions";
 import { usePathname } from "next/navigation";
 import { convertLinkToLabel } from "@global utils/conversions/urlConversions";
 
-import { COMPANY_NAME } from "@global utils/constants/COMPANY_NAME";
+import { COMPANY_NAME } from "@lib/constants/COMPANY_NAME";
 
 const titleMeta = {
   title: "PTR Command Center",

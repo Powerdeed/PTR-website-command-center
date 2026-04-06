@@ -4,7 +4,7 @@ import { useContext, useEffect } from "react";
 
 import { serviceContext } from "../context/serviceContext";
 
-import { ApiError } from "@lib/utils/apiError";
+import { ApiError } from "@lib/api/utils/apiError";
 
 import {
   getServices,
@@ -16,7 +16,7 @@ import {
 import { Service } from "../types/services.types";
 
 import { DEFAULT_SERVICE } from "../constants/defaultService";
-import { execute } from "@lib/execute";
+import { execute } from "@lib/api/execute";
 
 export default function useServiceApi() {
   const context = useContext(serviceContext);
@@ -37,7 +37,7 @@ export default function useServiceApi() {
     setFetchServicesError,
   } = context;
 
-  const resetStates = (reason?: "new" | undefined) => {
+  const resetStates = (reason?: "new") => {
     setSelectedServiceId("");
     setSelectedService(reason === "new" ? DEFAULT_SERVICE : null);
     setSelectedServiceStatus(false);

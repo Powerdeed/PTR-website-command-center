@@ -2,7 +2,7 @@
 
 import { useContext, useEffect } from "react";
 import { serviceContext } from "../context/serviceContext";
-import { NewService } from "../types/services.types";
+import { Service } from "../types/services.types";
 
 export default function useServiceEdit() {
   const sContext = useContext(serviceContext);
@@ -12,13 +12,13 @@ export default function useServiceEdit() {
   const { selectedService, setSelectedService, selectedServiceStatus } =
     sContext;
 
-  const selectValue = (field: Exclude<keyof NewService, "status" | "id">) => {
+  const selectValue = (field: Exclude<keyof Service, "status" | "id">) => {
     if (!selectedService) return;
     return selectedService[field];
   };
 
   const modifyService = (
-    field: Exclude<keyof NewService, "status" | "id">,
+    field: Exclude<keyof Service, "status" | "id">,
     value: string,
   ) =>
     setSelectedService((prev) => (prev ? { ...prev, [field]: value } : prev));

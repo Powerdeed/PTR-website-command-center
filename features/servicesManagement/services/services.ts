@@ -1,5 +1,5 @@
-import { apiRequest } from "@lib/apiRequest";
-import { NewService, Service } from "../types/services.types";
+import { apiRequest } from "@lib/api/apiRequest";
+import { Service } from "../types/services.types";
 
 export const getServices = async (): Promise<Service[]> =>
   await apiRequest<Service[]>({
@@ -13,7 +13,7 @@ export const getService = async (serviceId: string) =>
     url: `/services/${serviceId}`,
   });
 
-export const createService = async (data: NewService): Promise<Service> =>
+export const createService = async (data: Service): Promise<Service> =>
   await apiRequest({
     method: "POST",
     url: `/services`,

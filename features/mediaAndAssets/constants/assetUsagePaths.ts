@@ -1,6 +1,6 @@
 import { projects } from "@features/projects";
 import { companyStructure } from "@features/webisteContent";
-import { companyServices } from "@global utils/constants/COMPANY_PROVISIONS";
+import { companyServices } from "@lib/constants/COMPANY_PROVISIONS";
 
 export const assetUsagePaths: Record<string, string[]> = {
   "home page": ["Hero", "about top", "about bottom"],

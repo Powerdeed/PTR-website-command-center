@@ -1,193 +1,149 @@
 "use client";
 
-import Button, { ButtonLight, ButtonRed } from "@global components/ui/Button";
+import Button, {
+  ButtonLight,
+  ButtonRed,
+  DeleteIconBtn,
+} from "@global components/ui/Button";
 import Loader from "@global components/ui/Loader";
 import Toggle from "@global components/ui/Toggle";
+import { InputArea } from "@global components/layout/FormWrapper";
 
 import useProjects from "../hooks/useProjects";
 
-import { companyServices } from "@global utils/constants/COMPANY_PROVISIONS";
+import { companyServices } from "@lib/constants/COMPANY_PROVISIONS";
 
 export default function EditProject() {
   const { state, actions } = useProjects();
 
+  if (!state.selectedProject) return;
+
   return (
     <div className="flex-1 feature-container-vertical text-style__body">
       <div className="text-style__subheading">
-        {state.isAddingNewProject ? "Add New Project" : "Edit Project"}
+        {state.isNewProject ? "Add New Project" : "Edit Project"}
       </div>
 
-      <div className="text-style__body">
-        Project Name
-        <input
-          type="text"
-          className="input-style w-full mt-1"
-          value={
-            state.isAddingNewProject
-              ? state.newProjectData.name
-              : state.selectedProject?.name || ""
-          }
-          onChange={(e) =>
-            state.isAddingNewProject
-              ? state.setNewProjectData((prev) => ({
-                  ...prev,
-                  name: e.target.value,
-                }))
-              : state.setSelectedProject((prev) =>
-                  prev ? { ...prev, name: e.target.value } : prev,
-                )
-          }
+      <div className="vertical-layout__outer">
+        <InputArea
+          label="Project Name"
+          val={state.selectedProject.name}
+          changeFunc={(val) => actions.updateByPath(["name"], val)}
         />
-      </div>
 
-      <div className="text-style__body">
-        Description
-        <textarea
-          className="w-full h-50 input-style mt-1"
-          value={
-            state.isAddingNewProject
-              ? state.newProjectData.description
-              : state.selectedProject?.description || ""
-          }
-          onChange={(e) =>
-            state.isAddingNewProject
-              ? state.setNewProjectData((prev) => ({
-                  ...prev,
-                  description: e.target.value,
-                }))
-              : state.setSelectedProject((prev) =>
-                  prev ? { ...prev, description: e.target.value } : prev,
-                )
-          }
+        <InputArea
+          label="Description"
+          val={state.selectedProject.description}
+          changeFunc={(val) => actions.updateByPath(["description"], val)}
         />
-      </div>
 
-      <div className="text-style__body">
-        Select category
-        <div className="w-full h-10 border border-(--terciary-grey) rounded-[10px] px-1 flex items-center focus-within:ring-2 focus-within:ring-(--primary-blue)">
-          <select
-            className="w-full h-full rounded-[10px] focus:outline-none"
-            value={
-              state.isAddingNewProject
-                ? state.newProjectData.category
-                : state.selectedProject?.category || ""
-            }
-            onChange={(e) => {
-              if (state.isAddingNewProject) {
-                state.setNewProjectData((prev) => ({
-                  ...prev,
-                  category: e.target.value as (typeof companyServices)[number],
-                }));
-              } else if (state.selectedProject) {
-                state.setSelectedProject((prev) => ({
-                  ...prev,
-                  category: e.target.value as (typeof companyServices)[number],
-                }));
+        <div className="text-style__body">
+          Select category
+          <div className="wrapped-input-style">
+            <select
+              className="w-full h-full rounded-[10px] focus:outline-none"
+              value={state.selectedProject.category}
+              onChange={(e) =>
+                actions.updateByPath(["category"], e.target.value)
               }
-            }}
-          >
-            <option value="">select category</option>
+            >
+              <option value="">select category</option>
 
-            {companyServices.map((service) => (
-              <option key={service} value={service}>
-                {service}
-              </option>
-            ))}
-          </select>
+              {companyServices.map((service) => (
+                <option key={service} value={service}>
+                  {service}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-      </div>
 
-      <div className="flex flex-col gap-2.5 text-style__body">
-        Images
-        {state.isAddingNewProject
-          ? state.newProjectData.images.map((image, index) => (
+        <InputArea
+          label="Featured Image"
+          val={state.selectedProject.featuredImage}
+          changeFunc={(val) => actions.updateByPath(["featuredImage"], val)}
+        />
+
+        <div className="flex flex-col gap-2.5 text-style__body">
+          Images
+          {state.selectedProject.images.map((image, index) => (
+            <div key={index} className="flex items-center gap-2.5">
               <input
-                key={index}
                 type="text"
                 className="w-full input-style text-style__body mt-1"
                 value={image}
                 onChange={(e) =>
-                  state.setNewProjectData((prev) => {
-                    const updatedImages = [...prev.images];
-                    updatedImages[index] = e.target.value;
-                    return { ...prev, images: updatedImages };
-                  })
+                  actions.updateByPath(["images", index], e.target.value)
                 }
               />
-            ))
-          : state.selectedProject?.images.map((image, index) => (
-              <input
-                key={index}
-                type="text"
-                className="w-full input-style text-style__body mt-1"
-                value={image}
-                onChange={(e) =>
+              <DeleteIconBtn
+                deleteFunc={() =>
                   state.setSelectedProject((prev) => {
                     if (!prev) return prev;
-                    const updatedImages = [...prev.images];
-                    updatedImages[index] = e.target.value;
-                    return { ...prev, images: updatedImages };
+
+                    return {
+                      ...prev,
+                      ["images"]: prev.images.filter((_, i) => i !== index),
+                    };
                   })
                 }
               />
-            ))}
-        <div
-          className="w-fit"
-          onClick={() => {
-            if (state.isAddingNewProject) {
-              state.setNewProjectData((prev) => {
-                const updatedImages = [...prev.images, ""];
-                return { ...prev, images: updatedImages };
-              });
-            } else if (state.selectedProject) {
-              const updatedImages = [...state.selectedProject.images, ""];
-              state.setSelectedProject({
-                ...state.selectedProject,
-                images: updatedImages,
-              });
-            }
-          }}
-        >
+            </div>
+          ))}
           <ButtonLight
             buttonText="Add image"
-            clickAction={actions.handleImageUpload}
+            clickAction={() =>
+              actions.updateByPath(
+                ["images", state.selectedProject?.images.length || 0],
+                "",
+              )
+            }
           />
         </div>
-      </div>
 
-      <div className="flex">
-        <div className="flex-1 text-style__body">Set as Featured</div>
+        {["featured", "completed"].map((setter) => (
+          <div key={setter} className="flex">
+            <div className="flex-1">Set as {setter}</div>
 
-        <Toggle
-          state={state.featuredState}
-          stateSetter={state.setFeaturedState}
-        />
-      </div>
+            <Toggle
+              state={
+                setter === "featured"
+                  ? state.featuredState
+                  : state.completedState
+              }
+              stateSetter={
+                setter === "featured"
+                  ? state.setFeaturedState
+                  : state.setCompletedState
+              }
+            />
+          </div>
+        ))}
 
-      <div className="flex">
-        <div className="flex-1 text-style__body">Set as Completed</div>
+        <div className="flex justify-between">
+          <div className="flex gap-2.5 items-center">
+            <Button
+              buttonText={state.isNewProject ? "Add Project" : "Save Changes"}
+              clickAction={
+                state.isNewProject
+                  ? actions.handleAddNewProject
+                  : actions.handleUpdateProject
+              }
+            />
+            {state.isUploading && <Loader />}
+          </div>
 
-        <Toggle
-          state={state.completedState}
-          stateSetter={state.setCompletedState}
-        />
-      </div>
-
-      <div className="flex justify-between">
-        <div className="flex gap-2.5 items-center">
-          <Button
-            buttonText="Save Changes"
-            clickAction={actions.handleSaveChanges}
-          />
-          {state.isSaving && <Loader />}
-        </div>
-
-        <div className="flex gap-2.5 items-center">
-          <ButtonRed
-            buttonText="Delete Project"
-            clickAction={actions.handleDeleteProject}
-          />
-          {state.isDeleting && <Loader />}
+          <div className="flex gap-2.5 items-center">
+            <ButtonRed
+              buttonText={state.isNewProject ? "Cancel" : "Delete Project"}
+              clickAction={
+                state.isNewProject
+                  ? actions.resetStates
+                  : actions.handleDeleteProject
+              }
+            />
+            {state.isDeleting && <Loader />}
+          </div>
         </div>
       </div>
     </div>

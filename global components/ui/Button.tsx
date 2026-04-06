@@ -34,6 +34,7 @@ export default function Button({
 export function ButtonLight({
   buttonText,
   clickAction,
+  className = "",
   type,
   icon,
   disabled,
@@ -41,6 +42,7 @@ export function ButtonLight({
   buttonText: string;
   clickAction: () => void;
   type?: "button" | "submit" | "reset";
+  className?: string;
   icon?: React.ReactNode;
   children?: React.ReactNode;
   disabled?: boolean;
@@ -48,7 +50,7 @@ export function ButtonLight({
   return (
     <button
       type={type}
-      className="border border-(--secondary-blue) py-2.75 px-4 rounded-[10px] text-(--primary-blue) bg-white hover:bg-(--terciary-grey)/40 duration-300 text-style__small-text cursor-pointer"
+      className={`border border-(--secondary-blue) py-2.75 px-4 rounded-[10px] text-(--primary-blue) bg-white hover:bg-(--terciary-grey)/40 duration-300 text-style__small-text cursor-pointer ${className}`}
       onClick={clickAction}
       disabled={disabled}
     >

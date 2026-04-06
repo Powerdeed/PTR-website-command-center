@@ -2,13 +2,13 @@
 
 import Button from "@global components/ui/Button";
 import { SectionTitle } from "@global components/ui/Title";
-
-import useProjects from "../hooks/useProjects";
-import { PAGE_META } from "../constants/pageMeta";
-import { EMPTY_PROJECT } from "../constants/emptyProject";
 import NoProjectSelected from "./NoProjectSelected";
 import EditProject from "./EditProject";
 import AllProjects from "./AllProjects";
+
+import useProjects from "../hooks/useProjects";
+
+import { PAGE_META } from "../constants/pageMeta";
 
 export default function ProjectsView() {
   const { state, actions } = useProjects();
@@ -21,18 +21,16 @@ export default function ProjectsView() {
         </div>
         <Button
           buttonText={"+ Add New Project"}
-          clickAction={actions.handleAddNewProject}
+          clickAction={() => actions.resetStates("new")}
         />
       </div>
 
       <div className="flex gap-5">
         <AllProjects />
 
-        {state.selectedProject !== EMPTY_PROJECT ? (
-          <EditProject />
-        ) : (
-          <NoProjectSelected />
-        )}
+        {state.selectedProject && <EditProject />}
+
+        {!state.selectedProject && <NoProjectSelected />}
       </div>
     </div>
   );

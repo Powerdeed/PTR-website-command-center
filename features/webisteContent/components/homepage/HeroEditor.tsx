@@ -6,10 +6,12 @@ import FormWrapper, {
 } from "@global components/layout/FormWrapper";
 import { ButtonLight } from "@global components/ui/Button";
 
-import useWebsiteContent from "../../hooks/useWebsiteContent";
+import useHomePage from "../../hooks/homepage/useHomePage";
 
 export default function HeroEditor() {
-  const { state, actions } = useWebsiteContent();
+  const { state, actions } = useHomePage();
+
+  if (!state.homepage) return;
 
   return (
     <FormWrapper subtitle="Hero Section">

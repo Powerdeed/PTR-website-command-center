@@ -6,10 +6,12 @@ import FormWrapper, {
 } from "@global components/layout/FormWrapper";
 import { ButtonLight } from "@global components/ui/Button";
 
-import useWebsiteContent from "../../hooks/useWebsiteContent";
+import useHomePage from "../../hooks/homepage/useHomePage";
 
 export default function AboutSummaryEditor() {
-  const { state, actions } = useWebsiteContent();
+  const { state, actions } = useHomePage();
+
+  if (!state.homepage) return;
 
   return state.homepage.aboutIntro.map((about, index) => (
     <FormWrapper

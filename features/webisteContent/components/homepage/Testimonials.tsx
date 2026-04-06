@@ -9,10 +9,13 @@ import Button, {
   UploadIconBtn,
 } from "@global components/ui/Button";
 
-import useWebsiteContent from "../../hooks/useWebsiteContent";
+import useHomePage from "@features/webisteContent/hooks/homepage/useHomePage";
 
 export default function Testimonials() {
-  const { state, actions } = useWebsiteContent();
+  const { state, actions } = useHomePage();
+
+  if (!state.testimonials) return;
+
   return (
     <FormWrapper
       subtitle="Testimonial Section"
@@ -24,7 +27,7 @@ export default function Testimonials() {
       }
     >
       <div className="border border-(--terciary-grey) rounded-[10px] p-2.5 h-100 overflow-y-auto section-scrollbar">
-        {state.testimonialData.map((testimonial, index) => (
+        {state.testimonials.map((testimonial, index) => (
           <div key={index} className="vertical-layout__inner container-layout">
             <div className="text-style__big-text flex">
               <div className="flex-1"> Testimonial {index + 1}</div>

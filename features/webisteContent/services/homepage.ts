@@ -1,29 +1,5 @@
-export type Testimonial = {
-  id: string;
-  name: string;
-  position: string;
-  industry: string;
-  testimonial: string;
-  profilePic: string;
-};
-
-export type Hero = {
-  title: string;
-  subtitle: string;
-  image: string;
-};
-
-export type AboutIntro = {
-  title: string;
-  description: string;
-  image: string;
-  flipped: boolean;
-};
-
-export type Homepage = {
-  hero: Hero;
-  aboutIntro: AboutIntro[];
-};
+import { apiRequest } from "@lib/api/apiRequest";
+import { Homepage, Testimonial } from "../types/homePage.types";
 
 export const homepageData: Homepage = {
   hero: {
@@ -125,3 +101,9 @@ export const testimonials: Testimonial[] = [
     profilePic: "profile-image",
   },
 ];
+
+export const getHomePageData = () =>
+  apiRequest<Homepage[]>({
+    method: "GET",
+    url: "/homepage",
+  });

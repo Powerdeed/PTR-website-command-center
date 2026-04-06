@@ -8,7 +8,7 @@ export * from "./hooks/aboutPage/useAboutOverview";
 export * from "./hooks/aboutPage/useCompanyStructure";
 export * from "./hooks/useWebsiteContentState";
 export * from "./hooks/contactpage/useContactPage";
-export * from "./hooks/homepage/useHomePage";
+export * from "./hooks/homepage/useHomepageEdit";
 
 export * from "./services/aboutpage";
 export * from "./services/companyStructure";

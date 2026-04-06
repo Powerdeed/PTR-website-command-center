@@ -20,6 +20,7 @@ export default function ForgotPasswordView() {
   );
 }
 
+// TODO
 // Add rate limiting on requestReset (prevent spam/abuse)
 // Add OTP attempt limit (e.g. max 5 tries)
 // Send OTP via email (nodemailer / resend / sendgrid)

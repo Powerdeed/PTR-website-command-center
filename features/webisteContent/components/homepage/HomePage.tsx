@@ -1,14 +1,14 @@
 "use client";
 
 import Button, { ButtonLight } from "@global components/ui/Button";
-
-import useWebsiteContent from "../../hooks/useWebsiteContent";
 import Testimonials from "./Testimonials";
 import AboutSummaryEditor from "./AboutSummaryEditor";
 import HeroEditor from "./HeroEditor";
 
+import useHomePage from "../../hooks/homepage/useHomePage";
+
 export default function HomePage() {
-  const { actions } = useWebsiteContent();
+  const { actions } = useHomePage();
 
   return (
     <div className="text-style__body vertical-layout__outer">

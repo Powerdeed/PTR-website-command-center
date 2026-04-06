@@ -4,12 +4,12 @@ import Button, { ButtonLight } from "@global components/ui/Button";
 import Loader from "@global components/ui/Loader";
 import FormWrapper from "@global components/layout/FormWrapper";
 
-import useWebsiteContent from "@features/webisteContent/hooks/useWebsiteContent";
 import OverviewSubsectionEditor from "./OverviewSubsectionEditor";
 import CompanyStructureEditor from "./CompanyStructureEditor";
+import useAboutPage from "@features/webisteContent/hooks/aboutPage/useAboutPage";
 
 export default function AboutPage() {
-  const { state, actions } = useWebsiteContent();
+  const { state, actions } = useAboutPage();
 
   return (
     <div className="vertical-layout__outer">

@@ -6,7 +6,7 @@ import FormWrapper, {
 } from "@global components/layout/FormWrapper";
 import { ButtonLight } from "@global components/ui/Button";
 
-import useHomePage from "../../hooks/homepage/useHomePage";
+import useHomePage from "../../hooks/homepage/useHomepage";
 
 export default function HeroEditor() {
   const { state, actions } = useHomePage();

@@ -1,12 +1,12 @@
 "use client";
 
-import useHomePageApi from "./useHomePageApi";
-import useHomePageEdit from "./useHomepageEdit";
+import useHomePageApi from "./useHomepageApi";
 import useHomepageState from "./useHomepageState";
+import useHomePageEditor from "./useHomepageEditor";
 
 export default function useHomePage() {
   const state = useHomepageState();
-  const editors = useHomePageEdit();
+  const editors = useHomePageEditor();
   const api = useHomePageApi();
 
   return {

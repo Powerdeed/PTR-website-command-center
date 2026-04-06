@@ -8,7 +8,7 @@ import { aboutUs, AboutUs } from "../../services/aboutpage";
 
 import { DraftifyBlock } from "draftify";
 
-export default function useAboutOverview() {
+export default function useAboutEditor() {
   const aboutpageState = useContext(aboutpageContext);
 
   if (!aboutpageState) throw new Error("Context must be within a provider");

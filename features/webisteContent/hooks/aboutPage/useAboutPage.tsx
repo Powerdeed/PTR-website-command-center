@@ -1,36 +1,27 @@
 "use client";
 
-import { useContext } from "react";
-
-import { aboutUs } from "@features/webisteContent/services/aboutpage";
-import { companyStructure } from "@features/webisteContent/services/companyStructure";
-
-import { aboutpageContext } from "@features/webisteContent/context/aboutpageContext";
-
-import useAboutOverview from "./useAboutOverview";
-import useCompanyStructure from "./useCompanyStructure";
+import useAboutEditor from "./useAboutEditor";
+import useAboutPageApi from "./useAboutPageApi";
+import useAboutpageState from "./useAboutpageState";
+import useCompanyStructureApi from "./useCompanyStructureApi";
+import useCompanyStructureEditor from "./useCompanyStructureEditor";
 
 export default function useAboutPage() {
-  const aboutpageState = useContext(aboutpageContext);
+  const state = useAboutpageState();
 
-  if (!aboutpageState) throw new Error("Context must be within a provider");
+  const aboutpageEditor = useAboutEditor();
+  const aboutpageApi = useAboutPageApi();
 
-  const { setAboutOverviewData, setCompanyStructureData } = aboutpageState;
-
-  const aboutOverviewHandlers = useAboutOverview();
-  const companyStructureHandlers = useCompanyStructure();
-
-  const resetChanges = () => {
-    setAboutOverviewData(aboutUs);
-    setCompanyStructureData(companyStructure);
-  };
-
-  const saveAllChanges = () => {};
+  const companyStructureEditor = useCompanyStructureEditor();
+  const companyStructureApi = useCompanyStructureApi();
 
   return {
-    ...aboutOverviewHandlers,
-    ...companyStructureHandlers,
-    resetChanges,
-    saveAllChanges,
+    state,
+    actions: {
+      ...aboutpageEditor,
+      ...aboutpageApi,
+      ...companyStructureEditor,
+      ...companyStructureApi,
+    },
   };
 }

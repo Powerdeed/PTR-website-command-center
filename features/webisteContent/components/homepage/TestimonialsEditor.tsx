@@ -9,9 +9,9 @@ import Button, {
   UploadIconBtn,
 } from "@global components/ui/Button";
 
-import useHomePage from "@features/webisteContent/hooks/homepage/useHomePage";
+import useHomePage from "@features/webisteContent/hooks/homepage/useHomepage";
 
-export default function Testimonials() {
+export default function TestimonialsEditor() {
   const { state, actions } = useHomePage();
 
   if (!state.testimonials) return;

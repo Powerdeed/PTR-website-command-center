@@ -9,21 +9,16 @@ import FormWrapper, {
 } from "@global components/layout/FormWrapper";
 import { ButtonLight, DeleteIconBtn } from "@global components/ui/Button";
 
-import useWebsiteContent from "@features/webisteContent/hooks/useWebsiteContent";
+import useAboutPage from "@features/webisteContent/hooks/aboutPage/useAboutPage";
 
 export default function OverviewSubsectionEditor() {
-  const { state, actions } = useWebsiteContent();
+  const { state, actions } = useAboutPage();
 
   return state.aboutOverviewData.map(({ title, description }, index) => {
     if (actions.isObjectOrDraftifyArr(description)) {
       if (typeof description !== "string") {
         return (
-          <FormWrapper
-            key={index}
-            keyVal={index}
-            subtitleChildren={<></>} // dummy child to remove the separatorLine
-            subtitle={title}
-          >
+          <FormWrapper key={index} keyVal={index} subtitle={title}>
             <DraftifyReact
               draftifyDoc={state.aboutOverviewSummaryDoc}
               setDoc={state.setAboutOverviewSummaryDoc}

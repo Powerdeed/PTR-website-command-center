@@ -1,6 +1,7 @@
 "use client";
 
-import useWebsiteContent from "@features/webisteContent/hooks/useWebsiteContent";
+import useAboutPage from "@features/webisteContent/hooks/aboutPage/useAboutPage";
+
 import FormWrapper, {
   InputArea,
   SeparatorLine,
@@ -8,7 +9,7 @@ import FormWrapper, {
 import { ButtonLight, DeleteIconBtn } from "@global components/ui/Button";
 
 export default function CompanyStructureEditor() {
-  const { state, actions } = useWebsiteContent();
+  const { state, actions } = useAboutPage();
 
   return state.companyStructureData.map((level) => (
     <FormWrapper

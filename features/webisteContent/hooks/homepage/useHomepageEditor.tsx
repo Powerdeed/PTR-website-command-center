@@ -13,7 +13,7 @@ import {
   Testimonial,
 } from "@features/webisteContent/types/homePage.types";
 
-export default function useHomePageEdit() {
+export default function useHomePageEditor() {
   const homepageState = useContext(homepageContext);
 
   if (!homepageState)

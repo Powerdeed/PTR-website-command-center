@@ -1,6 +1,7 @@
 "use client";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ReactNode } from "@node_modules/@types/react";
 
 export default function Button({
   buttonText,
@@ -92,10 +93,21 @@ export function ButtonRed({
   );
 }
 
-export function DeleteIconBtn({ deleteFunc }: { deleteFunc: () => void }) {
+export function DeleteIconBtn({
+  deleteFunc,
+  children,
+}: {
+  deleteFunc: () => void;
+  children?: ReactNode;
+}) {
   return (
-    <div className="text-(--secondary-red) cursor-pointer" onClick={deleteFunc}>
+    <div
+      className={`text-(--secondary-red) cursor-pointer ${children && "flex items-center gap-2.5"}`}
+      onClick={deleteFunc}
+    >
       <FontAwesomeIcon icon={["far", "trash-can"]} />
+
+      {children}
     </div>
   );
 }

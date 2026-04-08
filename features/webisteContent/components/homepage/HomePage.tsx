@@ -1,33 +1,43 @@
 "use client";
 
 import Button, { ButtonLight } from "@global components/ui/Button";
-import AboutSummaryEditor from "./AboutSummaryEditor";
-import HeroEditor from "./HeroEditor";
-
-import useWebsiteContent from "@features/webisteContent/hooks/useWebsiteContent";
+import Loader from "@global components/ui/Loader";
+import HeroAndAboutEditor from "./HeroAndAboutEditor";
 import TestimonialsEditor from "./TestimonialsEditor";
 
+import useHomePage from "../../hooks/homepage/useHomepage";
+
 export default function HomePage() {
-  const { actions } = useWebsiteContent();
+  const { state, actions } = useHomePage();
 
   return (
     <div className="text-style__body vertical-layout__outer">
-      <HeroEditor />
+      {!state.getHomepageDataError && <HeroAndAboutEditor />}
 
-      <AboutSummaryEditor />
+      {!state.getTestimonialsError && <TestimonialsEditor />}
 
-      <TestimonialsEditor />
+      {actions.getErrors && (
+        <div className="text-(--primary-red)">{actions.getErrors}</div>
+      )}
 
       <div className="flex gap-2.5 items-center justify-end">
         <ButtonLight
           buttonText="Reset Changes"
-          clickAction={actions.resetChanges}
+          clickAction={() => state.setRefreshFetchData((prev) => !prev)}
+          icon={actions.fetchingData && <Loader />}
         />
+
         <Button
           buttonText="Save All Changes"
           clickAction={actions.saveAllChanges}
-        />
+        >
+          {state.updatingHomepage && <Loader />}
+        </Button>
       </div>
+
+      {actions.updateErrors && (
+        <div className="text-(--primary-red)">{actions.updateErrors}</div>
+      )}
     </div>
   );
 }

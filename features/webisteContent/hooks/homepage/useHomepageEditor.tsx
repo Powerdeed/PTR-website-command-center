@@ -2,16 +2,11 @@
 
 import { useContext } from "react";
 
-import {
-  homepageData,
-  testimonials,
-} from "@features/webisteContent/services/homepage";
+import { isEqual } from "lodash";
 
-import { homepageContext } from "@features/webisteContent/context/homepageContext";
-import {
-  Homepage,
-  Testimonial,
-} from "@features/webisteContent/types/homePage.types";
+import { homepageContext } from "../../context/homepageContext";
+
+import { Homepage } from "../../types/homePage.types";
 
 export default function useHomePageEditor() {
   const homepageState = useContext(homepageContext);
@@ -19,8 +14,14 @@ export default function useHomePageEditor() {
   if (!homepageState)
     throw new Error("Home page context must be within a provider");
 
-  const { homepage, setHomepage, testimonials, setTestimonials } =
-    homepageState;
+  const {
+    homepage,
+    setHomepage,
+    homepagePrev,
+    setUpdateHomepageDataError,
+    setTestimonialsError,
+    setHasHomePageChanged,
+  } = homepageState;
 
   const updateHomePageData = (
     key: string,
@@ -28,94 +29,41 @@ export default function useHomePageEditor() {
     data: string | boolean,
     section?: number,
   ) => {
-    if (!homepage) return;
+    if (!homepage || !homepagePrev) return;
 
-    const { hero, aboutIntro } = homepage;
+    setUpdateHomepageDataError("");
+    setTestimonialsError("");
 
-    if (innerKey === "hero") {
-      setHomepage((prev) =>
-        prev
-          ? {
-              ...prev,
-              hero: { ...hero, [key]: data },
-            }
-          : prev,
-      );
-    } else if (innerKey === "aboutIntro") {
-      setHomepage(() => {
-        const updatedIntro = aboutIntro.map((item, index) =>
-          index === section ? { ...item, [key]: data } : item,
-        );
-        return {
-          hero,
-          aboutIntro: updatedIntro,
-        };
-      });
-    }
-  };
-
-  const updateTestimonial = (
-    key: string,
-    data: string,
-    testimonialId: string,
-  ) =>
-    setTestimonials((prev) => {
+    setHomepage((prev) => {
       if (!prev) return prev;
 
-      const updatedTestimonials = prev.map((testimonial) => {
-        if (testimonial.id === testimonialId) {
-          return {
-            ...testimonial,
-            [key]: data,
-          };
-        }
-        return testimonial;
-      });
+      let updated;
 
-      return updatedTestimonials;
+      if (innerKey === "hero") {
+        updated = {
+          ...prev,
+          hero: { ...prev.hero, [key]: data },
+        };
+      } else if (innerKey === "aboutIntro") {
+        const updatedIntro = prev.aboutIntro.map((item, index) =>
+          index === section ? { ...item, [key]: data } : item,
+        );
+
+        updated = {
+          ...prev,
+          aboutIntro: updatedIntro,
+        };
+      } else {
+        return prev;
+      }
+
+      setHasHomePageChanged(!isEqual(updated, homepagePrev));
+
+      return updated;
     });
-
-  const handleAddTestimonial = () => {
-    setTestimonials((prev) =>
-      prev
-        ? [
-            ...prev,
-            {
-              id: crypto.randomUUID(),
-              name: "",
-              position: "",
-              industry: "",
-              testimonial: "",
-              profilePic: "",
-            } as Testimonial,
-          ]
-        : prev,
-    );
   };
-
-  const handleDeleteTestimonial = (testimonialId: string) =>
-    setTestimonials((prev) =>
-      prev
-        ? prev.filter((testimonial) => testimonial.id !== testimonialId)
-        : prev,
-    );
-
-  const resetChanges = () => {
-    setHomepage(homepageData);
-    setTestimonials(testimonials);
-  };
-
-  const saveAllChanges = () => {};
-
-  const handleImageUpload = () => {};
 
   return {
     updateHomePageData,
-    updateTestimonial,
-    handleAddTestimonial,
-    handleDeleteTestimonial,
-    resetChanges,
-    saveAllChanges,
-    handleImageUpload,
   };
 }

@@ -65,5 +65,5 @@ export function InputArea({
 }
 
 export function SeparatorLine() {
-  return <hr className="border-t border-(--terciary-grey)" />;
+  return <hr className="border-t border-(--terciary-grey) my-1" />;
 }

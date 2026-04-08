@@ -8,6 +8,7 @@ import Button, {
   DeleteIconBtn,
   UploadIconBtn,
 } from "@global components/ui/Button";
+import Loader from "@global components/ui/Loader";
 
 import useHomePage from "@features/webisteContent/hooks/homepage/useHomepage";
 
@@ -18,15 +19,27 @@ export default function TestimonialsEditor() {
 
   return (
     <FormWrapper
-      subtitle="Testimonial Section"
+      subtitle={`Testimonial Section `}
       subtitleChildren={
         <Button
-          buttonText="+ Add Testimonial"
+          buttonText="+ Add Testimonial "
           clickAction={actions.handleAddTestimonial}
-        />
+        >
+          {state.addingTestimonials && <Loader />}
+        </Button>
       }
     >
-      <div className="border border-(--terciary-grey) rounded-[10px] p-2.5 h-100 overflow-y-auto section-scrollbar">
+      <div className="text-(--secondary-blue)">
+        {state.hasTestimonialsChanged &&
+          "changes have been made, save before exiting"}
+
+        {state.addTestimonialsError &&
+          "an error occured while adding a testimonial"}
+      </div>
+
+      <div
+        className={`${state.hasTestimonialsChanged ? "border-2 border-(--secondary-blue)" : "border border-(--terciary-grey)"}  rounded-[10px] p-2.5 h-150 overflow-y-auto section-scrollbar`}
+      >
         {state.testimonials.map((testimonial, index) => (
           <div key={index} className="vertical-layout__inner container-layout">
             <div className="text-style__big-text flex">
@@ -34,7 +47,7 @@ export default function TestimonialsEditor() {
 
               <DeleteIconBtn
                 deleteFunc={() =>
-                  actions.handleDeleteTestimonial(testimonial.id)
+                  actions.handleDeleteTestimonial(testimonial._id)
                 }
               />
             </div>
@@ -44,17 +57,17 @@ export default function TestimonialsEditor() {
                 label="Profile Image"
                 val={testimonial.profilePic}
                 changeFunc={(val) =>
-                  actions.updateTestimonial("profilePic", val, testimonial.id)
+                  actions.updateTestimonial("profilePic", val, testimonial._id)
                 }
               >
-                <UploadIconBtn uploadFunc={actions.handleImageUpload} />
+                {/* <UploadIconBtn uploadFunc={actions.handleImageUpload} /> */}
               </InputArea>
 
               <InputArea
                 label="Name"
                 val={testimonial.name}
                 changeFunc={(val) =>
-                  actions.updateTestimonial("name", val, testimonial.id)
+                  actions.updateTestimonial("name", val, testimonial._id)
                 }
               />
             </div>
@@ -64,14 +77,14 @@ export default function TestimonialsEditor() {
                 label="Position"
                 val={testimonial.position}
                 changeFunc={(val) =>
-                  actions.updateTestimonial("position", val, testimonial.id)
+                  actions.updateTestimonial("position", val, testimonial._id)
                 }
               />
               <InputArea
                 label="Industry / Project"
                 val={testimonial.industry}
                 changeFunc={(val) =>
-                  actions.updateTestimonial("industry", val, testimonial.id)
+                  actions.updateTestimonial("industry", val, testimonial._id)
                 }
               />
             </div>
@@ -80,13 +93,13 @@ export default function TestimonialsEditor() {
               label="Testimonial Text"
               val={testimonial.testimonial}
               changeFunc={(val) =>
-                actions.updateTestimonial("testimonial", val, testimonial.id)
+                actions.updateTestimonial("testimonial", val, testimonial._id)
               }
             />
+
+            {index !== state.testimonials.length - 1 && <SeparatorLine />}
           </div>
         ))}
-
-        <SeparatorLine />
       </div>
     </FormWrapper>
   );

@@ -1,5 +1,13 @@
+export type NewTestimonial = {
+  name: string;
+  position: string;
+  industry: string;
+  testimonial: string;
+  profilePic: string;
+};
+
 export type Testimonial = {
-  id: string;
+  _id: string;
   name: string;
   position: string;
   industry: string;
@@ -21,6 +29,7 @@ export type AboutIntro = {
 };
 
 export type Homepage = {
+  _id: string;
   hero: Hero;
   aboutIntro: AboutIntro[];
 };

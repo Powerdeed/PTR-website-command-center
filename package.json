@@ -20,6 +20,7 @@
     "dotenv": "^17.3.1",
     "draftify": "^0.1.4",
     "draftify-react": "^0.3.3",
+    "lodash": "^4.18.1",
     "next": "^16.2.1",
     "react": "19.2.3",
     "react-chartjs-2": "^5.3.1",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/lodash": "^4.17.24",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

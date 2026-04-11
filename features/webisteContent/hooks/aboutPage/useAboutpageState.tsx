@@ -2,14 +2,18 @@
 
 import { useContext } from "react";
 
-import { aboutpageContext } from "@features/webisteContent/context/aboutpageContext";
+import { aboutpageContext } from "../../context/aboutpage/aboutpageContext";
+import { companyStructureContext } from "../../context/aboutpage/companyStructureContext";
 
 export default function useAboutpageState() {
-  const state = useContext(aboutpageContext);
+  const aboutpageState = useContext(aboutpageContext);
+  const companyStructureState = useContext(companyStructureContext);
 
-  if (!state) throw new Error("Context must be within a provider");
+  if (!aboutpageState || !companyStructureState)
+    throw new Error("Context must be within a provider");
 
   return {
-    ...state,
+    ...aboutpageState,
+    ...companyStructureState,
   };
 }

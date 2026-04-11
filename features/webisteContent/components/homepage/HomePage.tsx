@@ -23,13 +23,19 @@ export default function HomePage() {
       <div className="flex gap-2.5 items-center justify-end">
         <ButtonLight
           buttonText="Reset Changes"
-          clickAction={() => state.setRefreshFetchData((prev) => !prev)}
+          clickAction={() => {
+            state.setRefreshFetchHomepage((prev) => !prev);
+            state.setRefreshFetchTestimonials((prev) => !prev);
+          }}
           icon={actions.fetchingData && <Loader />}
         />
 
         <Button
           buttonText="Save All Changes"
-          clickAction={actions.saveAllChanges}
+          clickAction={() => {
+            actions.handleSaveHomepage();
+            actions.handleSaveTestimonials();
+          }}
         >
           {state.updatingHomepage && <Loader />}
         </Button>

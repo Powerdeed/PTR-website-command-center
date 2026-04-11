@@ -6,13 +6,17 @@ export default function FormWrapper({
   subtitle,
   subtitleChildren,
   children,
+  separatorLine = true,
 }: {
   keyVal?: number | string;
   title?: string;
   subtitle: string;
   subtitleChildren?: React.ReactNode;
   children: React.ReactNode;
+  separatorLine?: boolean;
 }) {
+  const line = !subtitleChildren && separatorLine;
+
   return (
     <div key={keyVal} className="vertical-layout__outer">
       <div
@@ -26,7 +30,7 @@ export default function FormWrapper({
           )}
         </div>
 
-        {subtitleChildren ? subtitleChildren : <SeparatorLine />}
+        {line ? <SeparatorLine /> : subtitleChildren}
       </div>
 
       {children}
@@ -42,7 +46,7 @@ export function InputArea({
   children,
 }: {
   keyVal?: number | string;
-  label: string;
+  label?: string;
   val: string;
   changeFunc: (val: string) => void;
   children?: React.ReactNode;

@@ -1,49 +1,77 @@
 "use client";
 
-import { aboutpageContext } from "@features/webisteContent/context/aboutpageContext";
+import { useContext, useEffect } from "react";
 
-import { sortBasedOnId } from "../../utils/conversions";
-import { useContext } from "react";
+import { companyStructureContext } from "../../context/aboutpage/companyStructureContext";
+
+import {
+  getCompanyStructureData,
+  updateCompanyStructureData,
+} from "../../services/companyStructure";
+
+import { ApiError } from "@lib/api/utils/apiError";
+import { execute } from "@lib/api/execute";
 
 export default function useCompanyStructureApi() {
-  const aboutpageState = useContext(aboutpageContext);
+  const companyStructureState = useContext(companyStructureContext);
 
-  if (!aboutpageState) throw new Error("Context must be within a provider");
+  if (!companyStructureState)
+    throw new Error("Context must be within a provider");
 
-  const { setCompanyStructureData } = aboutpageState;
+  const {
+    companyStructure,
+    setCompanyStructure,
+    setCompanyStructurePrev,
+    companyStructureId,
+    setCompanyStructureId,
+    setLoadingCompanyStructureError,
+    setUpdatingCompanyStructure,
+    setUpdatingCompanyStructureError,
+    setHasCompanyStructureChanged,
+    refreshCompanyStructure,
+  } = companyStructureState;
 
-  const updateStructure = (
-    levelId: string,
-    levelName: string,
-    positionId?: number,
-    positionData?: string,
-  ) => {
-    setCompanyStructureData((prev) => {
-      const dataObjToUpdate = prev.find((data) => data.id === levelId);
-      if (!dataObjToUpdate) return prev;
+  useEffect(() => {
+    const fetchCompanyStructure = async () => {
+      try {
+        const companyStructureData = await getCompanyStructureData();
 
-      const otherData = prev.filter((data) => data.id !== levelId);
-
-      if (positionId !== undefined && positionData !== undefined) {
-        const positionsData = [...dataObjToUpdate.positions];
-        positionsData[positionId] = positionData;
-
-        const updatedObj = {
-          ...dataObjToUpdate,
-          levelName,
-          positions: positionsData,
-        };
-
-        return sortBasedOnId([...otherData, updatedObj]);
+        setCompanyStructure(companyStructureData[0].structure);
+        setCompanyStructurePrev(companyStructureData[0].structure);
+        setCompanyStructureId(companyStructureData[0]._id);
+      } catch (error) {
+        if (error instanceof ApiError)
+          setLoadingCompanyStructureError(error.message);
       }
+    };
 
-      const updatedObj = { ...dataObjToUpdate, levelName };
-      return sortBasedOnId([...otherData, updatedObj]);
-    });
+    fetchCompanyStructure();
+  }, [
+    refreshCompanyStructure,
+    setCompanyStructure,
+    setCompanyStructureId,
+    setCompanyStructurePrev,
+    setLoadingCompanyStructureError,
+  ]);
+
+  const handlesaveCompanyStructure = async () => {
+    if (!companyStructure) return;
+
+    await execute(
+      () => updateCompanyStructureData(companyStructureId, companyStructure),
+      {
+        setLoading: setUpdatingCompanyStructure,
+        setError: setUpdatingCompanyStructureError,
+        onSuccess: (updatedStructure) => {
+          setCompanyStructure(updatedStructure);
+          setCompanyStructurePrev(updatedStructure);
+          setHasCompanyStructureChanged(false);
+        },
+      },
+    );
   };
 
   return {
-    setCompanyStructureData,
-    updateStructure,
+    handlesaveCompanyStructure,
   };
 }

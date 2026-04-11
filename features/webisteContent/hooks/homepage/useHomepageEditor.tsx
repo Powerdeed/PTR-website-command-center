@@ -4,24 +4,30 @@ import { useContext } from "react";
 
 import { isEqual } from "lodash";
 
-import { homepageContext } from "../../context/homepageContext";
+import { homepageContext } from "../../context/homepage/homepageContext";
 
 import { Homepage } from "../../types/homePage.types";
+import { testimonialsContext } from "../../context/homepage/testimonialsContext";
 
 export default function useHomePageEditor() {
   const homepageState = useContext(homepageContext);
 
-  if (!homepageState)
-    throw new Error("Home page context must be within a provider");
+  const testimonialsState = useContext(testimonialsContext);
+
+  if (!homepageState || !testimonialsState)
+    throw new Error(
+      "Home page and testimonials context must be within a provider",
+    );
 
   const {
     homepage,
     setHomepage,
     homepagePrev,
     setUpdateHomepageDataError,
-    setTestimonialsError,
     setHasHomePageChanged,
   } = homepageState;
+
+  const { setTestimonialsError } = testimonialsState;
 
   const updateHomePageData = (
     key: string,

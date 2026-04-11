@@ -11,7 +11,9 @@ import { ButtonLight, DeleteIconBtn } from "@global components/ui/Button";
 export default function CompanyStructureEditor() {
   const { state, actions } = useAboutPage();
 
-  return state.companyStructureData.map((level) => (
+  if (!state.companyStructure) return;
+
+  return state.companyStructure.map((level) => (
     <FormWrapper
       key={level.id}
       keyVal={level.id}

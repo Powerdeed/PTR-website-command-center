@@ -1,15 +1,19 @@
 "use client";
 
-import { useContext } from "react";
+import { testimonialsContext } from "@features/webisteContent/context/homepage/testimonialsContext";
+import { homepageContext } from "../../context/homepage/homepageContext";
 
-import { homepageContext } from "../../context/homepageContext";
+import { useContext } from "react";
 
 export default function useHomepageState() {
   const homepageState = useContext(homepageContext);
+  const testimonialsState = useContext(testimonialsContext);
 
-  if (!homepageState) throw new Error("Context must be within a provider");
+  if (!homepageState || !testimonialsState)
+    throw new Error("Context must be within a provider");
 
   return {
     ...homepageState,
+    ...testimonialsState,
   };
 }

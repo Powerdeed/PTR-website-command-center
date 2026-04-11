@@ -1,25 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { homepageContext } from "./homepageContext";
-import { Homepage, Testimonial } from "../types/homePage.types";
 
-export default function HomepageProvider({
+import { testimonialsContext } from "./testimonialsContext";
+
+import { Testimonial } from "../../types/homePage.types";
+
+export default function TestimonialsProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [homepage, setHomepage] = useState<Homepage | null>(null);
-
-  const [homepagePrev, setHomepagePrev] = useState<Homepage | null>(null);
-
-  const [getHomepageDataError, setGetHomepageDataError] = useState("");
-
-  const [updatingHomepage, setUpdatingHomepage] = useState(false);
-
-  const [updateHomepageDataError, setUpdateHomepageDataError] = useState("");
-
-  // TESTIMONIALS
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
 
   const [testimonialsPrev, setTestimonialsPrev] = useState<Testimonial[]>([]);
@@ -36,33 +27,18 @@ export default function HomepageProvider({
 
   const [testimonialsError, setTestimonialsError] = useState("");
 
-  const [refreshFetchData, setRefreshFetchData] = useState(false);
+  const [refreshFetchTestimonials, setRefreshFetchTestimonials] =
+    useState(false);
 
   const [editedTestimonials, setEditedTestimonials] = useState<string[]>([]);
 
-  const [hasHomePageChanged, setHasHomePageChanged] = useState(false);
-
   const [hasTestimonialsChanged, setHasTestimonialsChanged] = useState(false);
-
-  const [fetchingHomepageData, setFetchingHomepageData] = useState(false);
 
   const [fetchingTestimonialsData, setFetchingTestimonialsData] =
     useState(false);
   return (
-    <homepageContext.Provider
+    <testimonialsContext.Provider
       value={{
-        homepage,
-        setHomepage,
-        homepagePrev,
-        setHomepagePrev,
-        getHomepageDataError,
-        setGetHomepageDataError,
-        updatingHomepage,
-        setUpdatingHomepage,
-        updateHomepageDataError,
-        setUpdateHomepageDataError,
-
-        // TESTIMONIALS
         testimonials,
         setTestimonials,
         testimonialsPrev,
@@ -79,22 +55,17 @@ export default function HomepageProvider({
         setDeletingTestimonials,
         testimonialsError,
         setTestimonialsError,
-
-        refreshFetchData,
-        setRefreshFetchData,
+        refreshFetchTestimonials,
+        setRefreshFetchTestimonials,
         editedTestimonials,
         setEditedTestimonials,
-        hasHomePageChanged,
-        setHasHomePageChanged,
         hasTestimonialsChanged,
         setHasTestimonialsChanged,
-        fetchingHomepageData,
-        setFetchingHomepageData,
         fetchingTestimonialsData,
         setFetchingTestimonialsData,
       }}
     >
       {children}
-    </homepageContext.Provider>
+    </testimonialsContext.Provider>
   );
 }

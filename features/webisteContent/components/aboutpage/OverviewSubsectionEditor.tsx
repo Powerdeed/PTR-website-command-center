@@ -9,87 +9,130 @@ import FormWrapper, {
 } from "@global components/layout/FormWrapper";
 import { ButtonLight, DeleteIconBtn } from "@global components/ui/Button";
 
-import useAboutPage from "@features/webisteContent/hooks/aboutPage/useAboutPage";
+import useAboutPage from "../../hooks/aboutPage/useAboutPage";
+
+import {
+  isObjectOrDraftifyArr,
+  isStringArray,
+  isStringMatrix,
+} from "../../utils/typeCheckers";
 
 export default function OverviewSubsectionEditor() {
   const { state, actions } = useAboutPage();
 
-  return state.aboutOverviewData.map(({ title, description }, index) => {
-    if (actions.isObjectOrDraftifyArr(description)) {
-      if (typeof description !== "string") {
+  if (!state.aboutUs) return;
+
+  return state.aboutUs.map(({ title, description }, index) => {
+    // 🔹 STRING or DraftifyBlock[]
+    if (isObjectOrDraftifyArr(description)) {
+      if (typeof description === "string") {
         return (
           <FormWrapper key={index} keyVal={index} subtitle={title}>
-            <DraftifyReact
-              draftifyDoc={state.aboutOverviewSummaryDoc}
-              setDoc={state.setAboutOverviewSummaryDoc}
-              options={["paragraph"]}
+            <InputArea
+              key={index}
+              keyVal={index}
+              val={description}
+              changeFunc={(val) => actions.updateDescription(val, index)}
             />
           </FormWrapper>
         );
-      } else
-        return (
-          <InputArea
-            key={index}
-            keyVal={index}
-            label={title}
-            val={description}
-            changeFunc={(val) => actions.updateAboutOverviewData(val, title)}
+      }
+
+      return (
+        <FormWrapper key={index} keyVal={index} subtitle={title}>
+          <DraftifyReact
+            draftifyDoc={state.aboutOverviewDoc}
+            setDoc={(setter) => {
+              const resolved =
+                typeof setter === "function"
+                  ? setter(state.aboutOverviewDoc)
+                  : setter;
+
+              actions.updateDescription(resolved.blocks, index);
+            }}
+            options={["paragraph"]}
           />
-        );
+        </FormWrapper>
+      );
     }
 
-    return (
-      <FormWrapper
-        key={index}
-        keyVal={index}
-        subtitle={title}
-        subtitleChildren={
-          <ButtonLight
-            buttonText="+ Add Item"
-            clickAction={() => actions.handleAddItems(title)}
-          />
-        }
-      >
-        {description.map((reason, index) => (
-          <div key={index} className="flex gap-2.5 p-2.5 items-center">
-            {!Array.isArray(reason) ? (
+    // 🔹 string[]
+    if (isStringArray(description)) {
+      return (
+        <FormWrapper
+          key={index}
+          keyVal={index}
+          subtitle={title}
+          subtitleChildren={
+            <ButtonLight
+              buttonText="+ Add Item"
+              clickAction={() => actions.handleDescriptionArray("add", index)}
+            />
+          }
+        >
+          {description.map((reason, i) => (
+            <div key={i} className="flex gap-2.5 p-2.5 items-center">
               <InputArea
                 label=""
                 val={reason}
-                changeFunc={(val) =>
-                  actions.updateAboutOverviewData(val, title, index)
-                }
+                changeFunc={(val) => actions.updateDescription(val, index, [i])}
               >
                 <DeleteIconBtn
-                  deleteFunc={() => actions.handleDeleteItems(title, index)}
+                  deleteFunc={() =>
+                    actions.handleDescriptionArray("delete", index, i)
+                  }
                 />
               </InputArea>
-            ) : (
+            </div>
+          ))}
+          <SeparatorLine />
+        </FormWrapper>
+      );
+    }
+
+    // 🔹 string[][]
+    if (isStringMatrix(description)) {
+      return (
+        <FormWrapper
+          key={index}
+          keyVal={index}
+          subtitle={title}
+          subtitleChildren={
+            <ButtonLight
+              buttonText="+ Add Item"
+              clickAction={() => actions.handleDescriptionArray("add", index)}
+            />
+          }
+        >
+          {description.map((reason, i) => (
+            <div key={i} className="flex gap-2.5 p-2.5 items-center">
               <InputArea
                 label=""
                 val={reason[0]}
                 changeFunc={(val) =>
-                  actions.updateAboutOverviewData(val, title, index, 0)
+                  actions.updateDescription(val, index, [i, 0])
                 }
               >
                 <InputArea
                   label=""
                   val={reason[1]}
                   changeFunc={(val) =>
-                    actions.updateAboutOverviewData(val, title, index, 1)
+                    actions.updateDescription(val, index, [i, 1])
                   }
                 />
-
                 <DeleteIconBtn
-                  deleteFunc={() => actions.handleDeleteItems(title, index)}
+                  deleteFunc={() =>
+                    actions.handleDescriptionArray("delete", index, i)
+                  }
                 />
               </InputArea>
-            )}
-          </div>
-        ))}
+            </div>
+          ))}
+          <SeparatorLine />
+        </FormWrapper>
+      );
+    }
 
-        <SeparatorLine />
-      </FormWrapper>
-    );
+    return null;
   });
 }

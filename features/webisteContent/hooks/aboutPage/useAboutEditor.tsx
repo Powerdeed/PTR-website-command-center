@@ -1,143 +1,106 @@
 "use client";
 
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
-import { aboutpageContext } from "@features/webisteContent/context/aboutpageContext";
+import { isEqual } from "lodash";
 
-import { aboutUs, AboutUs } from "../../services/aboutpage";
+import { aboutpageContext } from "../../context/aboutpage/aboutpageContext";
 
-import { DraftifyBlock } from "draftify";
+import { AboutUs } from "../../types/aboutPage.types";
+
+import { isStringArray, isStringMatrix } from "../../utils/typeCheckers";
 
 export default function useAboutEditor() {
   const aboutpageState = useContext(aboutpageContext);
 
   if (!aboutpageState) throw new Error("Context must be within a provider");
 
-  const {
-    aboutOverviewData,
-    setAboutOverviewData,
-    aboutOverviewSummaryDoc,
-    setAboutOverviewSummaryDoc,
-  } = aboutpageState;
+  const { aboutUs, aboutUsPrev, setAboutUs, setHasAboutpageChanged } =
+    aboutpageState;
 
-  const updateAboutOverviewData = (
-    data: AboutUs["description"],
-    dataTitle: string,
-    index?: number,
-    indexOfIndex?: number,
-  ) =>
-    setAboutOverviewData((prev) =>
-      prev.map((item) => {
-        if (item.title !== dataTitle) return item;
+  const updateByPath = (path: (string | number)[], value: unknown) => {
+    setAboutUs((prev) => {
+      if (!prev) return prev;
 
-        const excludedTitles = [
-          "Why Choose Powerdeed?",
-          "Unique Features",
-          "Core Values",
-        ];
+      const clone = structuredClone(prev);
 
-        if (!excludedTitles.includes(dataTitle)) {
-          return { ...item, description: data };
-        }
+      let current: unknown = clone as AboutUs[];
 
+      for (let i = 0; i < path.length - 1; i++) {
         if (
-          dataTitle === "Why Choose Powerdeed?" ||
-          dataTitle === "Unique Features"
+          typeof current === "object" &&
+          current !== null &&
+          (Array.isArray(current)
+            ? typeof path[i] === "number"
+            : path[i] in current)
         ) {
-          if (index === undefined) return item;
-
-          const updatedArray = [...(item.description as string[])];
-          updatedArray[index] = data as string;
-
-          return { ...item, description: updatedArray };
+          current = (current as Record<string | number, unknown>)[path[i]];
+        } else {
+          console.warn("Invalid path:", path);
+          return prev;
         }
+      }
 
-        if (dataTitle === "Core Values") {
-          if (index === undefined || indexOfIndex === undefined) return item;
+      const lastKey = path[path.length - 1];
 
-          const updatedArray = [...(item.description as string[][])];
-          updatedArray[index] = [...updatedArray[index]];
-          updatedArray[index][indexOfIndex] = data as string;
+      if (typeof current === "object" && current !== null) {
+        (current as Record<string | number, unknown>)[lastKey] = value;
+      }
 
-          return { ...item, description: updatedArray };
-        }
+      setHasAboutpageChanged(!isEqual(aboutUsPrev, clone));
 
-        return item;
-      }),
-    );
+      return clone;
+    });
+  };
 
-  useEffect(() => {
-    const updateData = () =>
-      updateAboutOverviewData(
-        aboutOverviewSummaryDoc.blocks,
-        "Company Overview",
+  const updateDescription = (
+    value: AboutUs["description"],
+    // paths
+    sectionIndex: number,
+    arrayIndices?: number[],
+  ) => {
+    if (arrayIndices)
+      return updateByPath(
+        [sectionIndex, "description", ...arrayIndices],
+        value,
       );
 
-    updateData();
-  }, [aboutOverviewSummaryDoc]);
+    return updateByPath([sectionIndex, "description"], value);
+  };
 
-  const handleAddItems = (title: string) =>
-    setAboutOverviewData((prev) =>
-      prev.map((item) => {
-        if (item.title !== title) return item;
+  const handleDescriptionArray = (
+    reason: "add" | "delete",
+    index: number,
+    itemIndex?: number,
+  ) => {
+    if (!aboutUs) return;
 
-        const targetData = item.description as string[] | string[][];
+    const section = aboutUs[index];
 
-        if (title !== "Core Values") {
-          return {
-            ...item,
-            description: [...(targetData as string[]), ""],
-          };
-        }
-
-        return {
-          ...item,
-          description: [...(targetData as string[][]), ["", ""]],
-        };
-      }),
-    );
-
-  const handleDeleteItems = (title: string, index: number) =>
-    setAboutOverviewData((prev) =>
-      prev.map((item) => {
-        if (item.title !== title) return item;
-
-        const items = item.description as string[];
-
-        return {
-          ...item,
-          description: items.toSpliced(index, 1),
-        };
-      }),
-    );
-
-  function isObjectOrDraftifyArr(
-    val: unknown,
-  ): val is string | DraftifyBlock[] {
-    if (typeof val === "string") return true;
-
-    if (Array.isArray(val)) {
-      return (
-        val.length > 0 &&
-        val.every(
-          (item) =>
-            typeof item === "object" && item !== null && !Array.isArray(item),
-        )
+    if (isStringArray(section.description)) {
+      updateByPath(
+        [index, "description"],
+        reason === "add"
+          ? [...section.description, ""]
+          : itemIndex !== undefined
+            ? section.description.toSpliced(itemIndex, 1)
+            : section.description,
+      );
+    } else if (isStringMatrix(section.description)) {
+      updateByPath(
+        [index, "description"],
+        reason === "add"
+          ? [...section.description, ["", ""]]
+          : itemIndex !== undefined
+            ? section.description.toSpliced(itemIndex, 1)
+            : section.description,
       );
     }
-
-    return false;
-  }
+  };
 
   return {
     aboutUs,
-    aboutOverviewData,
-    setAboutOverviewData,
-    aboutOverviewSummaryDoc,
-    setAboutOverviewSummaryDoc,
-    updateAboutOverviewData,
-    handleAddItems,
-    handleDeleteItems,
-    isObjectOrDraftifyArr,
+    updateDescription,
+    handleDescriptionArray,
   };
 }

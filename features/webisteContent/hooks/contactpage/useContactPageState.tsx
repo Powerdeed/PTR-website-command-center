@@ -2,7 +2,7 @@
 
 import { useContext } from "react";
 
-import { contactpageContext } from "../../context/contactpageContext";
+import { contactpageContext } from "../../context/contactpage/contactpageContext";
 
 export default function useContactPageState() {
   const contactpageState = useContext(contactpageContext);

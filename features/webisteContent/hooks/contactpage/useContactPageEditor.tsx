@@ -2,8 +2,9 @@
 
 import { useContext } from "react";
 
-import { Contacts } from "@features/webisteContent/services/contact";
-import { contactpageContext } from "@features/webisteContent/context/contactpageContext";
+import { Contacts } from "../../services/contact";
+
+import { contactpageContext } from "../../context/contactpage/contactpageContext";
 
 export default function useContactPageEditor() {
   const contactpageState = useContext(contactpageContext);

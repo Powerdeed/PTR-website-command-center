@@ -4,20 +4,20 @@ import { useContext } from "react";
 
 import { isEqual } from "lodash";
 
-import { homepageContext } from "../../context/homepageContext";
+import { testimonialsContext } from "../../context/homepage/testimonialsContext";
 
 export default function useTestimonials() {
-  const homepageState = useContext(homepageContext);
+  const testimonialsState = useContext(testimonialsContext);
 
-  if (!homepageState)
-    throw new Error("Home page context must be within a provider");
+  if (!testimonialsState)
+    throw new Error("testimonials context must be within a provider");
 
   const {
     testimonialsPrev,
     setTestimonials,
     setEditedTestimonials,
     setHasTestimonialsChanged,
-  } = homepageState;
+  } = testimonialsState;
 
   const updateTestimonial = (
     key: string,

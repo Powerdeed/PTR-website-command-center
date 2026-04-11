@@ -17,7 +17,7 @@ export default function HeroAndAboutEditor() {
     <div
       className={`vertical-layout__outer ${state.hasHomePageChanged ? "border-2 border-(--secondary-blue)" : ""} rounded-[10px] p-2.5`}
     >
-      <div className="text-(--secondary-blue)">
+      <div className="text-(--secondary-blue) text-style__small-text">
         {state.hasHomePageChanged &&
           "changes have been made, save before exiting"}
       </div>

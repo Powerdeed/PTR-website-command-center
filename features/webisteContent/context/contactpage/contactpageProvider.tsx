@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import { contactpageContext } from "./contactpageContext";
-import { Contacts, contacts } from "../services/contact";
+import { Contacts, contacts } from "../../services/contact";
 
 export default function ContactpageProvider({
   children,

@@ -2,7 +2,7 @@
 
 import { createContext, Dispatch } from "react";
 
-import { Contacts } from "../services/contact";
+import { Contacts } from "../../services/contact";
 
 type ContactpageState = {
   contactData: Contacts;

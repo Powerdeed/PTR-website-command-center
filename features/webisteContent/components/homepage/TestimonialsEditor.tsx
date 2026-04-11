@@ -29,7 +29,7 @@ export default function TestimonialsEditor() {
         </Button>
       }
     >
-      <div className="text-(--secondary-blue)">
+      <div className="text-(--secondary-blue) text-style__small-text">
         {state.hasTestimonialsChanged &&
           "changes have been made, save before exiting"}
 

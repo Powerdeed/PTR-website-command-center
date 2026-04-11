@@ -1,8 +1,5 @@
-export type CompanyStructure = {
-  id: string;
-  levelName: string;
-  positions: string[];
-};
+import { apiRequest } from "@lib/api/apiRequest";
+import { CompanyStructure } from "../types/aboutPage.types";
 
 export const companyStructure: CompanyStructure[] = [
   {
@@ -47,3 +44,19 @@ export const companyStructure: CompanyStructure[] = [
     ],
   },
 ];
+
+export const getCompanyStructureData = () =>
+  apiRequest<{ _id: string; structure: CompanyStructure[] }[]>({
+    method: "GET",
+    url: "/company-structure",
+  });
+
+export const updateCompanyStructureData = (
+  dataId: string,
+  data: CompanyStructure[],
+) =>
+  apiRequest<CompanyStructure[]>({
+    method: "PUT",
+    url: `/company-structure/${dataId}`,
+    data: { structure: data },
+  });

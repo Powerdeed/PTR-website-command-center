@@ -8,6 +8,8 @@ import useContactPage from "@features/webisteContent/hooks/contactpage/useContac
 export default function SocialMedia() {
   const { state, actions } = useContactPage();
 
+  if (!state.contacts) return;
+
   return (
     <FormWrapper
       subtitle="Social Media"
@@ -18,7 +20,7 @@ export default function SocialMedia() {
         />
       }
     >
-      {state.contactData.Socials.map((socialPlatform, idx) => (
+      {state.contacts.Socials.map((socialPlatform, idx) => (
         <div key={idx} className="flex gap-2.5">
           <div className="w-full vertical-layout__inner">
             <InputArea

@@ -19,12 +19,20 @@ export default function EditProject() {
   if (!state.selectedProject) return;
 
   return (
-    <div className="flex-1 feature-container-vertical text-style__body">
-      <div className="text-style__subheading">
-        {state.isNewProject ? "Add New Project" : "Edit Project"}
-      </div>
+    <div
+      className={`flex-1 vertical-layout__outer ${state.hasProjectChanged && "border-2 border-(--secondary-blue) rounded-[10px]"}`}
+    >
+      <div className="feature-container-vertical text-style__body">
+        {state.hasProjectChanged && (
+          <div className="text-(--secondary-blue) text-style__small-text">
+            Changes have been made, save before exiting
+          </div>
+        )}
 
-      <div className="vertical-layout__outer">
+        <div className="text-style__subheading">
+          {state.isNewProject ? "Add New Project" : "Edit Project"}
+        </div>
+
         <InputArea
           label="Project Name"
           val={state.selectedProject.name}

@@ -14,7 +14,7 @@ export interface FetchedProject {
 }
 
 export interface Project {
-  _id?: string;
+  _id: string;
   category: (typeof companyServices)[number];
   name: string;
   featuredImage: string;

@@ -17,8 +17,6 @@ export default function AboutpageProvider({
 
   const [aboutUsPrev, setAboutUsPrev] = useState<AboutUs[] | null>(null);
 
-  const [aboutUsId, setAboutUsId] = useState("");
-
   const [loadingAboutUs, setLoadingAboutUs] = useState(false);
 
   const [loadingAboutUsError, setLoadingAboutUsError] = useState("");
@@ -44,8 +42,6 @@ export default function AboutpageProvider({
         setAboutUs,
         aboutUsPrev,
         setAboutUsPrev,
-        aboutUsId,
-        setAboutUsId,
         loadingAboutUs,
         setLoadingAboutUs,
         loadingAboutUsError,

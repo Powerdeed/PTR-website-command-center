@@ -2,6 +2,7 @@
 
 import Button from "@global components/ui/Button";
 import { SectionTitle } from "@global components/ui/Title";
+
 import ServiceEditor from "./ServiceEditor";
 import ServicesDisplay from "./ServicesDisplay";
 
@@ -10,7 +11,7 @@ import { PAGE_META } from "../constants/pageMeta";
 import useService from "../hooks/useService";
 
 export function ServicesManagementView() {
-  const { actions } = useService();
+  const { state, actions } = useService();
 
   return (
     <div className="page-layout">
@@ -30,6 +31,12 @@ export function ServicesManagementView() {
 
         <ServiceEditor />
       </div>
+
+      {state.fetchServicesError && (
+        <div className="text-(--primary-red) text-style__small-text">
+          Error fetching services: {state.fetchServicesError}
+        </div>
+      )}
     </div>
   );
 }

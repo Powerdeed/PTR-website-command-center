@@ -2,9 +2,11 @@
 
 import { useContext } from "react";
 
-import { Contacts } from "../../services/contact";
+import { isEqual } from "lodash";
 
 import { contactpageContext } from "../../context/contactpage/contactpageContext";
+
+import { Contacts } from "../../types/contact.types";
 
 export default function useContactPageEditor() {
   const contactpageState = useContext(contactpageContext);
@@ -12,13 +14,15 @@ export default function useContactPageEditor() {
   if (!contactpageState)
     throw new Error("Contact page context must be within a provider");
 
-  const { contactData, setContactData } = contactpageState;
+  const { contactsPrev, setContacts, setHasContactsChanged } = contactpageState;
 
   const updateByPath = (
     path: (string | number)[],
     value: string | null | Record<string, string>,
   ) =>
-    setContactData((prev) => {
+    setContacts((prev) => {
+      if (!prev) return prev;
+
       const clone: Contacts = structuredClone(prev);
 
       let current: unknown = clone;
@@ -39,64 +43,87 @@ export default function useContactPageEditor() {
         >
       )[path[path.length - 1] as string] = value;
 
+      setHasContactsChanged(!isEqual(contactsPrev, clone));
+
       return clone;
     });
 
   const handleAddContactInfo = (
     phoneOrEmail: keyof Contacts["ContactInformation"],
-  ) =>
-    setContactData((prev) => ({
-      ...prev,
-      ContactInformation: {
-        ...prev.ContactInformation,
-        [phoneOrEmail]: [...prev.ContactInformation[phoneOrEmail], ""],
-      },
-    }));
+  ) => {
+    setHasContactsChanged(true);
+
+    setContacts((prev) => {
+      if (!prev) return prev;
+
+      return {
+        ...prev,
+        ContactInformation: {
+          ...prev.ContactInformation,
+          [phoneOrEmail]: [...prev.ContactInformation[phoneOrEmail], ""],
+        },
+      };
+    });
+  };
 
   const handleDeleteContactInfo = (
     phoneOrEmail: keyof Contacts["ContactInformation"],
     idx: number,
-  ) =>
-    setContactData((prev) => ({
-      ...prev,
-      ContactInformation: {
-        ...prev.ContactInformation,
-        [phoneOrEmail]: prev.ContactInformation[phoneOrEmail].filter(
-          (_, index) => index !== idx,
-        ),
-      },
-    }));
+  ) => {
+    setHasContactsChanged(true);
 
-  const handleAddSocials = () =>
-    setContactData((prev) => ({
-      ...prev,
-      Socials: [
-        ...prev.Socials,
-        { name: "Social Platform", url: "Social Link" },
-      ],
-    }));
+    setContacts((prev) => {
+      if (!prev) return prev;
 
-  const handleDeleteSocials = (idx: number) =>
-    setContactData((prev) => ({
-      ...prev,
-      Socials: prev.Socials.filter((_, i) => i !== idx),
-    }));
+      return {
+        ...prev,
+        ContactInformation: {
+          ...prev.ContactInformation,
+          [phoneOrEmail]: prev.ContactInformation[phoneOrEmail].filter(
+            (_, index) => index !== idx,
+          ),
+        },
+      };
+    });
+  };
+
+  const handleAddSocials = () => {
+    setHasContactsChanged(true);
+
+    setContacts((prev) => {
+      if (!prev) return prev;
+
+      return {
+        ...prev,
+        Socials: [
+          ...prev.Socials,
+          { name: "Social Platform", url: "Social Link" },
+        ],
+      };
+    });
+  };
+
+  const handleDeleteSocials = (idx: number) => {
+    setHasContactsChanged(true);
+
+    setContacts((prev) => {
+      if (!prev) return prev;
+
+      return {
+        ...prev,
+        Socials: prev.Socials.filter((_, i) => i !== idx),
+      };
+    });
+  };
 
   const handleImageUpload = () => {};
 
-  const resetChanges = () => {};
-
-  const saveAllChanges = () => {};
-
   return {
-    contactData,
     updateByPath,
     handleImageUpload,
     handleAddContactInfo,
     handleAddSocials,
     handleDeleteContactInfo,
     handleDeleteSocials,
-    resetChanges,
-    saveAllChanges,
   };
 }

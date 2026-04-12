@@ -33,11 +33,9 @@ export default function useHomePageApi() {
         setLoading: setFetchingHomepageData,
         setError: setGetHomepageDataError,
         onSuccess: (homepages) => {
-          if (homepages?.length > 0) {
-            setHomepage(homepages[0]);
-            setHomepagePrev(homepages[0]);
-            setHasHomePageChanged(false);
-          }
+          setHomepage(homepages);
+          setHomepagePrev(homepages);
+          setHasHomePageChanged(false);
         },
       });
     };
@@ -55,11 +53,12 @@ export default function useHomePageApi() {
   const handleSaveHomepage = async () => {
     if (!homepage) return;
 
-    await execute(() => updateHomePageData(homepage._id, homepage), {
+    await execute(() => updateHomePageData(homepage), {
       setLoading: setUpdatingHomepage,
       setError: setUpdateHomepageDataError,
       onSuccess: (updatedHomepage) => {
-        if (updatedHomepage) setHomepage(updatedHomepage);
+        setHomepage(updatedHomepage);
+        setHomepagePrev(updatedHomepage);
         setHasHomePageChanged(false);
       },
     });

@@ -4,14 +4,14 @@ import { createContext, Dispatch } from "react";
 import { CategorizedProjects, Project } from "../types/projects.types";
 
 type projectState = {
-  projectsObj: CategorizedProjects | null;
-  setProjectsObj: Dispatch<React.SetStateAction<CategorizedProjects | null>>;
+  projects: CategorizedProjects | null;
+  setProjects: Dispatch<React.SetStateAction<CategorizedProjects | null>>;
 
   selectedProject: Project | null;
   setSelectedProject: Dispatch<React.SetStateAction<Project | null>>;
 
-  selectedProjectId: string;
-  setSelectedProjectId: Dispatch<React.SetStateAction<string>>;
+  selectedProjectPrev: Project | null;
+  setSelectedProjectPrev: Dispatch<React.SetStateAction<Project | null>>;
 
   isNewProject: boolean;
   setisNewProject: Dispatch<React.SetStateAction<boolean>>;
@@ -39,6 +39,9 @@ type projectState = {
 
   refreshProjects: boolean;
   setRefreshProjects: Dispatch<React.SetStateAction<boolean>>;
+
+  hasProjectChanged: boolean;
+  setHasProjectChanged: Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const projectContext = createContext<projectState | null>(null);

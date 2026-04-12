@@ -6,11 +6,14 @@ import { ButtonLight } from "@global components/ui/Button";
 
 export default function ContactHeroSection() {
   const { state, actions } = useContactPage();
+
+  if (!state.contacts) return;
+
   return (
     <FormWrapper subtitle="Hero Section">
       <InputArea
         label="Hero Image"
-        val={state.contactData.Hero.image}
+        val={state.contacts.Hero.image}
         changeFunc={(val) => actions.updateByPath(["Hero", "image"], val)}
       >
         <ButtonLight
@@ -21,13 +24,13 @@ export default function ContactHeroSection() {
 
       <InputArea
         label="Hero Title"
-        val={state.contactData.Hero.title}
+        val={state.contacts.Hero.title}
         changeFunc={(val) => actions.updateByPath(["Hero", "title"], val)}
       />
 
       <InputArea
         label="Hero Subtitle"
-        val={state.contactData.Hero.subtitle}
+        val={state.contacts.Hero.subtitle}
         changeFunc={(val) => actions.updateByPath(["Hero", "subtitle"], val)}
       />
     </FormWrapper>

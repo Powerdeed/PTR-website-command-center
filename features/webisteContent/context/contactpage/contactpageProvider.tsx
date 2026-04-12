@@ -3,20 +3,49 @@
 import { useState } from "react";
 
 import { contactpageContext } from "./contactpageContext";
-import { Contacts, contacts } from "../../services/contact";
+
+import { Contacts } from "../../types/contact.types";
 
 export default function ContactpageProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [contactData, setContactData] = useState<Contacts>(contacts);
+  const [contacts, setContacts] = useState<Contacts | null>(null);
+
+  const [contactsPrev, setContactsPrev] = useState<Contacts | null>(null);
+
+  const [loadingContacts, setLoadingContacts] = useState(false);
+
+  const [loadingContactsError, setLoadingContactsError] = useState("");
+
+  const [updatingContacts, setUpdatingContacts] = useState(false);
+
+  const [updatingContactsError, setUpdatingContactsError] = useState("");
+
+  const [refreshContacts, setRefreshContacts] = useState(false);
+
+  const [hasContactsChanged, setHasContactsChanged] = useState(false);
 
   return (
     <contactpageContext.Provider
       value={{
-        contactData,
-        setContactData,
+        contacts,
+        setContacts,
+        contactsPrev,
+        setContactsPrev,
+        loadingContacts,
+        setLoadingContacts,
+        loadingContactsError,
+        setLoadingContactsError,
+        updatingContacts,
+        setUpdatingContacts,
+        updatingContactsError,
+        setUpdatingContactsError,
+        refreshContacts,
+        setRefreshContacts,
+        hasContactsChanged,
+        setHasContactsChanged,
       }}
     >
       {children}

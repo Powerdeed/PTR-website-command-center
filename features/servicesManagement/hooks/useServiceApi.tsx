@@ -24,11 +24,9 @@ export default function useServiceApi() {
   if (!context) throw new Error("context must be within a provider");
 
   const {
-    setServicesArr,
+    setServices,
     selectedService,
     setSelectedService,
-    selectedServiceId,
-    setSelectedServiceId,
     setSelectedServiceStatus,
     setIsNewService,
     setIsDeleting,
@@ -38,7 +36,6 @@ export default function useServiceApi() {
   } = context;
 
   const resetStates = (reason?: "new") => {
-    setSelectedServiceId("");
     setSelectedService(reason === "new" ? DEFAULT_SERVICE : null);
     setSelectedServiceStatus(false);
   };
@@ -48,14 +45,14 @@ export default function useServiceApi() {
       try {
         const services: Service[] = await getServices();
 
-        setServicesArr(services);
+        setServices(services);
       } catch (error) {
         if (error instanceof ApiError) setFetchServicesError(error.message);
       }
     };
 
     getServicesArr();
-  }, [setError, setServicesArr, setFetchServicesError]);
+  }, [setError, setServices, setFetchServicesError]);
 
   const handleAddNewService = () => {
     setIsNewService(true);
@@ -65,33 +62,37 @@ export default function useServiceApi() {
   const handleUploadNewService = async () => {
     if (!selectedService) return;
 
-    await execute(() => createService(selectedService), {
-      setLoading: setIsUploading,
-      setError,
-      onSuccess: (newService) => {
-        setServicesArr((prev) => (prev ? [...prev, newService] : prev));
-        resetStates("new");
+    await execute(
+      () => createService({ ...selectedService, _id: crypto.randomUUID() }),
+      {
+        setLoading: setIsUploading,
+        setError,
+        onSuccess: (newService) => {
+          setServices((prev) => (prev ? [...prev, newService] : prev));
+          resetStates("new");
+        },
       },
-    });
+    );
   };
 
   const handleUploadServiceChanges = async () => {
-    if (!selectedService || !selectedServiceId) return;
+    if (!selectedService) return;
 
     await execute(
       () =>
-        updateService(selectedServiceId, {
-          _id: selectedServiceId,
+        updateService(selectedService._id, {
           ...selectedService,
         }),
       {
         setLoading: setIsUploading,
         setError,
         onSuccess: (updatedService) =>
-          setServicesArr((prev) =>
+          setServices((prev) =>
             prev
               ? prev.map((service) =>
-                  service._id === selectedServiceId ? updatedService : service,
+                  service._id === selectedService._id
+                    ? updatedService
+                    : service,
                 )
               : prev,
           ),
@@ -100,15 +101,15 @@ export default function useServiceApi() {
   };
 
   const handleDeleteService = async () => {
-    if (!selectedServiceId) return;
+    if (!selectedService) return;
 
-    await execute(() => deleteService(selectedServiceId), {
+    await execute(() => deleteService(selectedService._id), {
       setLoading: setIsDeleting,
       setError,
       onSuccess: () => {
-        setServicesArr((prev) =>
+        setServices((prev) =>
           prev
-            ? prev?.filter((service) => service._id !== selectedServiceId)
+            ? prev?.filter((service) => service._id !== selectedService._id)
             : prev,
         );
         resetStates();

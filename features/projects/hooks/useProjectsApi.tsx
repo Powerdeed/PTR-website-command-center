@@ -7,11 +7,12 @@ import { projectContext } from "../context/projectsContext";
 import {
   createProject,
   deleteProject,
+  formattedProjectData,
   getProjects,
   updateProject,
 } from "../services/projects";
 
-import { CategorizedProjects } from "../types/projects.types";
+import { Project } from "../types/projects.types";
 
 import { execute } from "@lib/api/execute";
 import { ApiError } from "@lib/api/utils/apiError";
@@ -25,10 +26,10 @@ export default function useProjectsApi() {
 
   const {
     selectedProject,
-    selectedProjectId,
-    selectedCategory,
-    setProjectsObj,
     setSelectedProject,
+    setSelectedProjectPrev,
+    selectedCategory,
+    setProjects,
     setisNewProject,
     setFeaturedState,
     setCompletedState,
@@ -38,6 +39,7 @@ export default function useProjectsApi() {
     setIsDeleting,
     refreshProjects,
     setRefreshProjects,
+    setHasProjectChanged,
   } = statesContext;
 
   useEffect(() => {
@@ -45,22 +47,23 @@ export default function useProjectsApi() {
       setGetProjectsError("");
 
       try {
-        const projects: CategorizedProjects = await getProjects();
+        const projects: Project[] = await getProjects();
 
-        setProjectsObj(projects);
+        setProjects(formattedProjectData(projects));
       } catch (error) {
         if (error instanceof ApiError) setGetProjectsError(error.message);
       }
     };
 
     getAllProjects();
-  }, [refreshProjects, setGetProjectsError, setProjectsObj]);
+  }, [refreshProjects, setGetProjectsError, setProjects]);
 
   const resetStates = (reason?: "new") => {
     setSelectedProject(reason === "new" ? DEFAULT_PROJECT : null);
     setisNewProject(reason === "new" ? true : false);
     setFeaturedState(false);
     setCompletedState(false);
+    setHasProjectChanged(false);
   };
 
   const handleAddNewProject = async () => {
@@ -70,7 +73,7 @@ export default function useProjectsApi() {
       setLoading: setIsUploading,
       setError,
       onSuccess: (newProject) => {
-        setProjectsObj((prev) => {
+        setProjects((prev) => {
           if (!prev) return prev;
 
           return {
@@ -81,56 +84,59 @@ export default function useProjectsApi() {
 
         resetStates("new");
         setRefreshProjects((prev) => !prev);
+        setHasProjectChanged(false);
       },
     });
   };
 
   const handleUpdateProject = async () => {
-    if (!selectedProject || !selectedProjectId) return;
+    if (!selectedProject) return;
 
-    await execute(() => updateProject(selectedProjectId, selectedProject), {
+    await execute(() => updateProject(selectedProject._id, selectedProject), {
       setLoading: setIsUploading,
       setError,
       onSuccess: (updatedProject) => {
-        setProjectsObj((prev) => {
+        setProjects((prev) => {
           if (!prev) return prev;
 
           return {
             ...prev,
             [selectedCategory]: prev[selectedCategory].map((p) =>
-              p._id === selectedProjectId ? updatedProject : p,
+              p._id === selectedProject._id ? updatedProject : p,
             ),
           };
         });
+
+        setSelectedProjectPrev(updatedProject);
+        setRefreshProjects((prev) => !prev);
+        setHasProjectChanged(false);
       },
     });
-
-    setRefreshProjects((prev) => !prev);
   };
 
   const handleDeleteProject = async () => {
-    if (!selectedProjectId) return;
+    if (!selectedProject) return;
 
-    await execute(() => deleteProject(selectedProjectId), {
+    await execute(() => deleteProject(selectedProject._id), {
       setLoading: setIsDeleting,
       setError,
       onSuccess: () => {
-        setProjectsObj((prev) => {
+        setProjects((prev) => {
           if (!prev) return prev;
 
           return {
             ...prev,
             [selectedCategory]: prev[selectedCategory].filter(
-              (p) => p._id !== selectedProjectId,
+              (p) => p._id !== selectedProject._id,
             ),
           };
         });
+        setRefreshProjects((prev) => !prev);
+        setHasProjectChanged(false);
 
         resetStates();
       },
     });
-
-    setRefreshProjects((prev) => !prev);
   };
 
   return {

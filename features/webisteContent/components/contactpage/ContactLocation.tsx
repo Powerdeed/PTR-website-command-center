@@ -6,7 +6,9 @@ import FormWrapper, { InputArea } from "@global components/layout/FormWrapper";
 export default function ContactLocation() {
   const { state, actions } = useContactPage();
 
-  const { Address, ...otherLocData } = state.contactData.Location;
+  if (!state.contacts) return;
+
+  const { Address, ...otherLocData } = state.contacts.Location;
 
   return (
     <FormWrapper subtitle="Location">

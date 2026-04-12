@@ -19,8 +19,6 @@ export default function CompanyStructureProvider({
     CompanyStructure[] | null
   >(null);
 
-  const [companyStructureId, setCompanyStructureId] = useState("");
-
   const [loadingCompanyStructure, setLoadingCompanyStructure] = useState(false);
 
   const [loadingCompanyStructureError, setLoadingCompanyStructureError] =
@@ -44,8 +42,6 @@ export default function CompanyStructureProvider({
         setCompanyStructure,
         companyStructurePrev,
         setCompanyStructurePrev,
-        companyStructureId,
-        setCompanyStructureId,
         loadingCompanyStructure,
         setLoadingCompanyStructure,
         loadingCompanyStructureError,

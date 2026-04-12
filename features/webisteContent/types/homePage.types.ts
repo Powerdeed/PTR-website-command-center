@@ -29,7 +29,6 @@ export type AboutIntro = {
 };
 
 export type Homepage = {
-  _id: string;
   hero: Hero;
   aboutIntro: AboutIntro[];
 };

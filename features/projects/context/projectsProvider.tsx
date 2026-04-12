@@ -1,22 +1,22 @@
 "use client";
 
 import { useState } from "react";
+
 import { projectContext } from "./projectsContext";
+
 import { CategorizedProjects, Project } from "../types/projects.types";
-import { DEFAULT_PROJECT } from "../constants/defaultProject";
 
 export default function ProjectProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [projectsObj, setProjectsObj] = useState<CategorizedProjects | null>(
-    null,
-  );
+  const [projects, setProjects] = useState<CategorizedProjects | null>(null);
 
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const [selectedProjectId, setSelectedProjectId] = useState("");
+  const [selectedProjectPrev, setSelectedProjectPrev] =
+    useState<Project | null>(null);
 
   const [selectedCategory, setSelectedCategory] = useState<string>(
     "Electrical Installation",
@@ -38,15 +38,17 @@ export default function ProjectProvider({
 
   const [refreshProjects, setRefreshProjects] = useState(false);
 
+  const [hasProjectChanged, setHasProjectChanged] = useState(false);
+
   return (
     <projectContext.Provider
       value={{
-        projectsObj,
-        setProjectsObj,
+        projects,
+        setProjects,
         selectedProject,
         setSelectedProject,
-        selectedProjectId,
-        setSelectedProjectId,
+        selectedProjectPrev,
+        setSelectedProjectPrev,
         isNewProject,
         setisNewProject,
         error,
@@ -65,6 +67,8 @@ export default function ProjectProvider({
         setCompletedState,
         refreshProjects,
         setRefreshProjects,
+        hasProjectChanged,
+        setHasProjectChanged,
       }}
     >
       {children}

@@ -1,6 +1,6 @@
 "use client";
 
-import useAboutPage from "@features/webisteContent/hooks/aboutPage/useAboutPage";
+import useAboutPage from "../../hooks/aboutPage/useAboutPage";
 
 import FormWrapper, {
   InputArea,

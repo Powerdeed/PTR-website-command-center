@@ -9,7 +9,7 @@ export default function ServiceProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [servicesArr, setServicesArr] = useState<Service[] | null>([]);
+  const [services, setServices] = useState<Service[] | null>([]);
 
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
@@ -32,8 +32,8 @@ export default function ServiceProvider({
   return (
     <serviceContext.Provider
       value={{
-        servicesArr,
-        setServicesArr,
+        services,
+        setServices,
         selectedService,
         setSelectedService,
         selectedServiceId,

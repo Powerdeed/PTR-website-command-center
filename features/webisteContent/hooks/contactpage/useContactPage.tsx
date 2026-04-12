@@ -10,5 +10,5 @@ export default function useContactPage() {
   const contactEditor = useContactPageEditor();
   const contactApi = useContactPageApi();
 
-  return { state, actions: { ...contactEditor, contactApi } };
+  return { state, actions: { ...contactEditor, ...contactApi } };
 }

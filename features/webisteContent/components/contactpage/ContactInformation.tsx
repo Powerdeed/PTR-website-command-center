@@ -6,14 +6,16 @@ import Button, { DeleteIconBtn } from "@global components/ui/Button";
 
 import useContactPage from "../../hooks/contactpage/useContactPage";
 
-import { Contacts } from "../../services/contact";
+import { Contacts } from "../../types/contact.types";
 
 export default function ContactInformation() {
   const { state, actions } = useContactPage();
 
+  if (!state.contacts) return;
+
   return (
     <FormWrapper subtitle="Contact Information">
-      {Object.entries(state.contactData.ContactInformation).map(
+      {Object.entries(state.contacts.ContactInformation).map(
         ([contactType, contacts]) => (
           <div key={contactType} className="vertical-layout__inner">
             <FormWrapper

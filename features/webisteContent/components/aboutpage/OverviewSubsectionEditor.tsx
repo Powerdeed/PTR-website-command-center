@@ -27,7 +27,12 @@ export default function OverviewSubsectionEditor() {
     if (isObjectOrDraftifyArr(description)) {
       if (typeof description === "string") {
         return (
-          <FormWrapper key={index} keyVal={index} subtitle={title}>
+          <FormWrapper
+            key={index}
+            keyVal={index}
+            subtitle={title}
+            separatorLine={false}
+          >
             <InputArea
               key={index}
               keyVal={index}
@@ -39,7 +44,12 @@ export default function OverviewSubsectionEditor() {
       }
 
       return (
-        <FormWrapper key={index} keyVal={index} subtitle={title}>
+        <FormWrapper
+          key={index}
+          keyVal={index}
+          subtitle={title}
+          separatorLine={false}
+        >
           <DraftifyReact
             draftifyDoc={state.aboutOverviewDoc}
             setDoc={(setter) => {

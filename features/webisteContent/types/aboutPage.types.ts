@@ -1,7 +1,6 @@
 import { DraftifyBlock } from "draftify";
 
 export type AboutUs = {
-  _id: string;
   title: string;
   description: DraftifyBlock[] | string | string[] | string[][];
 };

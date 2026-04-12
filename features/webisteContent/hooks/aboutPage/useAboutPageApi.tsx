@@ -20,8 +20,6 @@ export default function useAboutPageApi() {
     setAboutUs,
     setAboutUsPrev,
     setAboutOverviewDoc,
-    aboutUsId,
-    setAboutUsId,
     setLoadingAboutUs,
     setLoadingAboutUsError,
     refreshAboutpage,
@@ -36,12 +34,13 @@ export default function useAboutPageApi() {
         setLoading: setLoadingAboutUs,
         setError: setLoadingAboutUsError,
         onSuccess: (homepages) => {
-          const blocks = homepages[0].sections.find(
+          const blocks = homepages.sections.find(
             (section) => section.title === "Company Overview",
           )?.description as DraftifyBlock[];
 
-          setAboutUs(homepages[0].sections);
-          setAboutUsPrev(homepages[0].sections);
+          setAboutUs(homepages.sections);
+          setAboutUsPrev(homepages.sections);
+          setHasAboutpageChanged(false);
 
           setAboutOverviewDoc({
             version: "0.0.1",
@@ -50,8 +49,6 @@ export default function useAboutPageApi() {
             },
             blocks,
           });
-
-          setAboutUsId(homepages[0]._id);
         },
       });
 
@@ -61,7 +58,7 @@ export default function useAboutPageApi() {
     setAboutOverviewDoc,
     setAboutUs,
     setAboutUsPrev,
-    setAboutUsId,
+    setHasAboutpageChanged,
     setLoadingAboutUs,
     setLoadingAboutUsError,
   ]);
@@ -75,12 +72,12 @@ export default function useAboutPageApi() {
       return { title, description };
     });
 
-    await execute(() => updateAboutUsData(aboutUsId, formattedData), {
+    await execute(() => updateAboutUsData(formattedData), {
       setLoading: setUpdatingAboutUs,
       setError: setUpdatingAboutUsError,
       onSuccess: (updatedAboutUs) => {
-        setAboutUs(updatedAboutUs);
-        setAboutUsPrev(updatedAboutUs);
+        setAboutUs(updatedAboutUs.sections);
+        setAboutUsPrev(updatedAboutUs.sections);
         setHasAboutpageChanged(false);
       },
     });

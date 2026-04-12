@@ -11,24 +11,24 @@ export default function ServicesDisplay() {
     <div className="flex-1 feature-container-vertical text-style__body">
       <div className="text-style__subheading">All Services</div>
 
-      <table>
-        <thead className="font-semibold text-left">
-          <tr>
-            <th>Service Name</th>
-            <th>Status</th>
-          </tr>
-        </thead>
+      {!state.services ? (
+        <Loader loadingTxt="Loading Services" />
+      ) : (
+        <table>
+          <thead className="font-semibold text-left">
+            <tr>
+              <th>Service Name</th>
+              <th>Status</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          {state.servicesArr &&
-            state.servicesArr.map((service) => (
+          <tbody>
+            {state.services.map((service) => (
               <tr
                 key={service._id}
                 className="border-t border-(--terciary-grey) hover:bg-(--terciary-grey)/30"
                 onClick={() => {
-                  const { _id, ...s } = service;
-                  state.setSelectedService(s);
-                  state.setSelectedServiceId(_id || "");
+                  state.setSelectedService(service);
                   state.setIsNewService(false);
                   state.setSelectedServiceStatus(service.status);
                 }}
@@ -44,19 +44,9 @@ export default function ServicesDisplay() {
                 </td>
               </tr>
             ))}
-
-          {!state.servicesArr &&
-            (state.fetchServicesError ? (
-              <tr className="text-(--primary-red)">
-                *{state.fetchServicesError}*
-              </tr>
-            ) : (
-              <tr>
-                <Loader />
-              </tr>
-            ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }

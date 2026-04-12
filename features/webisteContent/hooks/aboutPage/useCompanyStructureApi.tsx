@@ -9,7 +9,6 @@ import {
   updateCompanyStructureData,
 } from "../../services/companyStructure";
 
-import { ApiError } from "@lib/api/utils/apiError";
 import { execute } from "@lib/api/execute";
 
 export default function useCompanyStructureApi() {
@@ -22,8 +21,7 @@ export default function useCompanyStructureApi() {
     companyStructure,
     setCompanyStructure,
     setCompanyStructurePrev,
-    companyStructureId,
-    setCompanyStructureId,
+    setLoadingCompanyStructure,
     setLoadingCompanyStructureError,
     setUpdatingCompanyStructure,
     setUpdatingCompanyStructureError,
@@ -32,43 +30,39 @@ export default function useCompanyStructureApi() {
   } = companyStructureState;
 
   useEffect(() => {
-    const fetchCompanyStructure = async () => {
-      try {
-        const companyStructureData = await getCompanyStructureData();
-
-        setCompanyStructure(companyStructureData[0].structure);
-        setCompanyStructurePrev(companyStructureData[0].structure);
-        setCompanyStructureId(companyStructureData[0]._id);
-      } catch (error) {
-        if (error instanceof ApiError)
-          setLoadingCompanyStructureError(error.message);
-      }
-    };
+    const fetchCompanyStructure = async () =>
+      execute(getCompanyStructureData, {
+        setLoading: setLoadingCompanyStructure,
+        setError: setLoadingCompanyStructureError,
+        onSuccess: (companyStructureData) => {
+          setCompanyStructure(companyStructureData.structure);
+          setCompanyStructurePrev(companyStructureData.structure);
+          setHasCompanyStructureChanged(false);
+        },
+      });
 
     fetchCompanyStructure();
   }, [
     refreshCompanyStructure,
     setCompanyStructure,
-    setCompanyStructureId,
     setCompanyStructurePrev,
+    setHasCompanyStructureChanged,
+    setLoadingCompanyStructure,
     setLoadingCompanyStructureError,
   ]);
 
   const handlesaveCompanyStructure = async () => {
     if (!companyStructure) return;
 
-    await execute(
-      () => updateCompanyStructureData(companyStructureId, companyStructure),
-      {
-        setLoading: setUpdatingCompanyStructure,
-        setError: setUpdatingCompanyStructureError,
-        onSuccess: (updatedStructure) => {
-          setCompanyStructure(updatedStructure);
-          setCompanyStructurePrev(updatedStructure);
-          setHasCompanyStructureChanged(false);
-        },
+    await execute(() => updateCompanyStructureData(companyStructure), {
+      setLoading: setUpdatingCompanyStructure,
+      setError: setUpdatingCompanyStructureError,
+      onSuccess: (updatedStructure) => {
+        setCompanyStructure(updatedStructure.structure);
+        setCompanyStructurePrev(updatedStructure.structure);
+        setHasCompanyStructureChanged(false);
       },
-    );
+    });
   };
 
   return {

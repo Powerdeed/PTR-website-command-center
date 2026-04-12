@@ -2,6 +2,8 @@
 
 import { useContext, useEffect } from "react";
 
+import { isEqual } from "lodash";
+
 import { projectContext } from "../context/projectsContext";
 
 import { Project } from "../types/projects.types";
@@ -12,19 +14,22 @@ export default function useProjectsEdit() {
   if (!pContext) throw new Error("projects context must be within a provider");
 
   const {
+    selectedProjectPrev,
     setSelectedProject,
-    setSelectedProjectId,
+    setSelectedProjectPrev,
+    isNewProject,
     setisNewProject,
     featuredState,
     setFeaturedState,
     completedState,
     setCompletedState,
+    setHasProjectChanged,
   } = pContext;
 
   const handleSelectedProject = (p: Project) => {
     setisNewProject(false);
     setSelectedProject(p);
-    setSelectedProjectId(p._id || "");
+    setSelectedProjectPrev(p);
     setFeaturedState(p.featured);
     setCompletedState(p.status === "Completed" ? true : false);
   };
@@ -52,6 +57,10 @@ export default function useProjectsEdit() {
           boolean | string | Record<string, string>
         >
       )[path[path.length - 1] as string] = value;
+
+      setHasProjectChanged(
+        !isNewProject && !isEqual(selectedProjectPrev, clone),
+      );
 
       return clone;
     });

@@ -15,9 +15,6 @@ type CompanyStructureState = {
     React.SetStateAction<CompanyStructure[] | null>
   >;
 
-  companyStructureId: string;
-  setCompanyStructureId: Dispatch<React.SetStateAction<string>>;
-
   loadingCompanyStructure: boolean;
   setLoadingCompanyStructure: Dispatch<React.SetStateAction<boolean>>;
 

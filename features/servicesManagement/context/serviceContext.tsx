@@ -5,14 +5,11 @@ import { createContext, Dispatch } from "react";
 import { Service } from "../types/services.types";
 
 type ServiceState = {
-  servicesArr: Service[] | null;
-  setServicesArr: Dispatch<React.SetStateAction<Service[] | null>>;
+  services: Service[] | null;
+  setServices: Dispatch<React.SetStateAction<Service[] | null>>;
 
   selectedService: Service | null;
   setSelectedService: Dispatch<React.SetStateAction<Service | null>>;
-
-  selectedServiceId: string | null;
-  setSelectedServiceId: Dispatch<React.SetStateAction<string | null>>;
 
   selectedServiceStatus: boolean;
   setSelectedServiceStatus: Dispatch<React.SetStateAction<boolean>>;

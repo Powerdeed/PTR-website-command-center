@@ -12,9 +12,17 @@ export default function HomePage() {
 
   return (
     <div className="text-style__body vertical-layout__outer">
-      {!state.getHomepageDataError && <HeroAndAboutEditor />}
+      {state.homepage ? (
+        <HeroAndAboutEditor />
+      ) : (
+        <Loader loadingTxt="Loading Home page data" />
+      )}
 
-      {!state.getTestimonialsError && <TestimonialsEditor />}
+      {state.testimonials ? (
+        <TestimonialsEditor />
+      ) : (
+        <Loader loadingTxt="Loading Home page data" />
+      )}
 
       {actions.getErrors && (
         <div className="text-(--primary-red)">{actions.getErrors}</div>

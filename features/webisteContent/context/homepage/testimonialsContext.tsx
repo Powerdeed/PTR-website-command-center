@@ -5,11 +5,11 @@ import { Testimonial } from "../../types/homePage.types";
 import { createContext, Dispatch } from "react";
 
 type TestimonialsState = {
-  testimonials: Testimonial[];
-  setTestimonials: Dispatch<React.SetStateAction<Testimonial[]>>;
+  testimonials: Testimonial[] | null;
+  setTestimonials: Dispatch<React.SetStateAction<Testimonial[] | null>>;
 
-  testimonialsPrev: Testimonial[];
-  setTestimonialsPrev: Dispatch<React.SetStateAction<Testimonial[]>>;
+  testimonialsPrev: Testimonial[] | null;
+  setTestimonialsPrev: Dispatch<React.SetStateAction<Testimonial[] | null>>;
 
   getTestimonialsError: string;
   setGetTestimonialsError: Dispatch<React.SetStateAction<string>>;

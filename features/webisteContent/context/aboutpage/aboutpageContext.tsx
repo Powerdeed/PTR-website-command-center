@@ -13,9 +13,6 @@ type AboutpageState = {
   aboutUsPrev: AboutUs[] | null;
   setAboutUsPrev: Dispatch<React.SetStateAction<AboutUs[] | null>>;
 
-  aboutUsId: string;
-  setAboutUsId: Dispatch<React.SetStateAction<string>>;
-
   loadingAboutUs: boolean;
   setLoadingAboutUs: Dispatch<React.SetStateAction<boolean>>;
 

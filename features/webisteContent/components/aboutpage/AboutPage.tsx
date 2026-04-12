@@ -8,7 +8,7 @@ import OverviewSubsectionEditor from "./OverviewSubsectionEditor";
 
 import CompanyStructureEditor from "./CompanyStructureEditor";
 
-import useAboutPage from "@features/webisteContent/hooks/aboutPage/useAboutPage";
+import useAboutPage from "../../hooks/aboutPage/useAboutPage";
 
 export default function AboutPage() {
   const { state, actions } = useAboutPage();
@@ -21,14 +21,18 @@ export default function AboutPage() {
         separatorLine={false}
       >
         <div
-          className={`border-(--secondary-blue) rounded-[10px] p-2.5 ${state.hasHompageChanged && "border-2"}`}
+          className={`vertical-layout__outer border-(--secondary-blue) rounded-[10px] p-2.5 ${state.hasHompageChanged && "border-2"}`}
         >
           {state.hasHompageChanged && (
             <div className="text-(--secondary-blue) text-style__small-text mb-2.5">
               Changes have been made, save before exiting
             </div>
           )}
-          {state.aboutUs ? <OverviewSubsectionEditor /> : <Loading />}
+          {state.aboutUs ? (
+            <OverviewSubsectionEditor />
+          ) : (
+            <Loader loadingTxt="Loading About page data" />
+          )}
         </div>
       </FormWrapper>
 
@@ -43,18 +47,21 @@ export default function AboutPage() {
         }
       >
         <div
-          className={`border-(--secondary-blue) rounded-[10px] p-2.5 ${state.hasCompanyStructureChanged && "border-2"}`}>
+          className={`border-(--secondary-blue) rounded-[10px] p-2.5 ${state.hasCompanyStructureChanged && "border-2"}`}
+        >
           {state.hasCompanyStructureChanged && (
             <div className="text-(--secondary-blue) text-style__small-text mb-2.5">
               Changes have been made, save before exiting
             </div>
           )}
-        <div
-          className="h-200 feature-container-vertical overflow-auto section-scrollbar"
-        >
-
-          {state.companyStructure ? <CompanyStructureEditor /> : <Loading />}
-        </div></div>
+          <div className="h-200 feature-container-vertical overflow-auto section-scrollbar">
+            {state.companyStructure ? (
+              <CompanyStructureEditor />
+            ) : (
+              <Loader loadingTxt="Loading Company Structure" />
+            )}
+          </div>
+        </div>
       </FormWrapper>
 
       <div className="text-(--primary-red)">
@@ -65,8 +72,15 @@ export default function AboutPage() {
       <div className="flex gap-2.5 items-center justify-end">
         <ButtonLight
           buttonText="Reset Changes"
-          clickAction={() => {state.setRefreshAboutpage((prev) => !prev);state.setRefreshCompanyStructure((prev) => !prev);}}
-          icon={state.loadingAboutUs && <Loader />}
+          clickAction={() => {
+            state.setRefreshAboutpage((prev) => !prev);
+            state.setRefreshCompanyStructure((prev) => !prev);
+          }}
+          icon={
+            (state.loadingAboutUs || state.loadingCompanyStructure) && (
+              <Loader />
+            )
+          }
         />
         <Button
           buttonText="Save All Changes"
@@ -80,15 +94,6 @@ export default function AboutPage() {
           )}
         </Button>
       </div>
-    </div>
-  );
-}
-
-function Loading() {
-  return (
-    <div className="flex items-center gap-2.5">
-      Loading aboutpage data
-      <Loader />
     </div>
   );
 }

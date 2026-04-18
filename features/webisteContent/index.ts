@@ -33,7 +33,7 @@ export * from "./hooks/contactpage/useContactPageApi";
 export * from "./hooks/contactpage/useContactPageEditor";
 export * from "./hooks/contactpage/useContactPageState";
 
-export * from "./hooks/homepage/useHome";
+export * from "./hooks/homepage/useHomepage";
 export * from "./hooks/homepage/useHomepageApi";
 export * from "./hooks/homepage/useHomepageEditor";
 export * from "./hooks/homepage/useHomepageState";

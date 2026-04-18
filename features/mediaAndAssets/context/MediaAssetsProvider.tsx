@@ -24,7 +24,7 @@ export default function MediaAssetsProvider({
   const [firstPathArr, setFirstPathArr] = useState<string[] | null>(null);
   const [fileName, setFileName] = useState("");
   const [assetCategory, setAssetCategory] = useState("");
-  const [firstPath, setFirstPath] = useState<string | undefined>(undefined);
+  const [firstPath, setFirstPath] = useState("");
   const [secondPaths, setSecondPaths] = useState([""]);
   const [secondPath, setSecondPath] = useState("");
 

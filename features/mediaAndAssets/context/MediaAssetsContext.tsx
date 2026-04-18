@@ -27,8 +27,8 @@ type MediaAssetsState = {
   setFirstPathArr: Dispatch<SetStateAction<string[] | null>>;
   assetCategory: string;
   setAssetCategory: Dispatch<SetStateAction<string>>;
-  firstPath: string | undefined;
-  setFirstPath: Dispatch<SetStateAction<string | undefined>>;
+  firstPath: string;
+  setFirstPath: Dispatch<SetStateAction<string>>;
   secondPaths: string[];
   setSecondPaths: Dispatch<SetStateAction<string[]>>;
   secondPath: string;

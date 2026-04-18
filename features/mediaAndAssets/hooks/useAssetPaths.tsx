@@ -32,7 +32,7 @@ export default function useAssetPaths() {
   }, [setAssetUsagePaths]);
 
   const getFirstPaths = async (category: keyof AssetUsagePaths) => {
-    setFirstPath(undefined);
+    setFirstPath("");
     setSecondPath("");
 
     if (category) {

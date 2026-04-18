@@ -1,6 +1,6 @@
 "use client";
 
-import { AssetUsagePaths, assetUsagePaths } from "../constants/assetUsagePaths";
+import { AssetUsagePaths, usagePaths } from "../constants/assetUsagePaths";
 
 import { Asset } from "../types/mediaAssets.assets";
 import useMediaAssetsState from "./useMediaAssetsState";
@@ -17,11 +17,11 @@ export default function useAssetPaths() {
   } = useMediaAssetsState();
 
   const getFirstPaths = async (category: keyof AssetUsagePaths) => {
-    setFirstPath(undefined);
-    setSecondPath(undefined);
+    setFirstPath("");
+    setSecondPath("");
 
     if (category) {
-      const assetPaths: AssetUsagePaths = await assetUsagePaths;
+      const assetPaths: AssetUsagePaths = await usagePaths;
 
       if (!assetPaths) return;
 
@@ -34,7 +34,7 @@ export default function useAssetPaths() {
   };
 
   const includesSecondPath = async () => {
-    const assetPaths = await assetUsagePaths;
+    const assetPaths = await usagePaths;
 
     if (!assetPaths) return false;
 
@@ -42,7 +42,7 @@ export default function useAssetPaths() {
   };
 
   const getSecondPaths = async () => {
-    const assetPaths = await assetUsagePaths;
+    const assetPaths = await usagePaths;
 
     if (!assetPaths) return;
 

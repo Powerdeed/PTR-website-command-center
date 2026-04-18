@@ -15,7 +15,7 @@ import {
   isObjectOrDraftifyArr,
   isStringArray,
   isStringMatrix,
-} from "../../utils/typeCheckers";
+} from "../../../../global utils/helper functions/typeCheckers";
 
 export default function OverviewSubsectionEditor() {
   const { state, actions } = useAboutPage();

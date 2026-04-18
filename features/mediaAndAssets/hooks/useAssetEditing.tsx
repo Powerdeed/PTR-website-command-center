@@ -45,22 +45,26 @@ export default function useAssetEditing() {
     setFileName("");
     setAssetCategory("");
     setFirstPathArr(null);
-    setFirstPath(undefined);
-    setSecondPath(undefined);
+    setFirstPath("");
+    setSecondPath("");
     resetErrors();
     setAssetMode(reason === "re-upload" ? "new" : null);
     setCurrentAsset(reason === "re-upload" ? newEmptyAsset : null);
   };
 
   useEffect(() => {
-    if (file) {
-      setIsSupportedFile(
-        ["document", "diagram", "image"].includes(fileType as Asset["type"]),
-      );
+    const setAsset = () => {
+      if (file) {
+        setIsSupportedFile(
+          ["document", "diagram", "image"].includes(fileType as Asset["type"]),
+        );
 
-      setCurrentAsset(newEmptyAsset);
-    }
-  }, [file, fileType]);
+        setCurrentAsset(newEmptyAsset);
+      }
+    };
+
+    setAsset();
+  }, [file, fileType, newEmptyAsset, setCurrentAsset, setIsSupportedFile]);
 
   useEffect(() => {
     const assetUsage = firstPath
@@ -78,7 +82,7 @@ export default function useAssetEditing() {
           }
         : prev,
     );
-  }, [fileName, assetCategory, firstPath, secondPath]);
+  }, [fileName, assetCategory, firstPath, secondPath, setCurrentAsset]);
 
   return { handleResetAssetStates };
 }

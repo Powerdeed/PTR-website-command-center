@@ -12,25 +12,59 @@ export default function useServiceEdit() {
   const { selectedService, setSelectedService, selectedServiceStatus } =
     sContext;
 
-  const selectValue = (field: Exclude<keyof Service, "status" | "id">) => {
+  const selectValue = (field: Exclude<keyof Service, "status" | "_id">) => {
     if (!selectedService) return;
     return selectedService[field];
   };
 
   const modifyService = (
-    field: Exclude<keyof Service, "status" | "id">,
+    field: Exclude<keyof Service, "status" | "_id">,
     value: string,
+    idx?: number,
   ) =>
-    setSelectedService((prev) => (prev ? { ...prev, [field]: value } : prev));
+    setSelectedService((prev) => {
+      if (!prev) return prev;
+
+      if (field === "images" && idx !== undefined) {
+        const images = [...prev.images];
+
+        images[idx] = value;
+
+        return { ...prev, images };
+      }
+
+      return { ...prev, [field]: value };
+    });
 
   useEffect(() => {
-    setSelectedService((prev) =>
-      prev ? { ...prev, status: selectedServiceStatus } : prev,
-    );
+    setSelectedService((prev) => {
+      if (!prev) return prev;
+
+      return { ...prev, status: selectedServiceStatus };
+    });
   }, [selectedServiceStatus, setSelectedService]);
+
+  const addNewServiceImage = () =>
+    setSelectedService((prev) => {
+      if (!prev) return prev;
+
+      return { ...prev, images: [...prev.images, ""] };
+    });
+
+  const removeImage = (idx: number) =>
+    setSelectedService((prev) => {
+      if (!prev) return prev;
+      const images = prev.images;
+
+      const newArr = images.toSpliced(idx, 1);
+
+      return { ...prev, images: newArr };
+    });
 
   return {
     selectValue,
     modifyService,
+    addNewServiceImage,
+    removeImage,
   };
 }

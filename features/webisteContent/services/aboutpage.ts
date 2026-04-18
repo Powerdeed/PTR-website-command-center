@@ -1,6 +1,6 @@
 import { apiRequest } from "@lib/api/apiRequest";
 
-import { AboutUs, AboutUsFormatted } from "../types/aboutPage.types";
+import { AboutUs } from "../types/aboutPage.types";
 
 export const getAboutUsData = () =>
   apiRequest<{ _id: string; sections: AboutUs[] }>({
@@ -8,7 +8,7 @@ export const getAboutUsData = () =>
     url: "/about-us",
   });
 
-export const updateAboutUsData = (data: AboutUsFormatted[]) =>
+export const updateAboutUsData = (data: AboutUs[]) =>
   apiRequest<{ sections: AboutUs[] }>({
     method: "PUT",
     url: "/about-us",

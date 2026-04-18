@@ -20,5 +20,8 @@ export type Contacts = {
       to: string;
     } | null;
   };
-  Socials: { name: string; url: string }[];
+  Socials: {
+    url: string;
+    name: string;
+  }[];
 };

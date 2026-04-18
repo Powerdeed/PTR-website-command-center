@@ -8,7 +8,10 @@ import { aboutpageContext } from "../../context/aboutpage/aboutpageContext";
 
 import { AboutUs } from "../../types/aboutPage.types";
 
-import { isStringArray, isStringMatrix } from "../../utils/typeCheckers";
+import {
+  isStringArray,
+  isStringMatrix,
+} from "../../../../global utils/helper functions/typeCheckers";
 
 export default function useAboutEditor() {
   const aboutpageState = useContext(aboutpageContext);

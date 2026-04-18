@@ -11,7 +11,7 @@ import Button, { ButtonLight } from "@global components/ui/Button";
 import Loader from "@global components/ui/Loader";
 
 // constants
-import { assetUsagePaths } from "../constants/assetUsagePaths";
+import { AssetUsagePaths } from "../constants/assetUsagePaths";
 
 import useMediaAssets from "../hooks/useMediaAssets";
 
@@ -81,8 +81,8 @@ export default function AssetMetaEditor() {
           <select
             value={state.assetCategory}
             onChange={(e) => {
-              state.setAssetCategory(e.target.value);
-              actions.getFirstPaths(e.target.value);
+              state.setAssetCategory(e.target.value as keyof AssetUsagePaths);
+              actions.getFirstPaths(e.target.value as keyof AssetUsagePaths);
             }}
             className="input-style w-full"
           >
@@ -90,7 +90,7 @@ export default function AssetMetaEditor() {
               select category
             </option>
 
-            {Object.keys(assetUsagePaths).map((category) => (
+            {Object.keys(state.assetUsagePaths || {}).map((category) => (
               <option key={category} value={category}>
                 {category}
               </option>
@@ -111,7 +111,7 @@ export default function AssetMetaEditor() {
                 value={state.firstPath}
                 onChange={(e) => {
                   state.setFirstPath(e.target.value);
-                  state.setSecondPath(undefined);
+                  state.setSecondPath("");
                 }}
                 className="input-style w-full"
               >
@@ -124,7 +124,7 @@ export default function AssetMetaEditor() {
                 ))}
               </select>
 
-              {state.firstPath && actions.includesSecondPath() && (
+              {state.firstPath && state.secondPaths.length > 0 && (
                 <select
                   value={state.secondPath}
                   onChange={(e) => state.setSecondPath(e.target.value)}
@@ -132,7 +132,7 @@ export default function AssetMetaEditor() {
                 >
                   <option value={undefined}>which {state.firstPath}?</option>
 
-                  {actions.getSecondPaths().map((path) => {
+                  {state.secondPaths.map((path) => {
                     return (
                       <option key={path} value={path}>
                         {path}

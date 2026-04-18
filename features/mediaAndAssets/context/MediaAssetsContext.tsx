@@ -3,6 +3,7 @@
 import { createContext, Dispatch, SetStateAction } from "react";
 
 import { Asset } from "../types/mediaAssets.assets";
+import { AssetUsagePaths } from "../constants/assetUsagePaths";
 
 type MediaAssetsState = {
   // asset and meta
@@ -18,6 +19,8 @@ type MediaAssetsState = {
   setAssetMode: Dispatch<SetStateAction<"new" | "existing" | null>>;
   file: File | null;
   setFile: Dispatch<SetStateAction<File | null>>;
+  assetUsagePaths: AssetUsagePaths | null;
+  setAssetUsagePaths: Dispatch<AssetUsagePaths | null>;
   fileName: string;
   setFileName: Dispatch<SetStateAction<string>>;
   firstPathArr: string[] | null;
@@ -26,8 +29,10 @@ type MediaAssetsState = {
   setAssetCategory: Dispatch<SetStateAction<string>>;
   firstPath: string | undefined;
   setFirstPath: Dispatch<SetStateAction<string | undefined>>;
-  secondPath: string | undefined;
-  setSecondPath: Dispatch<SetStateAction<string | undefined>>;
+  secondPaths: string[];
+  setSecondPaths: Dispatch<SetStateAction<string[]>>;
+  secondPath: string;
+  setSecondPath: Dispatch<SetStateAction<string>>;
 
   // clipBoard states
   copying: boolean;

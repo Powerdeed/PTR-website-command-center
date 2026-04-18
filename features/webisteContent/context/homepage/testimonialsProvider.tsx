@@ -11,7 +11,7 @@ export default function TestimonialsProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [testimonials, setTestimonials] = useState<Testimonial[] | null>(null);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
 
   const [testimonialsPrev, setTestimonialsPrev] = useState<
     Testimonial[] | null

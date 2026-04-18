@@ -49,4 +49,4 @@ export * from "./services/testimonials";
 
 // UTILS
 export * from "./utils/conversions";
-export * from "./utils/typeCheckers";
+export * from "../../global utils/helper functions/typeCheckers";

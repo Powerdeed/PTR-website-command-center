@@ -1,11 +1,13 @@
 "use client";
 
-import Button, { ButtonRed } from "@global components/ui/Button";
+import Button, {
+  ButtonLight,
+  ButtonRed,
+  DeleteIconBtn,
+} from "@global components/ui/Button";
 import Loader from "@global components/ui/Loader";
 import { InputArea } from "@global components/layout/FormWrapper";
 import Toggle from "@global components/ui/Toggle";
-
-import { SERVICE_FIELDS } from "../constants/defaultService";
 
 import useService from "../hooks/useService";
 
@@ -22,16 +24,37 @@ export default function ServiceEditor() {
 
       {state.selectedService ? (
         <div className="vertical-layout__outer">
-          {SERVICE_FIELDS.map((field) => {
-            return (
-              <InputArea
-                key={field}
-                label={toPascalCase(field)}
-                changeFunc={(val) => actions.modifyService(field, val)}
-                val={actions.selectValue(field) || ""}
+          <InputArea
+            label={toPascalCase("name")}
+            changeFunc={(val) => actions.modifyService("name", val)}
+            val={state.selectedService.name}
+          />
+
+          <InputArea
+            label={toPascalCase("description")}
+            changeFunc={(val) => actions.modifyService("description", val)}
+            val={state.selectedService.description}
+          />
+
+          {state.selectedService.images.map((image, idx) => (
+            <div key={idx} className="flex items-center gap-2.5">
+              <input
+                type="text"
+                value={image}
+                onChange={(e) =>
+                  actions.modifyService("images", e.target.value, idx)
+                }
+                className="flex-1 input-style"
               />
-            );
-          })}
+
+              <DeleteIconBtn deleteFunc={() => actions.removeImage(idx)} />
+            </div>
+          ))}
+
+          <ButtonLight
+            buttonText="Add Image"
+            clickAction={actions.addNewServiceImage}
+          />
 
           <div className="flex">
             <div className="flex-1 text-style__body">Set as active</div>

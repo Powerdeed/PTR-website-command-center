@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 
 import { MediaAssetsContext } from "../context/MediaAssetsContext";
 
@@ -35,18 +35,21 @@ export default function useMediaAssetsState() {
 
   const fileType = fileName !== "" ? mediaType(fileName) : "image";
 
-  const newEmptyAsset: Asset = {
-    id: crypto.randomUUID(),
-    name: fileName,
-    type: fileType === "video" || fileType === "unknown" ? "image" : fileType,
-    size: file ? sizeOfFile(file.size) : "unknown",
-    usage: "",
-    uploadDate: getCurrentDateFormatted(),
-    url: "",
-    fullPath: "",
-    category: "",
-    contentType: `.${fileName.split(".").pop()}`,
-  };
+  const newEmptyAsset: Asset = useMemo(
+    () => ({
+      id: crypto.randomUUID(),
+      name: fileName,
+      type: fileType === "video" || fileType === "unknown" ? "image" : fileType,
+      size: file ? sizeOfFile(file.size) : "unknown",
+      usage: "",
+      uploadDate: getCurrentDateFormatted(),
+      url: "",
+      fullPath: "",
+      category: "",
+      contentType: `.${fileName.split(".").pop()}`,
+    }),
+    [fileName, file, fileType],
+  );
 
   return {
     ...mediaAssetsContext,

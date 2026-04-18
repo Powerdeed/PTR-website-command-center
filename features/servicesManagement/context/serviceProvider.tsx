@@ -13,10 +13,6 @@ export default function ServiceProvider({
 
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
-  const [selectedServiceId, setSelectedServiceId] = useState<string | null>(
-    null,
-  );
-
   const [selectedServiceStatus, setSelectedServiceStatus] = useState(false);
 
   const [isUploading, setIsUploading] = useState(false);
@@ -36,8 +32,6 @@ export default function ServiceProvider({
         setServices,
         selectedService,
         setSelectedService,
-        selectedServiceId,
-        setSelectedServiceId,
         selectedServiceStatus,
         setSelectedServiceStatus,
         isUploading,

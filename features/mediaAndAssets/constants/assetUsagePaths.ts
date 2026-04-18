@@ -13,7 +13,7 @@ export interface AssetUsagePaths {
   "contact page": string[];
 }
 
-export const assetUsagePaths: Promise<AssetUsagePaths> = (async () => {
+export const usagePaths: Promise<AssetUsagePaths> = (async () => {
   const companyStructure = await getCompanyStructureData();
   const projects = await getProjects();
 

@@ -5,8 +5,8 @@ import { Testimonial } from "../../types/homePage.types";
 import { createContext, Dispatch } from "react";
 
 type TestimonialsState = {
-  testimonials: Testimonial[] | null;
-  setTestimonials: Dispatch<React.SetStateAction<Testimonial[] | null>>;
+  testimonials: Testimonial[];
+  setTestimonials: Dispatch<React.SetStateAction<Testimonial[]>>;
 
   testimonialsPrev: Testimonial[] | null;
   setTestimonialsPrev: Dispatch<React.SetStateAction<Testimonial[] | null>>;

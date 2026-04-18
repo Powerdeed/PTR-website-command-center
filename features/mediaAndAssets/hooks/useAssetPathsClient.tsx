@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { AssetUsagePaths, usagePaths } from "../constants/assetUsagePaths";
+import { AssetUsagePaths, assetUsagePaths } from "../constants/assetUsagePaths";
 
 import { Asset } from "../types/mediaAssets.assets";
 import useMediaAssetsState from "./useMediaAssetsState";
@@ -15,28 +14,14 @@ export default function useAssetPaths() {
     setFirstPathArr,
     setAssetCategory,
     setFileName,
-    setSecondPaths,
-    setAssetUsagePaths,
   } = useMediaAssetsState();
-
-  useEffect(() => {
-    const fetchUsagePaths = async () => {
-      const paths = await usagePaths;
-
-      if (!paths) return;
-
-      setAssetUsagePaths(paths);
-    };
-
-    fetchUsagePaths();
-  }, [setAssetUsagePaths]);
 
   const getFirstPaths = async (category: keyof AssetUsagePaths) => {
     setFirstPath(undefined);
-    setSecondPath("");
+    setSecondPath(undefined);
 
     if (category) {
-      const assetPaths = await usagePaths;
+      const assetPaths: AssetUsagePaths = await assetUsagePaths;
 
       if (!assetPaths) return;
 
@@ -48,37 +33,36 @@ export default function useAssetPaths() {
     }
   };
 
-  useEffect(() => {
-    const fetchSecondPaths = async () => {
-      const assetPaths = await usagePaths;
+  const includesSecondPath = async () => {
+    const assetPaths = await assetUsagePaths;
 
-      if (assetPaths) {
-        const categoryBasedPaths =
-          assetPaths[assetCategory as keyof AssetUsagePaths];
+    if (!assetPaths) return false;
 
-        const hasSecondPath = categoryBasedPaths.every(
-          (item) => item.split("-").length > 1,
-        );
+    return assetPaths[assetCategory as keyof AssetUsagePaths][0].includes("-");
+  };
 
-        if (firstPath && hasSecondPath) {
-          const outputArr: string[] = [];
+  const getSecondPaths = async () => {
+    const assetPaths = await assetUsagePaths;
 
-          categoryBasedPaths.map((paths) => {
-            const path = paths.split("-")[1];
-
-            if (paths.includes(firstPath)) {
-              outputArr.push(path);
-            }
-          });
-          setSecondPaths(outputArr);
-        } else setSecondPaths([]);
-      } else setSecondPaths([]);
-    };
+    if (!assetPaths) return;
 
     if (firstPath) {
-      fetchSecondPaths();
+      const categoryBasedPaths =
+        assetPaths[assetCategory as keyof AssetUsagePaths];
+      const outputArr: string[] = [];
+
+      categoryBasedPaths.map((paths) => {
+        const path = paths.split("-")[1];
+
+        if (paths.includes(firstPath)) {
+          outputArr.push(path);
+        }
+      });
+      return outputArr;
     }
-  }, [assetCategory, firstPath, setSecondPaths]);
+
+    return [];
+  };
 
   const updatePathSetters = (asset?: Asset) => {
     const paths = asset?.fullPath.split("/").slice(0, -1);
@@ -92,7 +76,6 @@ export default function useAssetPaths() {
 
     setFileName(name);
     setAssetCategory(category as keyof AssetUsagePaths);
-    getFirstPaths(category as keyof AssetUsagePaths);
     setFirstPath(firstPath);
     setSecondPath(secondPath);
 
@@ -106,6 +89,8 @@ export default function useAssetPaths() {
 
   return {
     getFirstPaths,
+    getSecondPaths,
+    includesSecondPath,
     updatePathSetters,
   };
 }

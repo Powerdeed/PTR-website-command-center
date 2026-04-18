@@ -4,12 +4,6 @@ export const DEFAULT_SERVICE: Service = {
   _id: "",
   name: "",
   description: "",
-  imageUrl: "",
+  images: [""],
   status: false,
 };
-
-export const SERVICE_FIELDS: Array<Exclude<keyof Service, "status" | "id">> = [
-  "name",
-  "description",
-  "imageUrl",
-];

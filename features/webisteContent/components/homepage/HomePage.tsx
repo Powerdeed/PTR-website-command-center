@@ -5,7 +5,7 @@ import Loader from "@global components/ui/Loader";
 import HeroAndAboutEditor from "./HeroAndAboutEditor";
 import TestimonialsEditor from "./TestimonialsEditor";
 
-import useHomePage from "../../hooks/homepage/useHomePage";
+import useHomePage from "../../hooks/homepage/useHome";
 
 export default function HomePage() {
   const { state, actions } = useHomePage();

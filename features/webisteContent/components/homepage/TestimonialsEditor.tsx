@@ -10,7 +10,7 @@ import Button, {
 } from "@global components/ui/Button";
 import Loader from "@global components/ui/Loader";
 
-import useHomepage from "../../hooks/homepage/useHomepage";
+import useHomepage from "../../hooks/homepage/useHome";
 
 export default function TestimonialsEditor() {
   const { state, actions } = useHomepage();

@@ -10,10 +10,10 @@ import Button, {
 } from "@global components/ui/Button";
 import Loader from "@global components/ui/Loader";
 
-import useHomePage from "@features/webisteContent/hooks/homepage/useHomepage";
+import useHomepage from "../../hooks/homepage/useHomepage";
 
 export default function TestimonialsEditor() {
-  const { state, actions } = useHomePage();
+  const { state, actions } = useHomepage();
 
   if (!state.testimonials) return;
 

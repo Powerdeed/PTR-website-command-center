@@ -12,7 +12,7 @@ import { homepageContext } from "../../context/homepage/homepageContext";
 
 import { testimonialsContext } from "../../context/homepage/testimonialsContext";
 
-export default function useHomePage() {
+export default function useHomepage() {
   const homepageState = useContext(homepageContext);
   const testimonialsState = useContext(testimonialsContext);
 

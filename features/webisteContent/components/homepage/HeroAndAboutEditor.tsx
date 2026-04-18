@@ -6,10 +6,10 @@ import FormWrapper, {
 } from "@global components/layout/FormWrapper";
 import { ButtonLight } from "@global components/ui/Button";
 
-import useHomePage from "../../hooks/homepage/useHomepage";
+import useHomepage from "../../hooks/homepage/useHomepage";
 
 export default function HeroAndAboutEditor() {
-  const { state, actions } = useHomePage();
+  const { state, actions } = useHomepage();
 
   if (!state.homepage) return;
 

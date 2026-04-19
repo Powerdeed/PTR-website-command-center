@@ -36,25 +36,28 @@ export default function ServiceEditor() {
             val={state.selectedService.description}
           />
 
-          {state.selectedService.images.map((image, idx) => (
-            <div key={idx} className="flex items-center gap-2.5">
-              <input
-                type="text"
-                value={image}
-                onChange={(e) =>
-                  actions.modifyService("images", e.target.value, idx)
-                }
-                className="flex-1 input-style"
-              />
+          <div className="vertical-layout__outer">
+            <div className="flex-1 text-style__body">Images</div>
+            {state.selectedService.images.map((image, idx) => (
+              <div key={idx} className="flex items-center gap-2.5">
+                <input
+                  type="text"
+                  value={image}
+                  onChange={(e) =>
+                    actions.modifyService("images", e.target.value, idx)
+                  }
+                  className="flex-1 input-style"
+                />
 
-              <DeleteIconBtn deleteFunc={() => actions.removeImage(idx)} />
-            </div>
-          ))}
+                <DeleteIconBtn deleteFunc={() => actions.removeImage(idx)} />
+              </div>
+            ))}
 
-          <ButtonLight
-            buttonText="Add Image"
-            clickAction={actions.addNewServiceImage}
-          />
+            <ButtonLight
+              buttonText="Add Image"
+              clickAction={actions.addNewServiceImage}
+            />
+          </div>
 
           <div className="flex">
             <div className="flex-1 text-style__body">Set as active</div>

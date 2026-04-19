@@ -1,11 +1,16 @@
 "use client";
 
+// modules
 import { use, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+// utils
 import { convertLinkToLabel } from "@global utils/conversions/urlConversions";
+
+// constants
 import { MenuLabels } from "@lib/constants/NAV_MENU_AND_LABELS";
 
+// features
 import SettingsAndUsers from "@features/settingsAndUser/SettingsAndUsers";
 import Customization from "@features/customization/Customization";
 import DataAndReports from "@features/dataAndReports/DataAndReports";
@@ -17,8 +22,8 @@ import Projects from "@features/projects/Projects";
 import ServicesManagement from "@features/servicesManagement/ServicesManagement";
 import LeadsAndInquiries from "@features/leadsAndInquiries/LeadsAndInquiries";
 import OverviewDashboard from "@features/overviewDashboard/OverviewDashboard";
-import Nav from "@global components/layout/nav/Nav";
-import SideBar from "@global components/layout/SideBar";
+
+// component
 import { ChartProvider } from "@global components/layout/charts/context/ChartProvider";
 
 export default function Section({
@@ -52,13 +57,8 @@ export default function Section({
   const content = sectionMap[sectionLabel];
 
   return (
-    <div>
-      <Nav />
-      <SideBar />
-
-      <div className="pl-65 pt-15">
-        <ChartProvider>{content}</ChartProvider>
-      </div>
+    <div className="pl-65 pt-15">
+      <ChartProvider>{content}</ChartProvider>
     </div>
   );
 }

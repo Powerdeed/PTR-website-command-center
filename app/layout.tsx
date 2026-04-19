@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Open_Sans } from "next/font/google";
 import "./globals.css";
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 import "../global components/icons/icons";
 import Nav from "@global components/layout/nav/Nav";
 import SideBar from "@global components/layout/SideBar";
@@ -47,6 +49,8 @@ export default function RootLayout({
       <body
         className={`${plusJakartaSans.variable} ${openSans.variable} antialiased flex flex-col min-h-screen`}
       >
+        <SpeedInsights />
+
         <Nav />
 
         <SideBar />

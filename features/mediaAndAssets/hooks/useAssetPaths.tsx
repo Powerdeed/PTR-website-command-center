@@ -31,7 +31,7 @@ export default function useAssetPaths() {
     };
 
     fetchUsagePaths();
-  }, [setAssetUsagePaths]);
+  }, [hasFeaturePath, setAssetUsagePaths]);
 
   const getFirstPaths = async (category: keyof AssetUsagePaths) => {
     setFirstPath("");

@@ -1,10 +1,6 @@
 "use client";
 
-import Button, {
-  ButtonLight,
-  ButtonRed,
-  DeleteIconBtn,
-} from "@global components/ui/Button";
+import Button, { ButtonRed, DeleteIconBtn } from "@global components/ui/Button";
 import Loader from "@global components/ui/Loader";
 import Toggle from "@global components/ui/Toggle";
 import { InputArea } from "@global components/layout/FormWrapper";

@@ -25,8 +25,6 @@ import OverviewDashboard from "@features/overviewDashboard/OverviewDashboard";
 
 // component
 import { ChartProvider } from "@global components/layout/charts/context/ChartProvider";
-import Nav from "@global components/layout/nav/Nav";
-import SideBar from "@global components/layout/SideBar";
 
 export default function Section({
   params,
@@ -59,14 +57,8 @@ export default function Section({
   const content = sectionMap[sectionLabel];
 
   return (
-    <div>
-      <Nav />
-
-      <SideBar />
-
-      <div className="pl-65 pt-15">
-        <ChartProvider>{content}</ChartProvider>
-      </div>
-    </div>
+    <ChartProvider>
+      <div className="pl-65 pt-15">{content}</div>
+    </ChartProvider>
   );
 }

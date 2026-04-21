@@ -17,7 +17,7 @@ export function LoginView() {
   const { state, actions } = useLogin();
 
   return (
-    <div className="w-screen h-screen vertical-layout__outer items-center justify-center">
+    <div className="border w-screen h-screen vertical-layout__outer items-center justify-center z-1 bg-background">
       <div className="feature-container-vertical w-100">
         <SectionTitle title={PLATFORM_NAME} style="text-center" />
 

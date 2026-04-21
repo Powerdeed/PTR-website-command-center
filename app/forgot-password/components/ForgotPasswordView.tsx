@@ -10,7 +10,7 @@ export default function ForgotPasswordView() {
   const { state } = useForgotPassword();
 
   return (
-    <div className="w-screen h-screen vertical-layout__outer items-center justify-center text-style__body">
+    <div className="w-screen h-screen vertical-layout__outer items-center justify-center text-style__body z-1 bg-background">
       {!state.isCodeSent && <SendCodeToEmail />}
 
       {state.isCodeSent && !state.verified && <VerifyEmail />}

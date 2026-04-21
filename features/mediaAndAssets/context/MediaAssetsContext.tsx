@@ -2,7 +2,7 @@
 
 import { createContext, Dispatch, SetStateAction } from "react";
 
-import { Asset } from "../types/mediaAssets.assets";
+import { Asset } from "../types/mediaAssets.types";
 import { AssetUsagePaths } from "../constants/assetUsagePaths";
 
 type MediaAssetsState = {
@@ -33,6 +33,10 @@ type MediaAssetsState = {
   setSecondPaths: Dispatch<SetStateAction<string[]>>;
   secondPath: string;
   setSecondPath: Dispatch<SetStateAction<string>>;
+  hasFeaturePath: boolean;
+  setHasFeaturePath: Dispatch<SetStateAction<boolean>>;
+  featurePath: string;
+  setFeaturePath: Dispatch<SetStateAction<string>>;
 
   // clipBoard states
   copying: boolean;

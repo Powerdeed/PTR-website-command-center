@@ -20,18 +20,9 @@ export default function useServiceEdit() {
   const modifyService = (
     field: Exclude<keyof Service, "status" | "_id">,
     value: string,
-    idx?: number,
   ) =>
     setSelectedService((prev) => {
       if (!prev) return prev;
-
-      if (field === "images" && idx !== undefined) {
-        const images = [...prev.images];
-
-        images[idx] = value;
-
-        return { ...prev, images };
-      }
 
       return { ...prev, [field]: value };
     });
@@ -44,11 +35,11 @@ export default function useServiceEdit() {
     });
   }, [selectedServiceStatus, setSelectedService]);
 
-  const addNewServiceImage = () =>
+  const addNewServiceImage = (image: string) =>
     setSelectedService((prev) => {
       if (!prev) return prev;
 
-      return { ...prev, images: [...prev.images, ""] };
+      return { ...prev, images: [...prev.images, image] };
     });
 
   const removeImage = (idx: number) =>

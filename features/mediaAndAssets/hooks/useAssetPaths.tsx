@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { AssetUsagePaths, usagePaths } from "../constants/assetUsagePaths";
 
-import { Asset } from "../types/mediaAssets.assets";
+import { Asset } from "../types/mediaAssets.types";
 import useMediaAssetsState from "./useMediaAssetsState";
 
 export default function useAssetPaths() {
@@ -17,10 +17,12 @@ export default function useAssetPaths() {
     setFileName,
     setSecondPaths,
     setAssetUsagePaths,
+    hasFeaturePath,
   } = useMediaAssetsState();
 
   useEffect(() => {
     const fetchUsagePaths = async () => {
+      if (hasFeaturePath) return;
       const paths = await usagePaths;
 
       if (!paths) return;
@@ -75,10 +77,10 @@ export default function useAssetPaths() {
       } else setSecondPaths([]);
     };
 
-    if (firstPath) {
+    if (firstPath && !hasFeaturePath) {
       fetchSecondPaths();
     }
-  }, [assetCategory, firstPath, setSecondPaths]);
+  }, [assetCategory, firstPath, hasFeaturePath, setSecondPaths]);
 
   const updatePathSetters = (asset?: Asset) => {
     const paths = asset?.fullPath.split("/").slice(0, -1);

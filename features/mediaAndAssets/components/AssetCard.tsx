@@ -5,7 +5,7 @@ import { ButtonLight } from "@global components/ui/Button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Asset } from "../types/mediaAssets.assets";
+import { Asset } from "../types/mediaAssets.types";
 
 import { ICON_COLORS } from "../constants/iconColors";
 
@@ -16,12 +16,15 @@ type AssetCardProps = {
 };
 
 export default function AssetCard({ asset }: AssetCardProps) {
-  const { actions } = useMediaAssets();
+  const { state, actions } = useMediaAssets();
 
   return (
     <div
       className="p-5 vertical-layout__inner border border-(--terciary-grey)/40 hover:border-(--secondary-blue) hover:bg-(--secondary-blue)/5 rounded-[10px]"
-      onClick={() => actions.handleCurrentAsset("existing", asset)}
+      onClick={() => {
+        state.setAssetMode("existing");
+        actions.handleCurrentAsset("existing", asset);
+      }}
     >
       <div className="vertical-layout__inner">
         <div className="flex gap-2.5 h-12">

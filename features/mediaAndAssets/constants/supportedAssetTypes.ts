@@ -1,4 +1,4 @@
-import { Asset } from "../types/mediaAssets.assets";
+import { Asset } from "../types/mediaAssets.types";
 
 export const supportedAssetTypes: Asset["type"][] = [
   "document",

@@ -5,7 +5,7 @@ import { useContext } from "react";
 import useMediaAssetsState from "./useMediaAssetsState";
 import useAssetPaths from "./useAssetPaths";
 
-import { Asset } from "../types/mediaAssets.assets";
+import { Asset } from "../types/mediaAssets.types";
 
 import { MediaAssetsContext } from "../context/MediaAssetsContext";
 

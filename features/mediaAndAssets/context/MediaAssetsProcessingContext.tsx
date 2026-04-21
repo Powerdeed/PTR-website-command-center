@@ -1,5 +1,6 @@
 "use client";
 
+import { FileType } from "@global utils/global-states.types";
 import { createContext, Dispatch, SetStateAction } from "react";
 
 type MediaAssetsProcessingState = {
@@ -14,6 +15,9 @@ type MediaAssetsProcessingState = {
 
   compressionProgress: number;
   setCompressionProgress: Dispatch<SetStateAction<number>>;
+
+  targetFileTypes: FileType[];
+  setTargetFileTypes: Dispatch<SetStateAction<FileType[]>>;
 };
 
 export const MediaAssetsProcessingContext =

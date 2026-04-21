@@ -1,13 +1,10 @@
 "use client";
 
-import Button, {
-  ButtonLight,
-  ButtonRed,
-  DeleteIconBtn,
-} from "@global components/ui/Button";
+import Button, { ButtonRed, DeleteIconBtn } from "@global components/ui/Button";
 import Loader from "@global components/ui/Loader";
 import { InputArea } from "@global components/layout/FormWrapper";
 import Toggle from "@global components/ui/Toggle";
+import ImageUploader from "@global components/layout/image-uploader/components/ImageUploader";
 
 import useService from "../hooks/useService";
 
@@ -22,7 +19,9 @@ export default function ServiceEditor() {
         {state.isNewService ? "Add New Service" : "Edit Service"}
       </div>
 
-      {state.selectedService ? (
+      {!state.selectedService && <div>Select a service to start editing</div>}
+
+      {state.selectedService && (
         <div className="vertical-layout__outer">
           <InputArea
             label={toPascalCase("name")}
@@ -40,22 +39,16 @@ export default function ServiceEditor() {
             <div className="flex-1 text-style__body">Images</div>
             {state.selectedService.images.map((image, idx) => (
               <div key={idx} className="flex items-center gap-2.5">
-                <input
-                  type="text"
-                  value={image}
-                  onChange={(e) =>
-                    actions.modifyService("images", e.target.value, idx)
-                  }
-                  className="flex-1 input-style"
-                />
+                <div className="flex-1 input-style">{image}</div>
 
                 <DeleteIconBtn deleteFunc={() => actions.removeImage(idx)} />
               </div>
             ))}
 
-            <ButtonLight
-              buttonText="Add Image"
-              clickAction={actions.addNewServiceImage}
+            <ImageUploader
+              targetFileTypes={["image"]}
+              path={`service/${state.selectedService.name}`}
+              changeFunc={(val) => actions.addNewServiceImage(val)}
             />
           </div>
 
@@ -94,8 +87,6 @@ export default function ServiceEditor() {
             <div className="text-(--primary-red)">*{state.error}*</div>
           )}
         </div>
-      ) : (
-        <div>Select a service to start editing</div>
       )}
     </div>
   );

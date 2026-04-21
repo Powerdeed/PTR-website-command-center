@@ -1,5 +1,8 @@
 "use client";
 
+// modules
+import { useEffect } from "react";
+
 // components
 import FormWrapper from "@global components/layout/FormWrapper";
 import Button, { ButtonLight } from "@global components/ui/Button";
@@ -24,6 +27,11 @@ import { supportedAssetTypes } from "../constants/supportedAssetTypes";
 
 export function MediaAssetsView() {
   const { state, actions } = useMediaAssets();
+
+  useEffect(
+    () => state.setTargetFileTypes(["image", "diagram", "document"]),
+    [],
+  );
 
   return (
     <div className="relative page-layout">

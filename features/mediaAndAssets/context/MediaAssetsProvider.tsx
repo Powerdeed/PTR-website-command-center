@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { MediaAssetsContext } from "./MediaAssetsContext";
-import { Asset } from "../types/mediaAssets.assets";
+import { Asset } from "../types/mediaAssets.types";
 import { getMediaAssets } from "../services/mediaAssets";
 import { AssetUsagePaths } from "../constants/assetUsagePaths";
 
@@ -27,6 +27,8 @@ export default function MediaAssetsProvider({
   const [firstPath, setFirstPath] = useState("");
   const [secondPaths, setSecondPaths] = useState([""]);
   const [secondPath, setSecondPath] = useState("");
+  const [hasFeaturePath, setHasFeaturePath] = useState(false);
+  const [featurePath, setFeaturePath] = useState("");
 
   return (
     <MediaAssetsContext.Provider
@@ -57,6 +59,10 @@ export default function MediaAssetsProvider({
         setSecondPaths,
         secondPath,
         setSecondPath,
+        hasFeaturePath,
+        setHasFeaturePath,
+        featurePath,
+        setFeaturePath,
       }}
     >
       {children}

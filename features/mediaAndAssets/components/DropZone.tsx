@@ -16,7 +16,7 @@ import useMediaAssets from "../hooks/useMediaAssets";
 export default function DropZone() {
   const mediaDropRef = useRef<HTMLDivElement | null>(null);
 
-  const { state } = useMediaAssets();
+  const { state, actions } = useMediaAssets();
 
   return (
     <div
@@ -57,11 +57,10 @@ export default function DropZone() {
           <FontAwesomeIcon icon={["fas", "arrow-up-from-bracket"]} />
         </div>
         <div className="text-style__body">
-          Drop your image here or click to browse
+          Drop your {state.targetFileTypes.join(" or ")} here or click to browse
         </div>
         <div className="text-style__small-text text-(--primary-grey)">
-          Supported formats: JPG, JPEG, PNG, BMP, WEBP, AVIF, SVG, PDF, DOC,
-          DOCX and CSV • Max file size: 10MB
+          Supported formats: {actions.supportedTypes}
         </div>
       </label>
     </div>

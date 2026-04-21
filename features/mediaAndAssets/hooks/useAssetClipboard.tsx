@@ -2,7 +2,7 @@
 
 import { useContext } from "react";
 
-import { Asset } from "../types/mediaAssets.assets";
+import { Asset } from "../types/mediaAssets.types";
 
 import { MediaAssetsContext } from "../context/MediaAssetsContext";
 

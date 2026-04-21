@@ -1,4 +1,4 @@
-import { Asset, GCSFileMetadata } from "../types/mediaAssets.assets";
+import { Asset, GCSFileMetadata } from "../types/mediaAssets.types";
 
 // SAMPLE PROCESSED ASSETS - Ready for UI Rendering
 export const sampleProcessedAssets: Asset[] = [
@@ -24,18 +24,6 @@ export const sampleProcessedAssets: Asset[] = [
     uploadDate: "2026-01-16",
     url: "https://firebasestorage.googleapis.com/...",
     fullPath: "home page/experience-team.jpg",
-    category: "website",
-    contentType: "image/jpeg",
-  },
-  {
-    id: "1738945802000",
-    name: "overview-banner.jpg",
-    type: "image",
-    size: "2.5 MB",
-    usage: "About Page Banner",
-    uploadDate: "2026-01-17",
-    url: "https://firebasestorage.googleapis.com/...",
-    fullPath: "website/about/overview-banner.jpg",
     category: "website",
     contentType: "image/jpeg",
   },

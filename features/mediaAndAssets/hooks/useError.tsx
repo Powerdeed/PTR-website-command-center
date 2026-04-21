@@ -14,9 +14,9 @@ export default function useError() {
     throw new Error("useMediaAssets must be used within a MediaAssetsProvider");
   }
 
-  const { file, assetMode, currentAsset } = mediaAssetsContext;
+  const { file, assetMode } = mediaAssetsContext;
 
-  const { compressing, isSupportedFile, setIsSupportedFile } =
+  const { compressing, isSupportedFile, setIsSupportedFile, targetFileTypes } =
     processingContext;
 
   const {
@@ -31,9 +31,33 @@ export default function useError() {
     errorProcessingFile ||
     errorUploadingFile;
 
+  const supportedTypes = [
+    targetFileTypes.includes("image") && [
+      '".jpg"',
+      '".jpeg"',
+      '".png"',
+      '".gif"',
+      '".bmp"',
+      '".webp"',
+      '".avif"',
+    ],
+    targetFileTypes.includes("document") && [
+      '".pdf"',
+      '".docx"',
+      '".doc"',
+      '".csv"',
+    ],
+    targetFileTypes.includes("diagram") && ['".svg"'],
+  ]
+    .filter(Boolean)
+    .flat()
+    .join(", ");
+
+  const message = `Only: ${supportedTypes} are supported`;
+
   const errorMsg =
     !isSupportedFile && isSupportedFile !== null
-      ? `Only: ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".avif", ".svg", ".pdf", ".docx", ".doc" and ".csv" are supported`
+      ? message
       : errorProcessingFile
         ? `Error processing file: try reselecting the file again.`
         : errorUploadingFile
@@ -42,10 +66,9 @@ export default function useError() {
 
   const popUpToDisplay = {
     dropZone: !file && assetMode === "new" && !compressing && !hasError,
-    compressing: assetMode === "new" && compressing && !hasError,
+    compressing: file && compressing && !hasError,
     assetMediaEditor:
-      ((assetMode === "new" && file) || assetMode === "existing") &&
-      currentAsset &&
+      (file || (!file && assetMode === "existing")) &&
       !compressing &&
       !hasError,
     assetHandlingError: hasError,
@@ -57,5 +80,5 @@ export default function useError() {
     setIsSupportedFile(null);
   };
 
-  return { hasError, errorMsg, popUpToDisplay, resetErrors };
+  return { hasError, errorMsg, popUpToDisplay, resetErrors, supportedTypes };
 }

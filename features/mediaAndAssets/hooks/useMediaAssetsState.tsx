@@ -14,7 +14,7 @@ import {
   sizeOfFile,
 } from "../utils/conversions";
 
-import { Asset } from "../types/mediaAssets.assets";
+import { Asset } from "../types/mediaAssets.types";
 
 export default function useMediaAssetsState() {
   const mediaAssetsContext = useContext(MediaAssetsContext);

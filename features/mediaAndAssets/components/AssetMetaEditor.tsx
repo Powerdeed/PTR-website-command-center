@@ -4,7 +4,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // services
-import { Asset } from "../types/mediaAssets.assets";
+import { Asset } from "../types/mediaAssets.types";
 
 // components
 import Button, { ButtonLight } from "@global components/ui/Button";

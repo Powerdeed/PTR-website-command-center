@@ -12,6 +12,7 @@ import { InputArea } from "@global components/layout/FormWrapper";
 import useProjects from "../hooks/useProjects";
 
 import { companyServices } from "@lib/constants/COMPANY_PROVISIONS";
+import ImageUploader from "@global components/layout/image-uploader/components/ImageUploader";
 
 export default function EditProject() {
   const { state, actions } = useProjects();
@@ -98,12 +99,13 @@ export default function EditProject() {
               />
             </div>
           ))}
-          <ButtonLight
-            buttonText="Add image"
-            clickAction={() =>
+          <ImageUploader
+            targetFileTypes={["image"]}
+            path={`projects/${state.selectedCategory}/${state.selectedProject.name}`}
+            changeFunc={(val) =>
               actions.updateByPath(
                 ["images", state.selectedProject?.images.length || 0],
-                "",
+                val,
               )
             }
           />

@@ -50,7 +50,6 @@ export default function RootLayout({
         className={`${plusJakartaSans.variable} ${openSans.variable} antialiased flex flex-col min-h-screen`}
       >
         <SpeedInsights />
-
         <Nav />
 
         <SideBar />

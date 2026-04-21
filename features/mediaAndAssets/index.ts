@@ -12,4 +12,4 @@ export * from "./hooks/useMediaAssets";
 
 export * from "./services/mediaAssets";
 
-export * from "./types/mediaAssets.assets";
+export * from "./types/mediaAssets.types";

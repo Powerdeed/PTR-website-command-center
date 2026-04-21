@@ -7,7 +7,7 @@ import { MediaAssetsProcessingContext } from "../context/MediaAssetsProcessingCo
 
 import useMediaAssetsState from "./useMediaAssetsState";
 
-import { Asset } from "../types/mediaAssets.assets";
+import { Asset } from "../types/mediaAssets.types";
 import useError from "./useError";
 
 export default function useAssetEditing() {
@@ -34,7 +34,7 @@ export default function useAssetEditing() {
     setSecondPath,
   } = mediaAssetsContext;
 
-  const { setIsSupportedFile } = processingContext;
+  const { setIsSupportedFile, targetFileTypes } = processingContext;
 
   const { resetErrors } = useError();
 
@@ -55,16 +55,21 @@ export default function useAssetEditing() {
   useEffect(() => {
     const setAsset = () => {
       if (file) {
-        setIsSupportedFile(
-          ["document", "diagram", "image"].includes(fileType as Asset["type"]),
-        );
+        setIsSupportedFile(targetFileTypes.includes(fileType as Asset["type"]));
 
         setCurrentAsset(newEmptyAsset);
       }
     };
 
     setAsset();
-  }, [file, fileType, newEmptyAsset, setCurrentAsset, setIsSupportedFile]);
+  }, [
+    file,
+    fileType,
+    newEmptyAsset,
+    setCurrentAsset,
+    setIsSupportedFile,
+    targetFileTypes,
+  ]);
 
   useEffect(() => {
     const assetUsage = firstPath

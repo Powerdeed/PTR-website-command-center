@@ -1,6 +1,6 @@
 import { getMediaAssets } from "../services/mediaAssets";
 
-export const mediaType = (url?: string) => {
+export const mediaType = (url: string) => {
   if (!url || typeof url !== "string") return "unknown";
 
   const imageExtensions = [

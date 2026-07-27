@@ -15,9 +15,6 @@ export default function useLogout() {
 
   const handleLogout = async () => {
     try {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("user");
       setUser(null);
 
       await signOutIdentitySession().catch(() => undefined);

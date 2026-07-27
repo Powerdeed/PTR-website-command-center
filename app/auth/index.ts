@@ -20,6 +20,5 @@ export * from "./services/authUser";
 export * from "./types/user.type";
 
 export * from "./utils/client";
-export * from "./utils/getAuth";
 export * from "./utils/keycloakLogout";
 export * from "./utils/returnTo";

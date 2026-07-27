@@ -102,6 +102,9 @@ export interface User {
   email: string;
   role: UserRole;
   roles?: UserRole[];
+  keycloakUserId?: string;
+  keycloakRoles?: string[];
+  keycloakGroups?: string[];
   permissions?: UserPermission[];
   employment?: EmploymentProfile;
   access?: AccessProfile;
@@ -220,7 +223,6 @@ export type ModifyUserPayload = UserUpdatePayload;
 export interface UserSession {
   _id: string;
   user: string;
-  refreshToken?: string;
   userAgent?: string;
   ip?: string;
   isRevoked: boolean;

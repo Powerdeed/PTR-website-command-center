@@ -27,9 +27,6 @@ api.interceptors.response.use(
   (response) => response,
   async (err) => {
     if (typeof window !== "undefined" && err.response?.status === 401) {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("user");
       window.location.href = getAuthRedirect();
     }
 

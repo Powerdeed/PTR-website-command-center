@@ -16,6 +16,8 @@ export const getCurrentUser = async () => {
 
   return {
     ...session.user,
+    permissions: session.permissions,
+    keycloakUserId: session.keycloakUserId,
   };
 };
 

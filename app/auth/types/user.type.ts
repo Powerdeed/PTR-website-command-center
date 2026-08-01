@@ -12,11 +12,13 @@ export type AppId =
   | "analytics";
 
 export type RoleId =
+  | "platform.staff"
   | "platform.super_admin"
   | "platform.security_admin"
   | "command_center.user"
   | "command_center.user_manager"
   | "command_center.app_manager"
+  | "command_center.admin"
   | "cms.viewer"
   | "cms.editor"
   | "cms.publisher"
@@ -122,22 +124,7 @@ export interface UserCredentials {
   password: string;
 }
 
-export type UserPermission =
-  | "cms.dashboard.read"
-  | "cms.leads.read"
-  | "cms.content.read"
-  | "cms.content.write"
-  | "cms.assets.read"
-  | "cms.assets.write"
-  | "cms.projects.read"
-  | "cms.projects.write"
-  | "cms.services.read"
-  | "cms.services.write"
-  | "cms.reports.read"
-  | "cms.settings.manage"
-  | "cms.users.manage"
-  | "command-center.apps.launch"
-  | "command-center.permissions.manage";
+export type UserPermission = string;
 
 export type UserThemePreference = "system" | "light" | "dark";
 export type DashboardDensity = "compact" | "comfortable";

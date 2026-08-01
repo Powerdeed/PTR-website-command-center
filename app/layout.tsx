@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Open_Sans } from "next/font/google";
 import "./globals.css";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 import "../global components/icons/icons";
 import Nav from "@global components/layout/nav/Nav";
@@ -53,6 +54,7 @@ export default function RootLayout({
         className={`${plusJakartaSans.variable} ${openSans.variable} antialiased flex flex-col min-h-screen`}
       >
         <SpeedInsights />
+        <Analytics />
 
         <AuthorizationProvider>
           <GlobalProvider>

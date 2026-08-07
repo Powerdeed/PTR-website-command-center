@@ -27,6 +27,3 @@ export { default as useAssetsState } from "./hooks/useAssetsState";
 export * from "./hooks/useAssetsState";
 export { default as useAssetsUpload } from "./hooks/useAssetsUpload";
 export * from "./hooks/useAssetsUpload";
-
-// utils
-export * from "./utils/conversions";

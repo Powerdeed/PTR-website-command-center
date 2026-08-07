@@ -16,7 +16,7 @@ import useFileUploader from "../hooks/useFileUploader";
 import { Asset } from "../types/asset.types";
 
 import RenderImage from "./fileMetaEditor/RenderImage";
-import { sizeOfFile } from "@features/mediaAndAssets";
+import { sizeOfFile } from "../utils/fileConversions";
 import { useGlobals } from "@globals";
 
 type FileMetaEditorProps = {

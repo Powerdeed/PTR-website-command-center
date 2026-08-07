@@ -64,7 +64,7 @@ Both Axios clients append `/api/v1`, so the values should be service origins:
 
 ```txt
 NEXT_PUBLIC_CMS_API_BASE_URL=http://localhost:5500
-NEXT_PUBLIC_IDENTITY_API_BASE_URL=http://localhost:3000
+NEXT_PUBLIC_IDENTITY_API_BASE_URL=http://localhost:8080
 NEXT_PUBLIC_AUTH_URL=http://localhost:3001/login
 NEXT_PUBLIC_KEYCLOAK_URL=http://localhost:8081
 NEXT_PUBLIC_KEYCLOAK_REALM=powerdeed

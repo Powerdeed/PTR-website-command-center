@@ -1,4 +1,3 @@
-import { getAuthRedirect } from "@app/auth";
 import axios from "axios";
 
 const getApiBaseUrl = () => {
@@ -22,17 +21,6 @@ export const api = axios.create({
   },
   withCredentials: true,
 });
-
-api.interceptors.response.use(
-  (response) => response,
-  async (err) => {
-    if (typeof window !== "undefined" && err.response?.status === 401) {
-      window.location.href = getAuthRedirect();
-    }
-
-    return Promise.reject(err);
-  },
-);
 
 api.interceptors.request.use((config) => {
   if (

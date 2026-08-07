@@ -25,8 +25,7 @@ export default function Profile() {
   } = useGlobals();
 
   const initials = useMemo(() => {
-    const fallbackName = "Command Operator";
-    const name = user?.name || fallbackName;
+    const name = user?.name || "";
 
     return name
       .split(" ")
@@ -73,10 +72,10 @@ export default function Profile() {
                   </span>
                 </div>
                 <h1 className="text-style__heading text-(--primary-blue)">
-                  {displayName || "Command Operator"}
+                  {displayName}
                 </h1>
                 <p className="text-style__body text-(--primary-grey)">
-                  {user?.email || "operator@powerdeed.co.ke"}
+                  {user?.email}
                 </p>
                 {(user?.profile?.jobTitle || user?.profile?.department) && (
                   <p className="text-style__small-text text-(--primary-grey)">
@@ -136,7 +135,7 @@ export default function Profile() {
           </div>
 
           <div className="grid grid-cols-2 gap-2.5">
-            <SignalCard label="Role" value={user?.role || "Admin"} />
+            <SignalCard label="Role" value={user?.role || "Not assigned"} />
             <SignalCard label="Active since" value={activeSince} />
             <SignalCard label="Session" value="Protected" />
             <SignalCard label="Mode" value="Editorial ops" />
@@ -209,7 +208,7 @@ export default function Profile() {
           <div className="rounded-[10px] border border-(--primary-yellow)/60 bg-(--primary-yellow)/15 p-3">
             <div className="mb-1 flex items-center gap-2 text-style__big-text text-(--primary-blue)">
               <FontAwesomeIcon icon={["fas", "shield-halved"]} />
-              {user?.role || "Admin"}
+              {user?.role || "Not assigned"}
             </div>
             <p className="text-style__body text-(--primary-grey)">
               This profile can display the current role, but cannot grant or
@@ -227,9 +226,9 @@ export default function Profile() {
 
       {editingProfile && (
         <ProfileEditor
-          name={user?.name || "Command Operator"}
-          email={user?.email || "operator@powerdeed.co.ke"}
-          role={user?.role || "Admin"}
+          name={user?.name || ""}
+          email={user?.email || ""}
+          role={user?.role || ""}
           initials={initials}
           profileImage={avatarImage}
           phone={user?.profile?.phone || ""}

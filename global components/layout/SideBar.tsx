@@ -39,7 +39,9 @@ export default function SideBar() {
           </div>
         )}
 
-        {globalStates.sideBarOpen && <h2>{titleMeta.title}</h2>}
+        {globalStates.sideBarOpen && (
+          <h2 className="flex-1">{titleMeta.title}</h2>
+        )}
 
         <FontAwesomeIcon
           icon={["fas", "arrow-right-from-bracket"]}

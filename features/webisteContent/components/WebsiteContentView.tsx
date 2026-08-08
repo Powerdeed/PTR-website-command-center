@@ -1,10 +1,10 @@
 "use client";
 
-import { SectionTitle } from "@global components/ui/Title";
+import { SectionTitle } from "@global-components/ui/Title";
 import {
   FileMetaEditor,
   useFileUploader,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 
 import HomePage from "./homepage/HomePage";
 import ContactPage from "./contactpage/ContactPage";

@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 
-import Button from "@global components/ui/Button";
-import Loader from "@global components/ui/Loader";
+import Button from "@global-components/ui/Button";
+import Loader from "@global-components/ui/Loader";
 
 import useFileUploader from "../hooks/useFileUploader";
 

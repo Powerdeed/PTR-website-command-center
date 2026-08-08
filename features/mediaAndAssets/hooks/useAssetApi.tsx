@@ -9,7 +9,7 @@ import {
   downloadAsset,
   FileUploaderApiContext,
   FileMetadataContext,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 
 import { execute } from "@lib/api/execute";
 import { MediaAssetsStateContext } from "../context/MediaAssetsStateContext";
@@ -60,11 +60,7 @@ export default function useAssetApi() {
         const isLoading =
           typeof loading === "function" ? loading(false) : loading;
 
-        updateActiveAssetIds(
-          asset.id,
-          isLoading,
-          setDeletingAssetIds,
-        );
+        updateActiveAssetIds(asset.id, isLoading, setDeletingAssetIds);
       },
       setError: setAssetApiOnError,
       onSuccess() {
@@ -103,11 +99,7 @@ export default function useAssetApi() {
         const isLoading =
           typeof loading === "function" ? loading(false) : loading;
 
-        updateActiveAssetIds(
-          asset.id,
-          isLoading,
-          setDownloadingAssetIds,
-        );
+        updateActiveAssetIds(asset.id, isLoading, setDownloadingAssetIds);
       },
       setError: setAssetApiOnError,
       onSuccess: saveBlobToDownloads,

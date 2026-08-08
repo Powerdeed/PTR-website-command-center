@@ -7,7 +7,7 @@ import { MediaAssetsSearchContext } from "../context/MediaAssetsSearchContext";
 import {
   FileUploaderStateContext,
   getAssetReferences,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 
 export default function useAssetsSearchToolBar() {
   const assetsContext = useContext(MediaAssetsStateContext);

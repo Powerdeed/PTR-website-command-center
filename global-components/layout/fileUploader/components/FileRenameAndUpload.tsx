@@ -4,9 +4,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // components
-import Button from "@global components/ui/Button";
-import Loader from "@global components/ui/Loader";
-import { InputArea } from "@global components/layout/FormWrapper";
+import Button from "@global-components/ui/Button";
+import Loader from "@global-components/ui/Loader";
+import { InputArea } from "@global-components/layout/FormWrapper";
 
 // hooks
 import useFileUploader from "../hooks/useFileUploader";

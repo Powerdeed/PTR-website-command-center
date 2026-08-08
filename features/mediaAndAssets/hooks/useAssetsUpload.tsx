@@ -5,9 +5,9 @@ import {
   FileMetadataContext,
   FileUploaderProcessingContext,
   useFileMetadataEditing,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 import { MediaAssetsStateContext } from "../context/MediaAssetsStateContext";
-import { Asset } from "@global components/layout/fileUploader";
+import { Asset } from "@global-components/layout/fileUploader";
 
 export default function useAssetsUpload() {
   const mediaAssetsState = useContext(MediaAssetsStateContext);

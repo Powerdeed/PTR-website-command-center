@@ -1,8 +1,8 @@
 "use client";
 
-import Button from "@global components/ui/Button";
-import Loader from "@global components/ui/Loader";
-import FormWrapper from "@global components/layout/FormWrapper";
+import Button from "@global-components/ui/Button";
+import Loader from "@global-components/ui/Loader";
+import FormWrapper from "@global-components/layout/FormWrapper";
 
 import OverviewSubsectionEditor from "./OverviewSubsectionEditor";
 

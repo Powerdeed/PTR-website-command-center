@@ -4,8 +4,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // components
-import Button from "@global components/ui/Button";
-import Loader from "@global components/ui/Loader";
+import Button from "@global-components/ui/Button";
+import Loader from "@global-components/ui/Loader";
 import MetaWrapper from "./fileMetaEditor/MetaWrapper";
 import EditorField from "./fileMetaEditor/EditorField";
 

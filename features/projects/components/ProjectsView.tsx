@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@global components/ui/Button";
-import { SectionTitle } from "@global components/ui/Title";
+import Button from "@global-components/ui/Button";
+import { SectionTitle } from "@global-components/ui/Title";
 import NoProjectSelected from "./NoProjectSelected";
 import EditProject from "./EditProject";
 import AllProjects from "./AllProjects";
@@ -12,7 +12,7 @@ import { PAGE_META } from "../constants/pageMeta";
 import {
   FileMetaEditor,
   useFileUploader,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 import { useGlobals } from "@globals";
 
 export default function ProjectsView() {

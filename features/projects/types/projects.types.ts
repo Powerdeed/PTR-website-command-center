@@ -2,7 +2,7 @@ import { companyServices } from "@lib/constants/COMPANY_PROVISIONS";
 import {
   AssetLink,
   FeaturedImageLink,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 
 export type ProjectFeaturedImage = "" | string | FeaturedImageLink;
 

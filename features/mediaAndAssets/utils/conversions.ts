@@ -2,8 +2,8 @@ export {
   mediaType,
   sizeOfFile,
   toCamelCase,
-} from "@global components/layout/fileUploader";
-import { Asset } from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
+import { Asset } from "@global-components/layout/fileUploader";
 
 export const getTotalUsedSpace = (assets: Asset[] = []) => {
   const totalBytes = assets.reduce((acc, asset) => acc + (asset.size || 0), 0);

@@ -2,16 +2,16 @@
 
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button, { Buttonize } from "@global components/ui/Button";
-import Loader from "@global components/ui/Loader";
-import { InputArea } from "@global components/layout/FormWrapper";
-import Toggle from "@global components/ui/Toggle";
+import Button, { Buttonize } from "@global-components/ui/Button";
+import Loader from "@global-components/ui/Loader";
+import { InputArea } from "@global-components/layout/FormWrapper";
+import Toggle from "@global-components/ui/Toggle";
 import {
   AssetLookUp,
   FileUploader,
   RenderAsset,
   useFileUploader,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 
 import useService from "../hooks/useService";
 

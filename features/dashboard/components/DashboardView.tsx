@@ -11,8 +11,8 @@ import { matchCollectionToSection } from "../utils/matchCollectionToSection";
 import { getAvailableInquiryTrendYears } from "../utils/getInquiryTrendsFromInquiries";
 import { getRecentActivities } from "../utils/getRecentActivities";
 
-import { SectionTitle } from "@global components/ui/Title";
-import ErrorMessage from "@global components/ui/ErrorMessage";
+import { SectionTitle } from "@global-components/ui/Title";
+import ErrorMessage from "@global-components/ui/ErrorMessage";
 
 import { VISIBLE_COUNT_INCREMENT } from "../constants/visibleCountIncrement";
 import { SECTION_ACCENT_COLORS } from "../constants/sectionAccentColors";

@@ -4,7 +4,7 @@ import { useContext, useEffect } from "react";
 import {
   LineContext,
   PieContext,
-} from "@global components/layout/charts/context/ChartContext";
+} from "@global-components/layout/charts/context/ChartContext";
 import { inquiriesContext } from "../context/InquiriesContext";
 import { getInquiryTrendSeries } from "../utils/getInquiryTrendsFromInquiries";
 import { getLeadSourcesFromInquiries } from "../utils/getLeadSourcesFromInquiries";

@@ -5,7 +5,7 @@ import { IconName, IconPrefix } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { useGlobals } from "@globals";
-import { SectionTitle } from "@global components/ui/Title";
+import { SectionTitle } from "@global-components/ui/Title";
 
 import {
   PAGE_DATA,

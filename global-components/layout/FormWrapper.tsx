@@ -1,6 +1,6 @@
 "use client";
 
-import { SectionTitle, SubTitle } from "@global components/ui/Title";
+import { SectionTitle, SubTitle } from "@global-components/ui/Title";
 import { useEffect, useRef } from "react";
 
 export default function FormWrapper({

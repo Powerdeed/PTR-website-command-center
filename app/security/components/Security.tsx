@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { useGlobals } from "@globals";
-import { SectionTitle } from "@global components/ui/Title";
+import { SectionTitle } from "@global-components/ui/Title";
 import { getAuthRedirect, type UserSession } from "@app/auth";
 import { getSessions } from "@app/auth/services/authUser";
 

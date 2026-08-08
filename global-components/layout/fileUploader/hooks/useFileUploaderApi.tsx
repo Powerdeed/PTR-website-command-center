@@ -11,7 +11,7 @@ import {
   FileUploaderApiContext,
   FileUploaderProcessingContext,
   FileUploaderStateContext,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 
 import { updateAsset, uploadFile } from "../services/uploadFile";
 import useFileUploaderEditing from "./useFileUploaderEditing";

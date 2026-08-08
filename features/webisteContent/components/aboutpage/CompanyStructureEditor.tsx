@@ -5,9 +5,9 @@ import useAboutPage from "../../hooks/aboutPage/useAboutPage";
 import FormWrapper, {
   InputArea,
   SeparatorLine,
-} from "@global components/layout/FormWrapper";
+} from "@global-components/layout/FormWrapper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button, { Buttonize } from "@global components/ui/Button";
+import Button, { Buttonize } from "@global-components/ui/Button";
 
 export default function CompanyStructureEditor() {
   const { state, actions } = useAboutPage();

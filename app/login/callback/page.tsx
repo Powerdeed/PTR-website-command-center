@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { SectionTitle } from "@global components/ui/Title";
+import { SectionTitle } from "@global-components/ui/Title";
 
 export default function LoginCallbackPage() {
   const router = useRouter();

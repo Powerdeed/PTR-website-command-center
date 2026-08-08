@@ -1,9 +1,9 @@
 "use client";
 
 import FormField from "./FormField";
-import FormWrapper from "@global components/layout/FormWrapper";
+import FormWrapper from "@global-components/layout/FormWrapper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button, { Buttonize } from "@global components/ui/Button";
+import Button, { Buttonize } from "@global-components/ui/Button";
 
 import useContactPage from "../../hooks/contactpage/useContactPage";
 

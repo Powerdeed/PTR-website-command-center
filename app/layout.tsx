@@ -5,8 +5,8 @@ import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 
-import "@global components/icons/icons";
-import AppShell from "@global components/layout/AppShell";
+import "@global-components/icons/icons";
+import AppShell from "@global-components/layout/AppShell";
 import { AuthorizationProvider } from "@app/auth";
 
 const plusJakartaSans = Plus_Jakarta_Sans({

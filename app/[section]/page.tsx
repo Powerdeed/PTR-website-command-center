@@ -23,7 +23,7 @@ import { LeadsAndInquiries } from "@features/leadsAndInquiries";
 import { Dashboard } from "@features/dashboard";
 
 // component
-import { ChartProvider } from "@global components/layout/charts/context/ChartProvider";
+import { ChartProvider } from "@global-components/layout/charts/context/ChartProvider";
 
 export default function Section({
   params,

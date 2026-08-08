@@ -1,6 +1,6 @@
 "use client";
 
-import { SectionTitle } from "@global components/ui/Title";
+import { SectionTitle } from "@global-components/ui/Title";
 
 const pageMeta = {
   title: "Articles & Insights",

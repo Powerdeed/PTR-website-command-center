@@ -8,7 +8,7 @@ import {
   FileUploaderApiContext,
   removeAssetLink,
   useAssetFeatureLinks,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 import { serviceContext } from "../context/serviceContext";
 
 // services

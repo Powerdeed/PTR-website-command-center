@@ -11,7 +11,7 @@ import {
   useFileUploaderPaths,
   FileMetadataContext,
   FileUploaderStateContext,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 
 export default function useServiceAssets() {
   const serviceState = useContext(serviceContext);

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Buttonize } from "@global components/ui/Button";
+import { Buttonize } from "@global-components/ui/Button";
 import {
   Asset,
   AssetLookUp,
@@ -11,7 +11,7 @@ import {
   FileUploader,
   RenderAsset,
   useFileUploader,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 import { truncateTxt } from "@globals";
 import { LinkedAsset } from "../types/linkedAsset.types";
 

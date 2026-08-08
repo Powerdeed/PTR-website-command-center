@@ -3,10 +3,10 @@
 import FormWrapper, {
   InputArea,
   SeparatorLine,
-} from "@global components/layout/FormWrapper";
+} from "@global-components/layout/FormWrapper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button, { Buttonize } from "@global components/ui/Button";
-import Loader from "@global components/ui/Loader";
+import Button, { Buttonize } from "@global-components/ui/Button";
+import Loader from "@global-components/ui/Loader";
 
 import useHomepage from "../../hooks/homepage/useHomepage";
 import LinkedAssetField from "../LinkedAssetField";

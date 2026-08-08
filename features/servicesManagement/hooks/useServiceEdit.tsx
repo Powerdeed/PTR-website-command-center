@@ -11,7 +11,7 @@ import {
   FileMetadataContext,
   renameAssetLink,
   useAssetFeatureLinks,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 import { globalContext } from "@globals";
 
 export default function useServiceEdit() {

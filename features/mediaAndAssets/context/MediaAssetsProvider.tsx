@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { MediaAssetsStateContext } from "./MediaAssetsStateContext";
-import { Asset } from "@global components/layout/fileUploader";
+import { Asset } from "@global-components/layout/fileUploader";
 import { MediaAssetsSearchContext } from "./MediaAssetsSearchContext";
-import { getAssets } from "@global components/layout/fileUploader/services/uploadFile";
-import { normalizeExistingAsset } from "@global components/layout/fileUploader/utils/normalizeExistingAsset";
+import { getAssets } from "@global-components/layout/fileUploader/services/uploadFile";
+import { normalizeExistingAsset } from "@global-components/layout/fileUploader/utils/normalizeExistingAsset";
 
 export default function MediaAssetsProvider({
   children,
@@ -25,7 +25,9 @@ export default function MediaAssetsProvider({
       setFetchingMediaAssets(true);
 
       try {
-        const normalizedAssets = (await getAssets()).map(normalizeExistingAsset);
+        const normalizedAssets = (await getAssets()).map(
+          normalizeExistingAsset,
+        );
 
         setAllMediaAssets(normalizedAssets);
         setMediaAssets(normalizedAssets);

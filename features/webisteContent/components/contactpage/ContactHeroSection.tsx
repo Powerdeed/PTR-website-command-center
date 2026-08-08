@@ -1,7 +1,7 @@
 "use client";
 
 import { useContactPage } from "@features/webisteContent";
-import FormWrapper, { InputArea } from "@global components/layout/FormWrapper";
+import FormWrapper, { InputArea } from "@global-components/layout/FormWrapper";
 import LinkedAssetField from "../LinkedAssetField";
 
 export default function ContactHeroSection() {

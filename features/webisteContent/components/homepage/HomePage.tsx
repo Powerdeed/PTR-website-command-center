@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@global components/ui/Button";
-import Loader from "@global components/ui/Loader";
+import Button from "@global-components/ui/Button";
+import Loader from "@global-components/ui/Loader";
 import HeroAndAboutEditor from "./HeroAndAboutEditor";
 import TestimonialsEditor from "./TestimonialsEditor";
 
@@ -9,8 +9,7 @@ import useHomePage from "../../hooks/homepage/useHomepage";
 
 export default function HomePage() {
   const { state, actions } = useHomePage();
-  const isSavingContent =
-    state.updatingHomepage || state.updatingTestimonials;
+  const isSavingContent = state.updatingHomepage || state.updatingTestimonials;
 
   return (
     <div className="text-style__body vertical-layout__outer">

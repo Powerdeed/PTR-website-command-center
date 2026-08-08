@@ -3,7 +3,7 @@
 import FormWrapper, {
   InputArea,
   SeparatorLine,
-} from "@global components/layout/FormWrapper";
+} from "@global-components/layout/FormWrapper";
 
 import useHomepage from "../../hooks/homepage/useHomepage";
 import LinkedAssetField from "../LinkedAssetField";

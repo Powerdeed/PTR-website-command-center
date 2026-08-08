@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@global components/ui/Button";
+import Button from "@global-components/ui/Button";
 import useFileUploader from "../hooks/useFileUploader";
 
 export default function FileHandlingError() {

@@ -3,13 +3,13 @@
 import { useEffect } from "react";
 import ServiceEditor from "./ServiceEditor";
 import ServicesDisplay from "./ServicesDisplay";
-import Button from "@global components/ui/Button";
-import { SectionTitle } from "@global components/ui/Title";
+import Button from "@global-components/ui/Button";
+import { SectionTitle } from "@global-components/ui/Title";
 import {
   FileMetaEditor,
   useAssetFeatureLinks,
   useFileUploader,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 
 import { PAGE_META } from "../constants/pageMeta";
 

@@ -1,7 +1,7 @@
 "use client";
 
-import Toggle from "@global components/ui/Toggle";
-import FormWrapper from "@global components/layout/FormWrapper";
+import Toggle from "@global-components/ui/Toggle";
+import FormWrapper from "@global-components/layout/FormWrapper";
 
 import { to12Hour, to24Hour } from "../../utils/conversions";
 

@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import Button, { Buttonize } from "@global components/ui/Button";
-import Loader from "@global components/ui/Loader";
-import Toggle from "@global components/ui/Toggle";
-import { InputArea } from "@global components/layout/FormWrapper";
+import Button, { Buttonize } from "@global-components/ui/Button";
+import Loader from "@global-components/ui/Loader";
+import Toggle from "@global-components/ui/Toggle";
+import { InputArea } from "@global-components/layout/FormWrapper";
 
 import useProjects from "../hooks/useProjects";
 
@@ -18,7 +18,7 @@ import {
   isFeaturedImageLink,
   RenderAsset,
   useFileUploader,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 import { truncateTxt } from "@globals";
 
 export default function EditProject() {

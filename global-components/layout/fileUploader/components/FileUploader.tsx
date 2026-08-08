@@ -10,7 +10,7 @@ import FileHandlingError from "./FileHandlingError";
 import { Asset } from "../types/asset.types";
 
 // context
-import { DropZone } from "@global components/layout/fileUploader";
+import { DropZone } from "@global-components/layout/fileUploader";
 
 type FileUploaderProps = {
   onAssetUploaded?: (asset: Asset) => void;

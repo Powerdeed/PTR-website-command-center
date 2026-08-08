@@ -4,15 +4,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // components
-import { SeparatorLine } from "@global components/layout/FormWrapper";
-import Button from "@global components/ui/Button";
+import { SeparatorLine } from "@global-components/layout/FormWrapper";
+import Button from "@global-components/ui/Button";
 import {
   Asset,
   getAssetReferences,
   sizeOfFile,
   useFileUploader,
-} from "@global components/layout/fileUploader";
-import Loader from "@global components/ui/Loader";
+} from "@global-components/layout/fileUploader";
+import Loader from "@global-components/ui/Loader";
 
 // constants
 import { ICON_COLORS } from "../constants/iconColors";

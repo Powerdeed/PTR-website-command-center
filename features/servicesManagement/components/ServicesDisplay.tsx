@@ -1,6 +1,6 @@
 "use client";
 
-import Loader from "@global components/ui/Loader";
+import Loader from "@global-components/ui/Loader";
 
 import useService from "../hooks/useService";
 import { useGlobals } from "@globals";

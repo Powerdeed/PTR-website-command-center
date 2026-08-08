@@ -1,10 +1,10 @@
 "use client";
 
 // components
-import Button from "@global components/ui/Button";
-import Loader from "@global components/ui/Loader";
-import SearchBar from "@global components/ui/SearchBar";
-import FormWrapper from "@global components/layout/FormWrapper";
+import Button from "@global-components/ui/Button";
+import Loader from "@global-components/ui/Loader";
+import SearchBar from "@global-components/ui/SearchBar";
+import FormWrapper from "@global-components/layout/FormWrapper";
 import {
   // components
   CompressingAsset,
@@ -17,7 +17,7 @@ import {
 
   // hooks
   useFileUploader,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 
 // feature components
 import AssetCard from "../components/AssetCard";
@@ -30,7 +30,7 @@ import useMediaAssets from "../hooks/useAssets";
 
 // constants
 import { PAGE_META } from "../constants/pageMeta";
-import DeleteAssetOptions from "@global components/layout/fileUploader/components/DeleteAssetOptions";
+import DeleteAssetOptions from "@global-components/layout/fileUploader/components/DeleteAssetOptions";
 
 export function MediaAssetsView() {
   const { state, actions } = useMediaAssets();

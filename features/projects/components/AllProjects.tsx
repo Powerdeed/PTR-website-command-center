@@ -8,7 +8,7 @@ import useProjects from "../hooks/useProjects";
 import { useGlobals } from "@globals";
 
 // components
-import Loader from "@global components/ui/Loader";
+import Loader from "@global-components/ui/Loader";
 import ProjectCard from "./ProjectCard";
 
 export default function AllProjects() {

@@ -1,9 +1,9 @@
 "use client";
 
-import Button from "@global components/ui/Button";
+import Button from "@global-components/ui/Button";
 import useFileUploader from "../hooks/useFileUploader";
 import { getAssetReferences, getReferenceLabel } from "../utils/references";
-import Loader from "@global components/ui/Loader";
+import Loader from "@global-components/ui/Loader";
 
 type DeleteAssetOptionsProps = {
   forceDelete: () => void;

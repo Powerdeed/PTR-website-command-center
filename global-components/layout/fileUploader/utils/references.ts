@@ -1,4 +1,4 @@
-import { Asset, AssetReference } from "@global components/layout/fileUploader";
+import { Asset, AssetReference } from "@global-components/layout/fileUploader";
 
 export const getAssetReferences = (asset: Asset): AssetReference[] => {
   return asset.references ?? [];

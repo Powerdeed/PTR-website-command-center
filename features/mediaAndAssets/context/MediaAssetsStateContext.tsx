@@ -2,7 +2,7 @@
 
 import { createContext, Dispatch, SetStateAction } from "react";
 
-import { Asset } from "@global components/layout/fileUploader";
+import { Asset } from "@global-components/layout/fileUploader";
 
 type MediaAssetsState = {
   allMediaAssets: Asset[];

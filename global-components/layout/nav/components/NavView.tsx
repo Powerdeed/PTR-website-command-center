@@ -4,10 +4,10 @@ import { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import SearchBar from "@global components/ui/SearchBar";
+import SearchBar from "@global-components/ui/SearchBar";
 import { SeparatorLine } from "../../FormWrapper";
 
-import "@global components/icons/icons";
+import "@global-components/icons/icons";
 
 import useNav from "../hooks/useNav";
 import { useGlobals } from "@globals";

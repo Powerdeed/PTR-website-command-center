@@ -18,7 +18,7 @@ import {
   renameAssetLink,
   renameFeaturedImageLink,
   useAssetFeatureLinks,
-} from "@global components/layout/fileUploader";
+} from "@global-components/layout/fileUploader";
 import { globalContext } from "@globals";
 
 export default function useProjectsEdit() {

@@ -1,8 +1,8 @@
 "use client";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button, { Buttonize } from "@global components/ui/Button";
-import FormWrapper, { InputArea } from "@global components/layout/FormWrapper";
+import Button, { Buttonize } from "@global-components/ui/Button";
+import FormWrapper, { InputArea } from "@global-components/layout/FormWrapper";
 
 import { useContactPage } from "@features/webisteContent";
 
